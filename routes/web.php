@@ -15,5 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+;
+
+Route::get('/dashboard/{id}', 'DashboardController@showUser')->name('dashboard');
+
 Auth::routes();
+
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::get('workout/report/form', 'WorkoutController@showWorkoutReportForm');
+
+Route::post('workout/report/save', 'WorkoutController@saveToDatabase');
