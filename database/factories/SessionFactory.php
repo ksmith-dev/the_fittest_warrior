@@ -18,8 +18,8 @@ $factory->define(App\Session::class, function (Faker $faker) {
 
     return [
         'training_id' => rand(1,11),
-        'start_date_time' => $faker->dateTimeThisDecade(),
-        'end_date_time' => $faker->dateTimeThisDecade(),
+        'start_date_time' => $faker->date('m/d/Y H:i:s'),
+        'end_date_time' => $faker->date('m/d/Y H:i:s'),
         'session_type' => $session_types[rand(0,8)],
     ];
 });

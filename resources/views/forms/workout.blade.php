@@ -13,7 +13,7 @@
     <div id="form-workout">
         <h2>Workout Report</h2>
         <div class="spacer-50"></div>
-        <form method="POST" action="{{ route('workout/report/save') }}">
+        <form method="POST" action="{{ url('workout/report/save') }}">
             @csrf
             <div class="form-group row">
                 <label for="training_type" class="col-md-4 col-form-label text-md-right">{{ __('Training Type') }}</label>
@@ -85,10 +85,38 @@
             </div>
 
             <div class="form-group row">
+                <label for="repetitions" class="col-md-4 col-form-label text-md-right">{{ __('Repetitions') }}</label>
+
+                <div class="col-md-6">
+                    <input id="repetitions" type="text" class="form-control{{ $errors->has('repetitions') ? ' is-invalid' : '' }}" name="repetitions" placeholder="Enter Your Repetitions" required>
+
+                    @if ($errors->has('repetitions'))
+                        <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('repetitions') }}</strong>
+                                    </span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="sets" class="col-md-4 col-form-label text-md-right">{{ __('Sets') }}</label>
+
+                <div class="col-md-6">
+                    <input id="sets" type="text" class="form-control{{ $errors->has('sets') ? ' is-invalid' : '' }}" name="sets" placeholder="Enter Your Sets" required>
+
+                    @if ($errors->has('sets'))
+                        <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('sets') }}</strong>
+                                    </span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="duration" class="col-md-4 col-form-label text-md-right">{{ __('Workout Duration') }}</label>
 
                 <div class="col-md-6">
-                    <input id="duration" type="text" class="form-control{{ $errors->has('start_date_time') ? ' is-invalid' : '' }}" name="duration" placeholder="Enter The Duration of the Workout">
+                    <input id="duration" type="text" class="form-control{{ $errors->has('duration') ? ' is-invalid' : '' }}" name="duration" placeholder="Enter The Duration of the Workout">
 
                     @if ($errors->has('duration'))
                         <span class="invalid-feedback">
@@ -121,6 +149,20 @@
                     @if ($errors->has('calories'))
                         <span class="invalid-feedback">
                                         <strong>{{ $errors->first('calories') }}</strong>
+                                    </span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="resistance_factor" class="col-md-4 col-form-label text-md-right">{{ __('Resistance Factor') }}</label>
+
+                <div class="col-md-6">
+                    <input id="resistance_factor" type="text" class="form-control{{ $errors->has('resistance_factor') ? ' is-invalid' : '' }}" name="resistance_factor" placeholder="Enter The Resistance Factor">
+
+                    @if ($errors->has('resistance_factor'))
+                        <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('resistance_factor') }}</strong>
                                     </span>
                     @endif
                 </div>

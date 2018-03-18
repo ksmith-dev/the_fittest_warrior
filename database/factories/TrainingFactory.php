@@ -17,8 +17,8 @@ $factory->define(App\Training::class, function (Faker $faker) {
 
     return [
         'user_id' => rand(1,11),
-        'start_date_time' => $faker->dateTimeThisDecade(),
-        'end_date_time' => $faker->dateTimeThisDecade(),
+        'start_date_time' => $faker->date('m/d/Y H:i:s'),
+        'end_date_time' => $faker->date('m/d/Y H:i:s'),
         'active_status' => 1,
         'training_type' => $training_types[rand(0,7)],
     ];
