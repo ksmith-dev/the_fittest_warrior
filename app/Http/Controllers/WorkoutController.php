@@ -33,17 +33,17 @@ class WorkoutController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function saveToDatabase(Request $request)
+    public function store(Request $request)
     {
         validator($request->all())->validate();
 
         $params = $request->all();
 
         $current_start_date_time = strtotime($params['start_date_time']);
-        $current_start_date_time = date('d/m/y H:i:s', $current_start_date_time);
+        $current_start_date_time = date('m/d/Y H:i:s', $current_start_date_time);
 
         $current_end_date_time = strtotime($params['end_date_time']);
-        $current_end_date_time = date('d/m/y:H i:s', $current_end_date_time);
+        $current_end_date_time = date('m/d/Y H:i:s', $current_end_date_time);
 
         $db_training = DB::table('training')->where([ ['user_id', '=', Auth::user()->getAuthIdentifier()], ['training_type', '=', $params['training_type']], ])->get()->first();
         if (!empty($db_training)) {
@@ -55,10 +55,10 @@ class WorkoutController extends Controller
             $existing_training = Training::find($db_training->id);
 
             $existing_start_date_time = strtotime($existing_training->start_date_time);
-            $existing_start_date_time = date('d/m/y H:i:s', $existing_start_date_time);
+            $existing_start_date_time = date('m/d/Y H:i:s', $existing_start_date_time);
 
             $existing_end_date_time = strtotime($existing_training->end_date_time);
-            $existing_end_date_time = date('d/m/y H:i:s', $existing_end_date_time);
+            $existing_end_date_time = date('m/d/Y H:i:s', $existing_end_date_time);
 
             if ($existing_start_date_time > $current_start_date_time) {
                 // do nothing
@@ -86,10 +86,10 @@ class WorkoutController extends Controller
             $existing_session = Session::find($db_session->id);
 
             $existing_start_date_time = strtotime($existing_session->start_date_time);
-            $existing_start_date_time = date('d/m/y H:i:s', $existing_start_date_time);
+            $existing_start_date_time = date('m/d/Y H:i:s', $existing_start_date_time);
 
             $existing_end_date_time = strtotime($existing_session->end_date_time);
-            $existing_end_date_time = date('d/m/y H:i:s', $existing_end_date_time);
+            $existing_end_date_time = date('m/d/Y H:i:s', $existing_end_date_time);
 
             if ($existing_start_date_time < $current_start_date_time) {
                 // do nothing
@@ -153,27 +153,13 @@ class WorkoutController extends Controller
      */
     protected function validator(array $data)
     {
+        //TODO edit validation
         return Validator::make($data, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            ''
         ]);
     }
 }

@@ -24,21 +24,6 @@
     justify-content: flex-start;
 }
 
-
-/*Custom CSS*/
-
-/*
-nav color: #343a40;
-base yellow color: #fdd000
- */
-
-/*
-test colors:
-
-yellow: fdd000
-light gray ish : f2efe2
-*/
-
 body{
     background-color: #343a40;
 }
@@ -134,15 +119,7 @@ h4
 {
     font-style: italic;
 }
-#dashboard
-{
-    padding: 25px;
-    color: #343a40;
-    background-color: #f2f2f2;
-    margin-bottom: 30px;
-}
-
-#form-workout
+#dashboard, #form-workout, #fitness, #health, #nutrition, #form-nutrition
 {
     padding: 25px;
     color: #343a40;

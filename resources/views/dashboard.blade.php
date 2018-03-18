@@ -14,16 +14,16 @@
         <div class="row">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Dashboard</a>
+                    <a class="nav-link  active" href="{{ url('dashboard') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Fitness</a>
+                    <a class="nav-link" href="{{ url('fitness') }}">Fitness</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nutrition</a>
+                    <a class="nav-link" href="{{ url('nutrition') }}">Nutrition</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Health Stats</a>
+                    <a class="nav-link" href="{{ url('health') }}">Health</a>
                 </li>
             </ul>
         </div>
