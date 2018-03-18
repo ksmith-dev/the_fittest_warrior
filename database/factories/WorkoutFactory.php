@@ -22,8 +22,8 @@ $factory->define(App\Workout::class, function (Faker $faker) {
 
     return [
         'session_id' => rand(1,100),
-        'start_date_time' => $faker->dateTimeThisDecade(),
-        'end_date_time' => $faker->dateTimeThisDecade(),
+        'start_date_time' => $faker->date('m/d/Y H:i:s'),
+        'end_date_time' => $faker->date('m/d/Y H:i:s'),
         'workout_type' => $workout_types[rand(0,12)],
     ];
 });

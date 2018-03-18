@@ -28,7 +28,7 @@ class DashboardController extends Controller
     {
         $member = Auth::user();
 
-        $trainings = App\Training::where('user_id', $member->getAuthIdentifier())->orderBy('start_date_time')->get();
+        $trainings = App\Training::where('user_id', $member->getAuthIdentifier())->orderBy('start_date_time')->take(2)->get();
 
         $personal_bests = array();
         //personal best information
@@ -55,11 +55,11 @@ class DashboardController extends Controller
                 }
             }
         }
-        $latest_results = $trainings->chunk(10);
+
         return view('dashboard', [
             'member' => $member,
             'personal_bests' => $personal_bests,
-            'latest_results' => $latest_results,
+            'latest_results' => $trainings,
         ]);
     }
 
