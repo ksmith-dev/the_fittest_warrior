@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('head')
     @parent
-        <script src="{{ asset('js/news_api.js') }}"></script>
+        <title>{{ config('app.name', 'The Fittest Warrior') }} | Home</title>
 @endsection
 @section('navigation')
     @parent
@@ -57,11 +57,9 @@
                     </div>
                 </div>
                 <!-- sign up -->
-                @if(session()->exists('userEmail'))
-                    <div class="col bodyPanelStyle">
-                        <div class="row">
-                            Shown only when logged in
-                        </div>
+                @if (Auth::check())
+                    <div class="col p-3 bodyPanelStyle">
+                        <img src="http://via.placeholder.com/285x344">
                     </div>
                 @else
                     <div class="col p-3 bodyPanelStyle">
@@ -74,8 +72,8 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <form action="/" method="POST">
-                                    {{ csrf_field() }}
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
@@ -131,11 +129,14 @@
                                         @endif
                                     </div>
 
+                                    <div class="form-group">
+                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
+                                    </div>
+
                                     <button type="submit" class="btn logButton">Create Account</button>
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your
                                         information with anyone else.
                                     </small>
-
                                 </form>
                             </div>
                         </div>
@@ -189,6 +190,7 @@
                         <form class="form-inline" action="">
                             <div class="col col-12">
                                 <input class="form-control" type="text" placeholder="Email">
+                                <div class="spacer-20"></div>
                                 <button type="submit" class="btn logButton">Stay Informed</button>
                             </div>
 
@@ -208,4 +210,5 @@
 @endsection
 @section('footer')
     @parent
+        <script src="{{ asset('js/news.js') }}"></script>
 @endsection

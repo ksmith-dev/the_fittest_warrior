@@ -2,13 +2,12 @@
 
 @section('head')
     @parent
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <title>{{ config('app.name', 'The Fittest Warrior') }} | Home</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 @endsection
 @section('navigation')
     @parent
-
 @endsection
-
 @section('content')
     <div class="col">
         <div class="row">

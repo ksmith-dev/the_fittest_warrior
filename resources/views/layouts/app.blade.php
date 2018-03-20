@@ -9,8 +9,6 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'The Fittest Warrior') }}</title>
-
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -65,7 +63,7 @@
                             </li>
                         </ul>
                         <!-- Right Side Of Navbar -->
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right" style="margin-right: 60px;">
                             <!-- Authentication Links -->
                             @guest
                                 <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -99,46 +97,42 @@
         </div>
     @show
     @yield('content')
-    @section('footer')
-        <div class="row px-3">
-            <div class="col bodyPanelStyle">
-                <ul class="social">
-                    <li><a href="https://www.facebook.com/The-Fittest-Warrior-259911920689076/"><i
-                                    class="fa fa-facebook-f col-sm"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter col-sm"></i></a></li>
-                    <li><a href="#"><i class="fa fa-youtube-play col-sm"></i></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row px-3">
-            <div class="col bodyPanelStyle">
-                <div class="row">
-                    <div class="col py-1">
-                        <ul class="social">
-                            <li class="fav_style"><a
-                                        href="https://www.facebook.com/The-Fittest-Warrior-259911920689076/"><i
-                                            class="fa fa-facebook-f col-sm"></i></a></li>
-                            <li class="fav_style"><a href="#"><i class="fa fa-twitter col-sm"></i></a></li>
-                            <li class="fav_style"><a href="#"><i class="fa fa-youtube-play col-sm"></i></a></li>
-                            <li class="pl-5 py-2"><span>Copyright ©2018, DeMile Technologies</span></li>
-                            <li class="pl-5 py-2 "><a class="terms" href="/terms">Terms</a></li>
-                            <li class="pl-2 py-2 ">|</li>
-                            <li class="pl-2 py-2 "><a class="terms" href="/terms">Privacy Notice</a></li>
-
-                        </ul>
-                    </div>
-
+    <footer>
+        @section('footer')
+            <div class="row px-3">
+                <div class="col bodyPanelStyle">
+                    <ul class="social">
+                        <li><a href="https://www.facebook.com/The-Fittest-Warrior-259911920689076/"><i class="fa fa-facebook-f col-sm"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter col-sm"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube-play col-sm"></i></a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
+            <div class="row px-3">
+                <div class="col bodyPanelStyle">
+                    <div class="row">
+                        <div class="col py-1">
+                            <ul class="social">
+                                <li class="fav_style"><a href="https://www.facebook.com/The-Fittest-Warrior-259911920689076/"><i class="fa fa-facebook-f col-sm"></i></a></li>
+                                <li class="fav_style"><a href="#"><i class="fa fa-twitter col-sm"></i></a></li>
+                                <li class="fav_style"><a href="#"><i class="fa fa-youtube-play col-sm"></i></a></li>
+                                <li class="pl-5 py-2"><span>Copyright ©2018, DeMile Technologies</span></li>
+                                <li class="pl-5 py-2 "><a class="terms" href="/terms">Terms</a></li>
+                                <li class="pl-2 py-2 ">|</li>
+                                <li class="pl-2 py-2 "><a class="terms" href="/terms">Privacy Notice</a></li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <script src="{{ asset('js/app.js') }}"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        @show
+    </footer>
 </div><!-- close container-fluid -->
-@show
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
 </body>
 </html>

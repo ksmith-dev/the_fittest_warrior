@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <div class="spacer-100"></div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -66,5 +67,6 @@
             </div>
         </div>
     </div>
+    <div class="spacer-100"></div>
 </div>
 @endsection

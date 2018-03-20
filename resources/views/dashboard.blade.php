@@ -2,13 +2,12 @@
 
 @section('head')
     @parent
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <title>{{ config('app.name', 'The Fittest Warrior') }} | Home</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 @endsection
 @section('navigation')
     @parent
-
 @endsection
-
 @section('content')
     <div class="col">
         <div class="row">
@@ -75,7 +74,7 @@
                                     <td>{{ substr($start_date_time, -8, strrpos($start_date_time,' ')) }}</td>
                                     <td>{{ $workout_data['duration'] }}</td>
                                     <td>{{ $workout_data['weight'] }} LBS</td>
-                                    <td>{{ $workout_data['calories_burned'] }}</td>
+                                    <td>{{ number_format($workout_data['calories_burned'], 2, '.', ',') }}</td>
                                 </tr>
                             @endforeach
                         @endforeach
@@ -104,7 +103,7 @@
                                     <td>{{ substr($start_date_time, -8, strrpos($start_date_time,' ')) }}</td>
                                     <td>{{ $workout_data['duration'] }}</td>
                                     <td>{{ $workout_data['weight'] }} LBS</td>
-                                    <td>{{ $workout_data['calories_burned'] }}</td>
+                                    <td>{{ number_format($workout_data['calories_burned'], 2, '.', ',') }}</td>
                                 </tr>
                             @endforeach
                         @endforeach
@@ -139,7 +138,7 @@
                                                 <td>{{ substr($session->start_date_time, -8, strrpos($session->start_date_time,' ')) }}</td>
                                                 <td>{{ $workout->report['duration'] }}</td>
                                                 <td>{{ $workout->report['weight'] }} LBS</td>
-                                                <td>{{ $workout->report['calories_burned'] }}</td>
+                                                <td>{{ number_format($workout->report['calories_burned'], 2, '.', ',') }}</td>
                                             </tr>
                                         @endif
                                     @endforeach
@@ -174,7 +173,7 @@
                                                 <td>{{ substr($session->start_date_time, -8, strrpos($session->start_date_time,' ')) }}</td>
                                                 <td>{{ $workout->report['duration'] }}</td>
                                                 <td>{{ $workout->report['weight'] }} LBS</td>
-                                                <td>{{ $workout->report['calories_burned'] }}</td>
+                                                <td>{{ number_format($workout->report['calories_burned'], 2, '.', ',') }}</td>
                                             </tr>
                                         @endif
                                     @endforeach

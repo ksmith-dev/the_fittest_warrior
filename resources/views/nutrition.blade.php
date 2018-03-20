@@ -2,13 +2,12 @@
 
 @section('head')
     @parent
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <title>{{ config('app.name', 'The Fittest Warrior') }} | Home</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 @endsection
 @section('navigation')
     @parent
-
 @endsection
-
 @section('content')
     <div class="col">
         <div class="row">
@@ -128,7 +127,7 @@
                                 </tr>
                                 <tr class='clickable-row' data-href='/dashboard/nutrition/'>
                                     <td>Calories</td>
-                                    <td>{{ $nutrition->calories }}</td>
+                                    <td>{{ number_format($nutrition->calories, 2, '.', ',') }}</td>
                                     <td>
                                         <div class="progress">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50% mid</div>
