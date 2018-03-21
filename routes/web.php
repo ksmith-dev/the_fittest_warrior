@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::post('workout/report/save', 'WorkoutController@store');
 Route::post('nutrition/save', 'NutritionController@store');
+Route::post('health/save', 'HealthController@store');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('fitness', 'DashboardController@showFitnessTab');
@@ -26,7 +27,7 @@ Route::get('nutrition', 'DashboardController@showNutritionTab');
 Route::get('health', 'DashboardController@showHealthTab');
 
 Route::get('workout/report/form', 'WorkoutController@showWorkoutReportForm');
-Route::get('fitness/form', 'DashboardController@showFitnessForm');
+Route::get('fitness/form/{type}', 'DashboardController@showFitnessForm');
 Route::get('nutrition/form', 'DashboardController@showNutritionForm');
 Route::get('health/form', 'DashboardController@showHealthForm');
 

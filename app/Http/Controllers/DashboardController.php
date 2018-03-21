@@ -88,7 +88,8 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showHealthTab() {
-        return view('health');
+        $healths = App\Health::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('start_date_time')->get();
+        return view('health', ['healths' => $healths]);
     }
 
     /**
@@ -112,9 +113,10 @@ class DashboardController extends Controller
     /**
      * Show the application dashboard fitness form.
      *
+     * @param $type type of workout
      * @return \Illuminate\Http\Response
      */
-    public function showFitnessForm() {
-        return view('forms.fitness');
+    public function showFitnessForm($type) {
+        return view('forms.fitness', ['type'=>$type]);
     }
 }
