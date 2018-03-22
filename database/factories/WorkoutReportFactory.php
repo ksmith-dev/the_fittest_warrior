@@ -31,6 +31,7 @@ $factory->define(App\WorkoutReport::class, function (Faker $faker) {
         'resistance_factor' => 1,
         'calories_burned' => rand(1,3000),
         'duration' => rand(10, 99) . ":" . rand(10,99) . ":" . rand(10,99),
+        'rest' => rand(10, 99) . ":" . rand(10,99) . ":" . rand(10,99),
         'muscle_groups' => $muscle_groups[rand(0,14)] . ', ' . $muscle_groups[rand(0,14)] . ', ' . $muscle_groups[rand(0,14)],
     ];
 });

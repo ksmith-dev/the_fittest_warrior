@@ -42,8 +42,13 @@ class DashboardController extends Controller
                         $best_weight = App\WorkoutReport::where('workout_id', $workout['id'])->max('weight');
                         $best_time = App\WorkoutReport::where('workout_id', $workout['id'])->max('duration');
                         $best_calories_burned = App\WorkoutReport::where('workout_id', $workout['id'])->max('calories_burned');
+                        $session_start_date_time = preg_replace('/ 00:00:00/', '', $session->start_date_time);
+                        $session_end_date_time = preg_replace('/ 00:00:00/', '', $session->end_date_time);
+
+
                         $personal_bests[$workout['workout_type']] = array(
-                            $session->start_date_time => array(
+                            $session_start_date_time => array(
+                                'end_date_time' => $session_end_date_time,
                                 'id' => $workout->id,
                                 'weight' => $best_weight,
                                 'duration' => $best_time,

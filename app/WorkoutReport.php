@@ -7,7 +7,7 @@ class WorkoutReport extends Model
     const UPDATED_AT = 'updated_at';
 
     protected $table = 'workout_report';
-    protected $fillable = ['workout_id', 'repetitions', 'sets', 'weight', 'weight_units', 'resistance_factor', 'calories_burned', 'duration', 'muscle_groups'];
+    protected $fillable = ['workout_id', 'repetitions', 'sets', 'weight', 'weight_units', 'resistance_factor', 'calories_burned', 'duration', 'rest', 'muscle_groups'];
 
     public function workout()
     {

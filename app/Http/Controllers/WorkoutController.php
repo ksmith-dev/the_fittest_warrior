@@ -40,10 +40,10 @@ class WorkoutController extends Controller
         $params = $request->all();
 
         $current_start_date_time = strtotime($params['start_date_time']);
-        $current_start_date_time = date('m/d/Y H:i:s', $current_start_date_time);
+        $current_start_date_time = date('m/d/Y', $current_start_date_time);
 
         $current_end_date_time = strtotime($params['end_date_time']);
-        $current_end_date_time = date('m/d/Y H:i:s', $current_end_date_time);
+        $current_end_date_time = date('m/d/Y', $current_end_date_time);
 
         $db_training = DB::table('training')->where([ ['user_id', '=', Auth::user()->getAuthIdentifier()], ['training_type', '=', $params['training_type']], ])->get()->first();
         if (!empty($db_training)) {
@@ -55,10 +55,10 @@ class WorkoutController extends Controller
             $existing_training = Training::find($db_training->id);
 
             $existing_start_date_time = strtotime($existing_training->start_date_time);
-            $existing_start_date_time = date('m/d/Y H:i:s', $existing_start_date_time);
+            $existing_start_date_time = date('m/d/Y', $existing_start_date_time);
 
             $existing_end_date_time = strtotime($existing_training->end_date_time);
-            $existing_end_date_time = date('m/d/Y H:i:s', $existing_end_date_time);
+            $existing_end_date_time = date('m/d/Y', $existing_end_date_time);
 
             if ($existing_start_date_time > $current_start_date_time) {
                 // do nothing
@@ -86,10 +86,10 @@ class WorkoutController extends Controller
             $existing_session = Session::find($db_session->id);
 
             $existing_start_date_time = strtotime($existing_session->start_date_time);
-            $existing_start_date_time = date('m/d/Y H:i:s', $existing_start_date_time);
+            $existing_start_date_time = date('m/d/Y', $existing_start_date_time);
 
             $existing_end_date_time = strtotime($existing_session->end_date_time);
-            $existing_end_date_time = date('m/d/Y H:i:s', $existing_end_date_time);
+            $existing_end_date_time = date('m/d/Y', $existing_end_date_time);
 
             if ($existing_start_date_time < $current_start_date_time) {
                 // do nothing
@@ -135,6 +135,7 @@ class WorkoutController extends Controller
         $workout_report->resistance_factor = $params['resistance_factor'];
         $workout_report->duration = $params['duration'];
         $workout_report->sets = $params['sets'];
+        $workout_report->rest = $params['rest'];
         $workout_report->calories_burned = $params['calories'];
         $workout_report->weight = $params['weight'];
         $workout_report->muscle_groups = $params['muscle_groups'];

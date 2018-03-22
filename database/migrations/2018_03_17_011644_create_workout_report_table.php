@@ -23,6 +23,7 @@ class CreateWorkoutReportTable extends Migration
             $table->double('resistance_factor');
             $table->double('calories_burned');
             $table->string('duration');
+            $table->string('rest');
             $table->string('muscle_groups');
             $table->timestamps();
         });

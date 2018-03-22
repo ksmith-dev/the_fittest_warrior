@@ -41,7 +41,6 @@
                     @endif
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="workout_type" class="col-md-4 col-form-label text-md-right">{{ __('Workout Type') }}</label>
 
@@ -60,7 +59,7 @@
                 <label for="start_date_time" class="col-md-4 col-form-label text-md-right">{{ __('Start Date') }}</label>
 
                 <div class="col-md-6">
-                    <input id="start_date_time" type="text" class="form-control{{ $errors->has('start_date_time') ? ' is-invalid' : '' }}" name="start_date_time" placeholder="Enter Start Time" required>
+                    <input id="start_date_time" type="date" class="form-control{{ $errors->has('start_date_time') ? ' is-invalid' : '' }}" name="start_date_time" placeholder="Enter Start Time" required>
 
                     @if ($errors->has('start_date_time'))
                         <span class="invalid-feedback">
@@ -74,7 +73,7 @@
                 <label for="end_date_time" class="col-md-4 col-form-label text-md-right">{{ __('End Date') }}</label>
 
                 <div class="col-md-6">
-                    <input id="end_date_time" type="text" class="form-control{{ $errors->has('end_date_time') ? ' is-invalid' : '' }}" name="end_date_time" placeholder="Enter End Time" required>
+                    <input id="end_date_time" type="date" class="form-control{{ $errors->has('end_date_time') ? ' is-invalid' : '' }}" name="end_date_time" placeholder="Enter End Time" required>
 
                     @if ($errors->has('end_date_time'))
                         <span class="invalid-feedback">
@@ -113,7 +112,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="duration" class="col-md-4 col-form-label text-md-right">{{ __('Workout Duration') }}</label>
+                <label for="duration" class="col-md-4 col-form-label text-md-right">{{ __('Workout Duration (hour:min:sec)') }}</label>
 
                 <div class="col-md-6">
                     <input id="duration" type="text" class="form-control{{ $errors->has('duration') ? ' is-invalid' : '' }}" name="duration" placeholder="Enter The Duration of the Workout">

@@ -181,7 +181,7 @@
                 <label for="start_date_time" class="col-md-4 col-form-label text-md-right">{{ __('Start Date') }}</label>
 
                 <div class="col-md-6">
-                    <input id="start_date_time" type="text"
+                    <input id="start_date_time" type="date"
                            class="form-control{{ $errors->has('start_date_time') ? ' is-invalid' : '' }}" name="start_date_time"
                            placeholder="Enter Start Date">
 
@@ -197,7 +197,7 @@
                 <label for="end_date_time" class="col-md-4 col-form-label text-md-right">{{ __('End Date') }}</label>
 
                 <div class="col-md-6">
-                    <input id="end_date_time" type="text"
+                    <input id="end_date_time" type="date"
                            class="form-control{{ $errors->has('end_date_time') ? ' is-invalid' : '' }}" name="end_date_time"
                            placeholder="Enter End Date">
 

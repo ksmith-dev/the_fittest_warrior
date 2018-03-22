@@ -53,7 +53,7 @@
                                         <tbody>
                                         <tr class='clickable-row' data-href='/dashboard/fitness/'>
                                             <td>Pull ups</td>
-                                            <td><a href="{{ url('fitness/form/pull_ups') }}">Add</a></td>
+                                            <td><a href="{{ url('fitness/form/pull_up') }}">Add</a></td>
                                             <td>
                                                 <div class="progress">
                                                     <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
