@@ -8,12 +8,18 @@ before_script:
   - mysql -e 'create database homestead_test;'
   - composer self-update
   - composer install --no-interaction
+  - php artisan migrate:install --no-interaction -vvv
 
 script:
   - vendor/bin/phpunit
+  - php artisan migrate --no-interaction -vvv
 
 services:
   - mysql
 
 notifications:
-  email: false
+    email:
+      recipients:
+        - kjsmith.dev@gmail.com
+      on_success: never # default: change
+      on_failure: never # default: always
