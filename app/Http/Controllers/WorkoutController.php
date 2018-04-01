@@ -6,6 +6,7 @@ use App\Training;
 use App\Session;
 use App\Workout;
 use App\WorkoutReport;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

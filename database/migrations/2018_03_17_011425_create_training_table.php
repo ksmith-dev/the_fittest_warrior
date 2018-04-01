@@ -17,8 +17,8 @@ class CreateTrainingTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('start_date_time');
-            $table->string('end_date_time');
-            $table->integer('active_status');
+            $table->string('end_date_time')->nullable();
+            $table->integer('active_status')->nullable();
             $table->string('training_type');
             $table->timestamps();
         });

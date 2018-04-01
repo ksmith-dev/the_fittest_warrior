@@ -16,15 +16,15 @@ class CreateWorkoutReportTable extends Migration
         Schema::create('workout_report', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('workout_id');
-            $table->integer('repetitions');
-            $table->integer('sets');
-            $table->double('weight');
-            $table->string('weight_units');
-            $table->double('resistance_factor');
-            $table->double('calories_burned');
-            $table->string('duration');
-            $table->string('rest');
-            $table->string('muscle_groups');
+            $table->integer('repetitions')->nullable();
+            $table->integer('sets')->nullable();
+            $table->double('weight')->nullable();
+            $table->string('weight_units')->nullable();
+            $table->double('resistance_factor')->nullable();
+            $table->double('calories_burned')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('rest')->nullable();
+            $table->string('muscle_groups')->nullable();
             $table->timestamps();
         });
     }

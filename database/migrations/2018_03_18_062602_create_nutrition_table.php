@@ -16,18 +16,18 @@ class CreateNutritionTable extends Migration
         Schema::create('nutrition', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');
-            $table->string('portion_size');
-            $table->string('gram_protein');
-            $table->string('gram_fat');
-            $table->string('gram_saturated_fat');
-            $table->string('cholesterol');
-            $table->string('sodium');
-            $table->string('carbohydrates');
-            $table->string('sugars');
-            $table->string('fiber');
-            $table->string('calories');
+            $table->string('portion_size')->nullable();
+            $table->string('gram_protein')->nullable();
+            $table->string('gram_fat')->nullable();
+            $table->string('gram_saturated_fat')->nullable();
+            $table->string('cholesterol')->nullable();
+            $table->string('sodium')->nullable();
+            $table->string('carbohydrates')->nullable();
+            $table->string('sugars')->nullable();
+            $table->string('fiber')->nullable();
+            $table->string('calories')->nullable();
             $table->string('start_date_time');
-            $table->string('end_date_time');
+            $table->string('end_date_time')->nullable();
             $table->timestamps();
         });
     }
