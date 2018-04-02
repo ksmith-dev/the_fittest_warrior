@@ -78,8 +78,8 @@
                             @foreach($workout_array as $start_date_time => $workout_data)
                                 <tr class='clickable-row' data-href='/dashboard/workout/'>
                                     <th scope="row">{{ $workout_type }}</th>
-                                    <td>{{ $start_date_time }}</td>
-                                    <td>{{ $workout_data['end_date_time'] }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($start_date_time)) }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($workout_data['end_date_time'])) }}</td>
                                     <td>{{ $workout_data['duration'] }}</td>
                                     <td>{{ $workout_data['weight'] }} LBS</td>
                                     <td>{{ number_format($workout_data['calories_burned'], 2, '.', ',') }}</td>
@@ -107,8 +107,8 @@
                             @foreach($workout_array as $start_date_time => $workout_data)
                                 <tr class='clickable-row' data-href='/dashboard/workout/'>
                                     <th scope="row">{{ $workout_type }}</th>
-                                    <td>{{ $start_date_time }}</td>
-                                    <td>{{ $workout_data['end_date_time'] }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($start_date_time)) }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($workout_data['end_date_time'])) }}</td>
                                     <td>{{ $workout_data['duration'] }}</td>
                                     <td>{{ $workout_data['weight'] }} LBS</td>
                                     <td>{{ number_format($workout_data['calories_burned'], 2, '.', ',') }}</td>
@@ -144,8 +144,8 @@
                                         @if ($workout->report)
                                             <tr class='clickable-row' data-href='/dashboard/workout/{{ $workout->report['id'] }}'>
                                                 <th scope="row">{{ $workout->workout_type }}</th>
-                                                <td>{{ preg_replace('/ 00:00:00/', '', $session->start_date_time) }}</td>
-                                                <td>{{ preg_replace('/ 00:00:00/', '', $session->end_date_time) }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($session->start_date_time)) }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($session->end_date_time)) }}</td>
                                                 <td>{{ $workout->report['duration'] }}</td>
                                                 <td>{{ $workout->report['weight'] }} LBS</td>
                                                 <td>{{ number_format($workout->report['calories_burned'], 2, '.', ',') }}</td>
@@ -179,8 +179,8 @@
                                         @if ($workout->report)
                                             <tr class='clickable-row' data-href='/dashboard/workout/{{ $workout->report['id'] }}'>
                                                 <th scope="row">{{ $workout->workout_type }}</th>
-                                                <td>{{ preg_replace('/ 00:00:00/', '', $session->start_date_time) }}</td>
-                                                <td>{{ preg_replace('/ 00:00:00/', '', $session->end_date_time) }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($session->start_date_time)) }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($session->end_date_time)) }}</td>
                                                 <td>{{ $workout->report['duration'] }}</td>
                                                 <td>{{ $workout->report['weight'] }} LBS</td>
                                                 <td>{{ number_format($workout->report['calories_burned'], 2, '.', ',') }}</td>

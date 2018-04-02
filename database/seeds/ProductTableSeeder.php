@@ -1,8 +1,9 @@
 <?php
 
+use App\Product;
 use Illuminate\Database\Seeder;
 
-class SocialFeedSeeder extends Seeder
+class ProductTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class SocialFeedSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\SocialFeed::class, 10)->create();
+        factory(Product::class, 100)->create();
     }
 }
