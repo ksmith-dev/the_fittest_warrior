@@ -46,11 +46,11 @@
                                 <li class="nav-item ml-1">
                                     <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
                                 </li>
-                            @endauth
 
-                            <li class="nav-item ml-1">
-                                <a class="nav-link" href="">Community</a>
-                            </li>
+                                <li class="nav-item ml-1">
+                                    <a class="nav-link" href="/community">Community</a>
+                                </li>
+                            @endauth
 
                             <li class="nav-item ml-1">
                                 <a class="nav-link" href="/shop">Shop</a>

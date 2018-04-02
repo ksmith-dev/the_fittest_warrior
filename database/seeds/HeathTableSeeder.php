@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class NutritionTableSeeder extends Seeder
+class HeathTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class NutritionTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Nutrition::class, 5)->create();
+        factory(App\Health::class, 5)->create();
     }
 }

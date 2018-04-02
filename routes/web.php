@@ -15,6 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/shop', function () {
+    return view('shop');
+});
+
+Route::get('/contact', function () {
+    return view('forms.contact');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
+
 Auth::routes();
 
 Route::post('workout/report/save', 'WorkoutController@store');
@@ -30,4 +42,8 @@ Route::get('workout/report/form', 'WorkoutController@showWorkoutReportForm');
 Route::get('fitness/form/{type}', 'DashboardController@showFitnessForm');
 Route::get('nutrition/form', 'DashboardController@showNutritionForm');
 Route::get('health/form', 'DashboardController@showHealthForm');
+
+Route::get('community', 'CommunityController@index');
+
+
 

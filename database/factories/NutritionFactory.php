@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Nutrition::class, function (Faker $faker) {
     return [
-        'user_id' => rand(1, 10),
+        'user_id' => 1,
         'portion_size' => rand(0,10),
         'gram_protein' => rand(1,1),
         'gram_fat' => rand(1,5),

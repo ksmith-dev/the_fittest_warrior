@@ -125,7 +125,7 @@ h4
 {
     font-style: italic;
 }
-#dashboard, #form-workout, #fitness, #health, #nutrition, #form-nutrition
+#dashboard, #form-workout, #fitness, #health, #nutrition, #form-nutrition, #about
 {
     padding: 25px;
     color: #343a40;
@@ -152,4 +152,54 @@ h4
 .dropdown-menu
 {
     min-width: 30px;
+}
+
+#banner-advertisement {
+    margin: 0 auto;
+    background: #000000 url("../images/ads/ToughMudderBanner.jpg") no-repeat center top;
+    height: 350px;
+}
+
+#bruce-lee-story {
+    background-color: #000000;
+}
+
+#bruce-lee-story p {
+    color: #ffffff;
+}
+
+.avatar {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.feed {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #000000;
+}
+
+.feed-tabs {
+    padding-bottom: 20px;
+}
+
+.feed a {
+    color: #4e555b;
+}
+
+.feed-text {
+    margin-top: 20px;
+}
+
+.share-wrapper {
+    padding: 5px 30px;
+}
+
+#input_feed_text {
+    margin-top: 20px;
+}
+
+.share {
+    border: 1px solid #000000;
 }

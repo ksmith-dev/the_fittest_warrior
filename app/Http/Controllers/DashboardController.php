@@ -43,7 +43,6 @@ class DashboardController extends Controller
                         $session_start_date_time = preg_replace('/ 00:00:00/', '', $session->start_date_time);
                         $session_end_date_time = preg_replace('/ 00:00:00/', '', $session->end_date_time);
 
-
                         $personal_bests[$workout['workout_type']] = array(
                             $session_start_date_time => array(
                                 'end_date_time' => $session_end_date_time,
