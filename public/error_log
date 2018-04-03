@@ -1,0 +1,10 @@
+[03-Apr-2018 02:58:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/ksmithgr/thefittestwarrior/bootstrap/app.php:14
+Stack trace:
+#0 /home/ksmithgr/thefittestwarrior/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/ksmithgr/thefittestwarrior/bootstrap/app.php on line 14
+[03-Apr-2018 03:27:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/ksmithgr/thefittestwarrior/bootstrap/app.php:14
+Stack trace:
+#0 /home/ksmithgr/thefittestwarrior/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/ksmithgr/thefittestwarrior/bootstrap/app.php on line 14

@@ -1,0 +1,29 @@
+[03-Apr-2018 02:57:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/ksmithgr/thefittestwarrior/bootstrap/app.php:14
+Stack trace:
+#0 /home/ksmithgr/thefittestwarrior/artisan(20): require_once()
+#1 {main}
+  thrown in /home/ksmithgr/thefittestwarrior/bootstrap/app.php on line 14
+[03-Apr-2018 02:58:12 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/ksmithgr/thefittestwarrior/bootstrap/app.php:14
+Stack trace:
+#0 /home/ksmithgr/thefittestwarrior/artisan(20): require_once()
+#1 {main}
+  thrown in /home/ksmithgr/thefittestwarrior/bootstrap/app.php on line 14
+[03-Apr-2018 02:58:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/ksmithgr/thefittestwarrior/bootstrap/app.php:14
+Stack trace:
+#0 /home/ksmithgr/thefittestwarrior/artisan(20): require_once()
+#1 {main}
+  thrown in /home/ksmithgr/thefittestwarrior/bootstrap/app.php on line 14
+[03-Apr-2018 03:31:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/ksmithgr/thefittestwarrior/bootstrap/app.php:14
+Stack trace:
+#0 /home/ksmithgr/thefittestwarrior/artisan(20): require_once()
+#1 {main}
+  thrown in /home/ksmithgr/thefittestwarrior/bootstrap/app.php on line 14
+[03-Apr-2018 03:34:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/ksmithgr/thefittestwarrior/bootstrap/app.php:14
+Stack trace:
+#0 /home/ksmithgr/thefittestwarrior/artisan(20): require_once()
+#1 {main}
+  thrown in /home/ksmithgr/thefittestwarrior/bootstrap/app.php on line 14
+[03-Apr-2018 03:39:16 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 04:08:14 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 04:24:09 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 04:39:20 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
