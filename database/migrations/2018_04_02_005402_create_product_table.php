@@ -30,6 +30,7 @@ class CreateProductTable extends Migration
             $table->string('color')->nullable();
             $table->string('material')->nullable();
             $table->double('max_sale')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }
