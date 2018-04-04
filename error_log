@@ -27,3 +27,16 @@ Stack trace:
 [03-Apr-2018 04:08:14 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
 [03-Apr-2018 04:24:09 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
 [03-Apr-2018 04:39:20 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 05:18:34 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 05:19:33 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 05:53:52 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 05:54:14 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 05:55:14 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 05:55:20 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 06:16:12 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 06:16:34 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 06:19:52 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 06:33:22 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 06:33:35 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 06:35:21 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40
+[03-Apr-2018 07:02:07 UTC] PHP Parse error:  syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home/ksmithgr/thefittestwarrior/vendor/symfony/console/Output/Output.php on line 40

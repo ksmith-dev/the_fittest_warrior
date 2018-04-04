@@ -55,7 +55,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.0.28"
+            "php": "7.1.15"
         }
     },
     "minimum-stability": "dev",
