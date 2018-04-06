@@ -207,3 +207,7 @@ h4
 .product {
     padding: 30px;
 }
+
+.checked {
+    width: 5px;
+}

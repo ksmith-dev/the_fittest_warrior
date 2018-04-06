@@ -21,11 +21,17 @@ class WorkoutController extends Controller
     protected $redirectTo = '/dashboard';
 
     /**
+     * @param $training_type
+     * @param $session_type
+     * @param $workout_type
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showWorkoutReportForm()
+    public function showWorkoutReportForm($training_type, $session_type, $workout_type)
     {
-        return view('forms.workout');
+
+        $muscle_groups = DB::table('muscle_group')->where('workout_type', $workout_type)->get();
+
+        return view('forms.workout', ['training_type' => $training_type, 'session_type' => $session_type, 'workout_type' => $workout_type, 'muscle_groups' => $muscle_groups]);
     }
 
     /**

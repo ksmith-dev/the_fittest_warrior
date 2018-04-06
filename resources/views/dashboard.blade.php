@@ -16,7 +16,7 @@
                     <a class="nav-link  active" href="{{ url('dashboard') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('fitness') }}">Fitness</a>
+                    <a class="nav-link" href="{{ url('workout') }}">Fitness</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('nutrition') }}">Nutrition</a>

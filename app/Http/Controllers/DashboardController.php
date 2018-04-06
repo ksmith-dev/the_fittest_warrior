@@ -28,7 +28,7 @@ class DashboardController extends Controller
         $trainings = App\Training::where('user_id', $member->getAuthIdentifier())->orderBy('start_date_time')->take(2)->get();
 
         $personal_bests = array();
-        //personal best information
+
         foreach ($trainings as $training)
         {
             foreach ($training->sessions as $session)
@@ -40,8 +40,15 @@ class DashboardController extends Controller
                         $best_weight = App\WorkoutReport::where('workout_id', $workout['id'])->max('weight');
                         $best_time = App\WorkoutReport::where('workout_id', $workout['id'])->max('duration');
                         $best_calories_burned = App\WorkoutReport::where('workout_id', $workout['id'])->max('calories_burned');
-                        $session_start_date_time = preg_replace('/ 00:00:00/', '', $session->start_date_time);
-                        $session_end_date_time = preg_replace('/ 00:00:00/', '', $session->end_date_time);
+                        $session_start_date_time = date('m-d-Y', strtotime($session->start_date_time));
+                        $session_end_date_time = date('m-d-Y', strtotime($session->end_date_time));
+
+//                        foreach ($best_weight as $best) {
+//                            $personal_bests['weight'] = array(
+//                                'start_date' => date('d-m-Y', strtotime($best->start_date_time)),
+//                                'duration' => date('H:m:i', strtotime($best->durration)),
+//                            );
+//                        }
 
                         $personal_bests[$workout['workout_type']] = array(
                             $session_start_date_time => array(
@@ -69,8 +76,8 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showFitnessTab() {
-        return view('fitness');
+    public function showWorkoutTab() {
+        return view('workout');
     }
 
     /**
