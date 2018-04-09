@@ -27,38 +27,58 @@ class DashboardController extends Controller
 
         $trainings = App\Training::where('user_id', $member->getAuthIdentifier())->orderBy('start_date_time')->take(2)->get();
 
-        $personal_bests = array();
-
         foreach ($trainings as $training)
         {
             foreach ($training->sessions as $session)
             {
                 foreach ($session->workouts as $workout)
                 {
-                    if ($workout->report['workout_id'] != null)
+                    if ($workout->report != null)
                     {
-                        $best_weight = App\WorkoutReport::where('workout_id', $workout['id'])->max('weight');
-                        $best_time = App\WorkoutReport::where('workout_id', $workout['id'])->max('duration');
-                        $best_calories_burned = App\WorkoutReport::where('workout_id', $workout['id'])->max('calories_burned');
-                        $session_start_date_time = date('m-d-Y', strtotime($session->start_date_time));
-                        $session_end_date_time = date('m-d-Y', strtotime($session->end_date_time));
+                        $start_date_time = date('m-d-Y', strtotime($workout->start_date_time));
+                        $end_date_time = date('m-d-Y', strtotime($workout->end_date_time));
 
-//                        foreach ($best_weight as $best) {
-//                            $personal_bests['weight'] = array(
-//                                'start_date' => date('d-m-Y', strtotime($best->start_date_time)),
-//                                'duration' => date('H:m:i', strtotime($best->durration)),
-//                            );
-//                        }
+                        if (empty($best_weight) || empty($best_weight[$workout['workout_type']])) {
+                            $best_weight[$workout['workout_type']] = array(
+                                'start_date_time' => $start_date_time,
+                                'end_date_time' => $end_date_time,
+                                'weight' => $workout->report['weight'],
+                                'duration' => $workout->report['duration'],
+                                'calories_burned' => $workout->report['calories_burned']
+                            );
+                        } else {
 
-                        $personal_bests[$workout['workout_type']] = array(
-                            $session_start_date_time => array(
-                                'end_date_time' => $session_end_date_time,
-                                'id' => $workout->id,
-                                'weight' => $best_weight,
-                                'duration' => $best_time,
-                                'calories_burned' => $best_calories_burned
-                            )
-                        );
+                            if ($workout->report[$workout['workout_type']]['weight'] > $best_weight[$workout['workout_type']]['weight']) {
+                                $best_weight[$workout['workout_type']] = array(
+                                    'start_date_time' => $start_date_time,
+                                    'end_date_time' => $end_date_time,
+                                    'weight' => $workout->report['weight'],
+                                    'duration' => $workout->report['duration'],
+                                    'calories_burned' => $workout->report['calories_burned']
+                                );
+                            }
+                        }
+
+                        if (empty($best_time) || empty($best_time[$workout['workout_type']])) {
+                            $best_time[$workout['workout_type']] = array(
+                                'start_date_time' => $start_date_time,
+                                'end_date_time' => $end_date_time,
+                                'weight' => $workout->report['weight'],
+                                'duration' => $workout->report['duration'],
+                                'calories_burned' => $workout->report['calories_burned']
+                            );
+                        } else {
+
+                            if ($workout->report[$workout['workout_type']]['duration'] < $best_weight[$workout['workout_type']]['duration']) {
+                                $best_time[$workout['workout_type']] = array(
+                                    'start_date_time' => $start_date_time,
+                                    'end_date_time' => $end_date_time,
+                                    'weight' => $workout->report['weight'],
+                                    'duration' => $workout->report['duration'],
+                                    'calories_burned' => $workout->report['calories_burned']
+                                );
+                            }
+                        }
                     }
                 }
             }
@@ -66,7 +86,8 @@ class DashboardController extends Controller
 
         return view('dashboard', [
             'member' => $member,
-            'personal_bests' => $personal_bests,
+            'best_weight' => $best_weight,
+            'best_time' => $best_time,
             'latest_results' => $trainings,
         ]);
     }
