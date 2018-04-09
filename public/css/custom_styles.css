@@ -208,6 +208,20 @@ h4
     padding: 30px;
 }
 
-.checked {
-    width: 5px;
+.check-box {
+    float: left;
+    margin-right: 15px;
+    margin-top: 6px;
+}
+
+input[type="checkbox"][readonly], .label_readonly {
+    pointer-events: none;
+}
+
+.event-img {
+    margin: 10px 0;
+}
+
+.check-box-table {
+    width: 100%;
 }

@@ -9,24 +9,7 @@
     @parent
 @endsection
 @section('content')
-    <div class="col">
-        <div class="row">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('fitness') }}">Fitness</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  active" href="{{ url('nutrition') }}">Nutrition</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('health') }}">Health</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    @include('layouts.dashboard_nav')
     <div id="nutrition">
         <a href="{{ url('nutrition/form') }}" class="btn btn-secondary" role="button">add nutrition info</a>
         <div class="spacer-50"></div>
