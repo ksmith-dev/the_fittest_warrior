@@ -31,7 +31,9 @@ class WorkoutController extends Controller
 
         $muscle_groups = DB::table('muscle_group')->where('workout_type', $workout_type)->get();
 
-        return view('forms.workout', ['training_type' => $training_type, 'session_type' => $session_type, 'workout_type' => $workout_type, 'muscle_groups' => $muscle_groups]);
+        $additional_muscle_groups = array('NECK', 'TRAPS', 'SHOULDERS', 'CHEST', 'BICEPS', 'FOREARMS', 'ABS', 'QUADRICEPS', 'CALVES', 'GLUTS', 'HAMSTRINGS', 'LOWER BACK', 'TRICEPS', 'UPPER BACK');
+
+        return view('forms.workout', ['training_type' => $training_type, 'session_type' => $session_type, 'workout_type' => $workout_type, 'muscle_groups' => $muscle_groups, 'additional_muscle_groups' => $additional_muscle_groups]);
     }
 
     /**
@@ -46,6 +48,16 @@ class WorkoutController extends Controller
 
         $params = $request->all();
 
+        foreach ($params as $param) {
+            if (is_array($param)) {
+                foreach ($param as $value) {
+                    $value = strtolower(str_replace(' ', '_', $value));
+                }
+            } else {
+                $param = strtolower(str_replace(' ', '_', $param));
+            }
+        }
+
         $current_start_date_time = strtotime($params['start_date_time']);
         $current_start_date_time = date('m/d/Y', $current_start_date_time);
 
@@ -53,6 +65,7 @@ class WorkoutController extends Controller
         $current_end_date_time = date('m/d/Y', $current_end_date_time);
 
         $db_training = DB::table('training')->where([ ['user_id', '=', Auth::user()->getAuthIdentifier()], ['training_type', '=', $params['training_type']], ])->get()->first();
+
         if (!empty($db_training)) {
             $db_session = DB::table('session')->where([ ['session_type', '=', $params['session_type']], ['training_id', '=', $db_training->id], ])->get()->first();
         }
@@ -140,12 +153,26 @@ class WorkoutController extends Controller
         $workout_report->workout_id = $workout->id;
         $workout_report->repetitions = $params['repetitions'];
         $workout_report->resistance_factor = $params['resistance_factor'];
-        $workout_report->duration = $params['duration'];
+        $workout_report->duration = $params['duration_min'] . ':' . $params['duration_sec'] . ':' . $params['duration_mil'];
         $workout_report->sets = $params['sets'];
-        $workout_report->rest = $params['rest'];
+        $workout_report->rest = $params['rest_min'] . ':' . $params['rest_sec'] . ':' . $params['rest_mil'];
         $workout_report->calories_burned = $params['calories'];
         $workout_report->weight = $params['weight'];
-        $workout_report->muscle_groups = $params['muscle_groups'];
+
+        $muscle_groups = null;
+
+        $index = 0;
+
+        foreach ($params['muscle_groups'] as $muscle_group)
+        {
+            if (++$index == sizeof($params['muscle_groups'])) {
+                $muscle_groups .= strtoupper(str_replace(' ', '_', $muscle_group));
+            } else {
+                $muscle_groups .= strtoupper(str_replace(' ', '_', $muscle_group)) . ', ';
+            }
+        }
+
+        $workout_report->muscle_groups = $muscle_groups;
         //TODO if units is passed inside of input split and add here
         $workout_report->weight_units = 'lbs';
         $workout_report->save();
@@ -163,11 +190,22 @@ class WorkoutController extends Controller
     {
         //TODO edit validation
         return Validator::make($data, [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            ''
+            'training_type' => 'required|string|max:255',
+            'session_type' => 'required|string|max:255',
+            'workout_type' => 'required|string|max:255',
+            'duration_min' => 'string|min:2',
+            'duration_sec' => 'string|min:2',
+            'duration_mil' => 'string|min:2',
+            'rest_min' => 'string|min:2|max:2',
+            'rest_sec' => 'string|min:2|max:2',
+            'rest_mil' => 'string|min:2|max:2',
+            'weight' => 'string|max:100',
+            'repetitions' => 'string|max:50',
+            'sets' => 'string|max:50',
+            'rest' => 'string|max:50',
+            'start_date_time' => 'string|max:255',
+            'end_date_time' => 'string|max:255',
+            'calories' => 'string|max:255'
         ]);
     }
 }

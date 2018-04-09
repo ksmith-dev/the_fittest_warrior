@@ -9,24 +9,7 @@
     @parent
 @endsection
 @section('content')
-    <div class="col">
-        <div class="row">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link  active" href="{{ url('dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('workout') }}">Fitness</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('nutrition') }}">Nutrition</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('health') }}">Health</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    @include('layouts.dashboard_nav')
     <div id="dashboard">
         <div class="col">
             <div class="row">
@@ -77,7 +60,7 @@
                         @foreach($personal_bests as $workout_type => $workout_array)
                             @foreach($workout_array as $start_date_time => $workout_data)
                                 <tr class='clickable-row' data-href='/dashboard/workout/'>
-                                    <th scope="row">{{ $workout_type }}</th>
+                                    <th scope="row">{{ str_replace('_', ' ', $workout_type) }}</th>
                                     <td>{{ date('d-m-Y', strtotime($start_date_time)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($workout_data['end_date_time'])) }}</td>
                                     <td>{{ $workout_data['duration'] }}</td>
@@ -106,7 +89,7 @@
                         @foreach($personal_bests as $workout_type => $workout_array)
                             @foreach($workout_array as $start_date_time => $workout_data)
                                 <tr class='clickable-row' data-href='/dashboard/workout/'>
-                                    <th scope="row">{{ $workout_type }}</th>
+                                    <th scope="row">{{ str_replace('_', ' ', $workout_type) }}</th>
                                     <td>{{ date('d-m-Y', strtotime($start_date_time)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($workout_data['end_date_time'])) }}</td>
                                     <td>{{ $workout_data['duration'] }}</td>
@@ -143,7 +126,7 @@
                                     @foreach($session->workouts as $workout)
                                         @if ($workout->report)
                                             <tr class='clickable-row' data-href='/dashboard/workout/{{ $workout->report['id'] }}'>
-                                                <th scope="row">{{ $workout->workout_type }}</th>
+                                                <th scope="row">{{ str_replace('_', ' ', $workout->workout_type) }}</th>
                                                 <td>{{ date('d-m-Y', strtotime($session->start_date_time)) }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($session->end_date_time)) }}</td>
                                                 <td>{{ $workout->report['duration'] }}</td>
@@ -178,7 +161,7 @@
                                     @foreach($session->workouts as $workout)
                                         @if ($workout->report)
                                             <tr class='clickable-row' data-href='/dashboard/workout/{{ $workout->report['id'] }}'>
-                                                <th scope="row">{{ $workout->workout_type }}</th>
+                                                <th scope="row">{{ str_replace('_', ' ', $workout->workout_type) }}</th>
                                                 <td>{{ date('d-m-Y', strtotime($session->start_date_time)) }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($session->end_date_time)) }}</td>
                                                 <td>{{ $workout->report['duration'] }}</td>
