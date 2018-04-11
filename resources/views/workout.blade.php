@@ -39,7 +39,11 @@
                                             <td><a href="{{ url('workout/form/strength/lifting/pull_up') }}">Add</a></td>
                                             <td>
                                                 <div class="progress">
-                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
+                                                    @if(!empty($workouts['pull_up']['repetitions']))
+                                                        <div class="progress-bar {{ $workouts['pull_up']['status'] }}" role="progressbar" style="width: {{ $workouts['pull_up']['percentage'] }}%" aria-valuenow="{{ $workouts['pull_up']['repetitions'] }}" aria-valuemin="0" aria-valuemax="10">{{ $workouts['pull_up']['repetitions'] }}</div>
+                                                    @else
+                                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

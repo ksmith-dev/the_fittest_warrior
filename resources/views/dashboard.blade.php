@@ -43,33 +43,6 @@
         <div class="row spacer-100"></div>
         <div class="row">
             <div class="col">
-                <div class="table-responsive d-block d-sm-none">
-                    <h4>Best Weight</h4>
-                    <table class="table table-sm table-dark table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">WORKOUT</th>
-                            <th scope="col">START DATE</th>
-                            <th scope="col">END DATE</th>
-                            <th scope="col">DURATION</th>
-                            <th scope="col">WEIGHT</th>
-                            <th scope="col">CALORIES</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($best_weight as $workout_type => $workout_data)
-                            <tr class="clickable-row" data-href="#">
-                                <th scope="row">{{ $workout_type }}</th>
-                                <td>{{ $workout_data['start_date_time'] }}</td>
-                                <td>{{ $workout_data['end_date_time'] }}</td>
-                                <td>{{ $workout_data['duration'] }}</td>
-                                <td>{{ $workout_data['weight'] }}</td>
-                                <td>{{ number_format($workout_data['calories_burned'], 2, '.', ',') }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
                 <div class="table-responsive d-none d-sm-block">
                     <h4>Best Weight</h4>
                     <table class="table table-sm table-hover">

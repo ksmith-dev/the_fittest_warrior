@@ -5,19 +5,19 @@ use Faker\Generator as Faker;
 $factory->define(App\Workout::class, function (Faker $faker) {
 
     $workout_types = array(
-        "INCH_WORM",
-        "TUCK_JUMP",
-        "BEAR_CRAWL",
-        "MOUNTAIN_CLIMBER",
-        "PUSH_UP",
-        "STAIR_CLIMB",
-        "BURPEES",
-        "PLANK",
-        "LUNGE",
-        "SQUAT",
-        "DEAD_LIFT",
-        "SIDE_PLANK",
-        "CRUNCH"
+        "inch_worm",
+        "tuck_jump",
+        "bear_crawl",
+        "mountain_climber",
+        "push_up",
+        "stair_climb",
+        "burpees",
+        "plank",
+        "lunge",
+        "squat",
+        "dead_lift",
+        "side_plank",
+        "crunch"
     );
 
     return [

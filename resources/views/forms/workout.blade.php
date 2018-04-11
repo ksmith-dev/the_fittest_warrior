@@ -56,7 +56,7 @@
                     @if (empty($workout_type))
                         <input id="workout_type" type="text" class="form-control" name="workout_type" placeholder="Enter Workout Type">
                     @else
-                        <input id="workout_type" type="text" class="form-control" name="workout_type" value="{{ ucwords(str_replace("_", " ", $workout_type)) }}" required readonly>
+                        <input id="workout_type" type="text" class="form-control" name="workout_type" value="{{ $workout_type }}" readonly required>
                     @endif
                 </div>
             </div>
@@ -271,8 +271,6 @@
                     <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </div>
             </div>
-
-            <input type="hidden" name="workout_type" value={{ ucwords(str_replace('_',' ', $workout_type)) }}>
         </form>
         <div class="spacer-50"></div>
     </div>
