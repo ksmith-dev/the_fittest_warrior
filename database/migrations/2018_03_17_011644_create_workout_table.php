@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkoutReportTable extends Migration
+class CreateWorkoutTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateWorkoutReportTable extends Migration
      */
     public function up()
     {
-        Schema::create('workout_report', function (Blueprint $table) {
+        Schema::create('workout', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('workout_id');
+            $table->integer('user_id');
+            $table->string('training_type')->nullable();
+            $table->string('activity_type')->nullable();
+            $table->string('workout_type')->nullable();
             $table->integer('repetitions')->nullable();
             $table->integer('sets')->nullable();
             $table->double('weight')->nullable();
@@ -24,7 +27,6 @@ class CreateWorkoutReportTable extends Migration
             $table->double('calories_burned')->nullable();
             $table->string('duration')->nullable();
             $table->string('rest')->nullable();
-            $table->string('muscle_groups')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +38,6 @@ class CreateWorkoutReportTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workout_report');
+        Schema::dropIfExists('workout');
     }
 }

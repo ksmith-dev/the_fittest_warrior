@@ -21,93 +21,29 @@ class CreateMuscleGroupTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('muscle_group')->insert(['workout_type' => 'inch_worm', 'muscle_group' => 'abdominal', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'inch_worm', 'muscle_group' => 'biceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'inch_worm', 'muscle_group' => 'forearms', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'inch_worm', 'muscle_group' => 'shoulders', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'inch_worm', 'muscle_group' => 'pectorals', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'inch_worm', 'muscle_group' => 'chest', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'inch_worm', 'muscle_group' => 'core', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'quadriceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'gluts', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'hamstrings', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'calves', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'hip_flexors', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'abdominal', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'obliques', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'biceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'anterior', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'tuck_jump', 'muscle_group' => 'shoulders', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'bear_crawl', 'muscle_group' => 'shoulder', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'bear_crawl', 'muscle_group' => 'abdominal', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'bear_crawl', 'muscle_group' => 'biceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'bear_crawl', 'muscle_group' => 'forearms', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'bear_crawl', 'muscle_group' => 'core', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'quadriceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'gluts', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'hamstrings', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'calves', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'hip_flexors', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'abdominal', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'obliques', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'biceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'anterior', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'mountain_climber', 'muscle_group' => 'shoulders', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'pectoral', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'triceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'biceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'deltoids', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'rhomboids', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'trapezius', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'latissimus_dorsi', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'stair_climb', 'muscle_group' => 'gluts', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'hamstrings', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'quadriceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'abs', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'push_up', 'muscle_group' => 'calves', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'burpees', 'muscle_group' => 'arms', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'burpees', 'muscle_group' => 'chest', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'burpees', 'muscle_group' => 'quads', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'burpees', 'muscle_group' => 'gluts', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'burpees', 'muscle_group' => 'hamstrings', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'burpees', 'muscle_group' => 'abdominal', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'plank', 'muscle_group' => 'transverse_abdominus', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'plank', 'muscle_group' => 'rectus_abdominus', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'plank', 'muscle_group' => 'external_oblique', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'plank', 'muscle_group' => 'gluts', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'lunge', 'muscle_group' => 'lattissimus_dorsi', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'lunge', 'muscle_group' => 'trapezius', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'lunge', 'muscle_group' => 'deltoids', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'lunge', 'muscle_group' => 'pectoral', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'lunge', 'muscle_group' => 'biceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'lunge', 'muscle_group' => 'triceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'squat', 'muscle_group' => 'quadriceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'squat', 'muscle_group' => 'hamstrings', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'squat', 'muscle_group' => 'gluts', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'squat', 'muscle_group' => 'calves', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'dead_lift', 'muscle_group' => 'back', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'dead_lift', 'muscle_group' => 'gluts', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'dead_lift', 'muscle_group' => 'legs', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'side_plank', 'muscle_group' => 'transversus_abdominis', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'side_plank', 'muscle_group' => 'rectus_abdominis', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'side_plank', 'muscle_group' => 'obliques', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'side_plank', 'muscle_group' => 'quadratus_lumborum', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'side_plank', 'muscle_group' => 'abductor', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'crunch', 'muscle_group' => 'rectus_abdominis', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'crunch', 'muscle_group' => 'external_oblique', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'crunch', 'muscle_group' => 'internal_oblique', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => 'brachialis', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => 'brachioradialis', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => 'biceps', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
-//        DB::table('muscle_group')->insert(['workout_type' => 'pull_up', 'muscle_group' => '', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
+        $array = array(
+                'inch_worm' => array('abdominal', 'biceps', 'forearms', 'shoulders', 'pectorals', 'chest', 'core'),
+                'tuck_jump' => array('quadriceps', 'gluts', 'hamstrings', 'calves', 'hip_flexors', 'abdominal', 'obliques', 'biceps', 'anterior', 'shoulders'),
+                'bear_crawl' => array('shoulder', 'abdominal', 'biceps', 'forearms', 'core'),
+                'mountain_climber' => array('quadriceps', 'gluts', 'hamstrings', 'calves', 'hip_flexors', 'abdominal', 'obliques', 'biceps', 'anterior', 'shoulders'),
+                'push_up' => array('pectoral', 'triceps', 'biceps', 'deltoids', 'rhomboids', 'trapezius', 'latissimus_dorsi'),
+                'star_climb'=> array('hip flexors', 'gluts', 'sartorius', 'rectus femoris', 'tensor_fasciae_latae', 'pectineus', 'gluteus medius', 'gluteus maximus', 'quadriceps', 'hamstring', 'calves'),
+                'burpees' => array('arms', 'chest', 'quads', 'gluts', 'hamstrings', 'abdominal'),
+                'plank' => array('transverse_abdominus', 'rectus_abdominus', 'external_oblique', 'gluts'),
+                'lunge' => array('lattissimus_dorsi', 'trapezius', 'deltoids', 'pectoral', 'biceps', 'triceps'),
+                'squat' => array('quadriceps', 'hamstrings', 'gluts', 'calves'),
+                'dead_lift' => array('back', 'gluts', 'legs'),
+                'side_plank' => array('transversus_abdominis', 'rectus_abdominis', 'obliques', 'quadratus_lumborum', 'abductor'),
+                'crunch' => array('rectus_abdominis', 'external_oblique', 'internal_oblique'),
+                'pull_up' => array('brachialis', 'brachioradialis', 'biceps')
+            );
+
+        foreach ($array as $workout_type => $muscle_groups) {
+            foreach ($muscle_groups as $muscle_group) {
+                DB::table('muscle_group')->insert(['workout_type' => $workout_type, 'muscle_group' => $muscle_group, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
+            }
+        }
+
     }
 
     /**

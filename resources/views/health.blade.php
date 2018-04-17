@@ -13,7 +13,7 @@
     <div id="health">
         <a href="{{ url('health/form') }}" class="btn btn-secondary" role="button">add health info</a>
         <div class="spacer-50"></div>
-        @foreach($healths as $health)
+        @foreach($health_collection as $health)
             <div class="col">
                 <div class="row">
                     <div class="table-responsive d-block">

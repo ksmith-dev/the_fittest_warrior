@@ -7,13 +7,6 @@ class Workout extends Model
     const UPDATED_AT = 'updated_at';
 
     protected $table = 'workout';
-    protected $fillable = ['session_id', 'workout_type', 'start_date_time', 'end_date_time'];
+    protected $fillable = ['training_type', 'activity_type', 'workout_type', 'repetitions', 'sets', 'weight', 'weight_units', 'resistance_factor', 'calories_burned', 'duration', 'rest'];
 
-    public function session()
-    {
-        return $this->belongsTo('App\Session');
-    }
-    public function report(){
-        return $this->hasOne('App\WorkoutReport');
-    }
 }

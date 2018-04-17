@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Training;
-use App\Session;
+use App\Activity;
 use App\Workout;
 use App\WorkoutReport;
 use Illuminate\Contracts\Validation\Validator;
@@ -21,19 +21,78 @@ class WorkoutController extends Controller
     protected $redirectTo = '/dashboard';
 
     /**
-     * @param $training_type
-     * @param $session_type
+     * Show the application dashboard fitness tab.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showWorkoutTab() {
+
+        $params['user'] = Auth::user();
+        $params['title'] = 'Workouts';
+
+        $database_workouts = Workout::where('user_id', $params['user']->getAuthIdentifier())->orderBy('created_at')->get();
+        $workouts = array();
+
+        $percentages = array('10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100');
+
+        $status = array('bg-success', 'bg-danger', 'bg-warning');
+
+        foreach ($database_workouts as $workout) {
+            $workouts[$workout->workout_type] = array(
+                'repetitions' => $workout->repetitions,
+                'status' => $status[rand(0,2)],
+                'percentage' => $percentages[rand(0,18)]
+            );
+        }
+
+        return view('workout', ['params' => $params, 'workouts' => $workouts]);
+    }
+
+    /**
+     *
+     * @param $workout_type
+     * @param $workout_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showWorkoutFormView($workout_type, $workout_id = null)
+    {
+        $params['title'] = ucwords(str_replace('_', ' ', $workout_type));
+        $params['workout_type'] = $workout_type;
+
+        $workout = null;
+
+        if (!empty($workout_id)) {
+            $workout = DB::table('workout')->where('id', $workout_id)->first();
+
+            $duration = explode(':', $workout->duration);
+            $rest = explode(':', $workout->rest);
+
+            $workout->duration = array('min' => $duration[0], 'sec' => $duration[1], 'mil' => $duration[2]);
+            $workout->rest = array('min' => $rest[0], 'sec' => $rest[1], 'mil' => $rest[2]);
+        }
+
+        return view('forms.workout', ['params' => $params, 'workout' => $workout]);
+    }
+
+    /**
+     *
      * @param $workout_type
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showWorkoutReportForm($training_type, $session_type, $workout_type)
+    public function showWorkoutEditView($workout_type)
     {
+        $params['user'] = Auth::user();
+        $params['workout_type'] = $workout_type;
 
-        $muscle_groups = DB::table('muscle_group')->where('workout_type', $workout_type)->get();
+        if (!empty($workout_type)) {
+            $workouts = DB::table('workout')->where('workout_type', $workout_type)->get();
 
-        $additional_muscle_groups = array('NECK', 'TRAPS', 'SHOULDERS', 'CHEST', 'BICEPS', 'FOREARMS', 'ABS', 'QUADRICEPS', 'CALVES', 'GLUTS', 'HAMSTRINGS', 'LOWER BACK', 'TRICEPS', 'UPPER BACK');
+            if ($workouts->count() < 1) {
+                $workouts = null;
+            }
+        }
 
-        return view('forms.workout', ['training_type' => $training_type, 'session_type' => $session_type, 'workout_type' => $workout_type, 'muscle_groups' => $muscle_groups, 'additional_muscle_groups' => $additional_muscle_groups]);
+        return view('edit.workouts', ['params' => $params, 'workouts' => $workouts]);
     }
 
     /**
@@ -42,7 +101,7 @@ class WorkoutController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $workout_type)
     {
         validator($request->all())->validate();
 
@@ -103,7 +162,7 @@ class WorkoutController extends Controller
 
         // create session object
         if (!empty($db_session)) {
-            $existing_session = Session::find($db_session->id);
+            $existing_session = Activity::find($db_session->id);
 
             $existing_start_date_time = strtotime($existing_session->start_date_time);
             $existing_start_date_time = date('m/d/Y', $existing_start_date_time);
@@ -123,7 +182,7 @@ class WorkoutController extends Controller
             }
             $existing_session->save();
         } else {
-            $session = new Session;
+            $session = new Activity;
             if (!empty($existing_training)) {
                 $session->training_id = $existing_training->id;
             } else {

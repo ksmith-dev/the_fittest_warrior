@@ -9,6 +9,32 @@ use Illuminate\Contracts\Validation\Validator;
 
 class HealthController extends Controller
 {
+
+    /**
+     * Show the application dashboard health tab.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showHeathTab() {
+
+        $params['title'] = 'Health';
+
+        $health_collection = Health::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('start_date_time')->get();
+
+        return view('health', ['params' => $params, 'health_collection' => $health_collection]);
+    }
+
+    /**
+     * Show the application dashboard health form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showHeathFormView($id = null) {
+
+        return view('forms.health');
+
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *

@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 
 $factory->define(App\Workout::class, function (Faker $faker) {
 
@@ -20,10 +21,22 @@ $factory->define(App\Workout::class, function (Faker $faker) {
         "crunch"
     );
 
+    $workout_type = $workout_types[rand(0, 12)];
+
+    $training_type = DB::table('training_type')->where('workout_type', $workout_type)->first();
+
     return [
-        'session_id' => rand(1,100),
-        'start_date_time' => $faker->date('m/d/Y H:i:s'),
-        'end_date_time' => $faker->date('m/d/Y H:i:s'),
-        'workout_type' => $workout_types[rand(0,12)],
+        'user_id' => rand(1, 10),
+        'training_type' => $training_type->training_type,
+        'activity_type' => null,
+        'workout_type' => $workout_type,
+        'repetitions' => rand(1,100),
+        'sets' => rand(1,10),
+        'weight' => rand(1, 300),
+        'weight_units' => "LBS",
+        'resistance_factor' => 1,
+        'calories_burned' => rand(1,3000),
+        'duration' => rand(10, 60) . ":" . rand(10,60) . ":" . rand(10,60),
+        'rest' => rand(10, 60) . ":" . rand(10,60) . ":" . rand(10,60)
     ];
 });

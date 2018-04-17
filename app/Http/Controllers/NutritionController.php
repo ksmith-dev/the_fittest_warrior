@@ -66,14 +66,37 @@ class NutritionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the application dashboard nutrition tab.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showNutritionTab()
     {
-        //
+        $params['title'] = 'Nutrition';
+
+        $nutrition_collection = Nutrition::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('created_at')->get();
+
+        return view('nutrition', ['params' => $params, 'nutrition_collection' => $nutrition_collection]);
+    }
+
+    /**
+     * Show the application dashboard nutrition form.
+     *
+     * @param $nutrition_id
+     * @return \Illuminate\Http\Response
+     */
+    public function showNutritionFormView($nutrition_id) {
+
+        $params['title'] = 'Nutrition';
+
+        if ($nutrition_id) {
+
+            $nutrition = Nutrition::where('id', $nutrition_id)->orderBy('created_at')->first();
+
+            if ($nutrition->count() < 1) { $nutrition = null; }
+        }
+
+        return view('forms.nutrition', ['params' => $params, 'nutrition' => $nutrition]);
     }
 
     /**
