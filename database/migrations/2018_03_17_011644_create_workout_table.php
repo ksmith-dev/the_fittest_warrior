@@ -16,13 +16,13 @@ class CreateWorkoutTable extends Migration
         Schema::create('workout', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->string('type');
             $table->string('training_type')->nullable();
             $table->string('activity_type')->nullable();
-            $table->string('workout_type')->nullable();
             $table->integer('repetitions')->nullable();
             $table->integer('sets')->nullable();
             $table->double('weight')->nullable();
-            $table->string('weight_units')->nullable();
+            $table->string('weight_unit')->nullable();
             $table->double('resistance_factor')->nullable();
             $table->double('calories_burned')->nullable();
             $table->string('duration')->nullable();

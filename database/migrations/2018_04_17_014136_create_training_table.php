@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,14 +14,14 @@ class CreateTrainingTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('training_type', function (Blueprint $table) {
+        Schema::create('training', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('training_type');
+            $table->string('type');
             $table->string('workout_type')->unique();
             $table->timestamps();
         });
 
-        $training_types = array(
+        $types = array(
             "aerobic" => array('burpees', 'stair_climb', 'tuck_jump', 'inch_worm', 'mountain_climber'),
             "strength" => array('pull_up', 'push_up', 'bench_press', 'military_press', 'plank', 'side_plank', 'bear_crawl', 'lunge', 'squat', 'dead_lift', 'crunch'),
             "intensity" => array('high', 'medium', 'low'),
@@ -30,9 +31,9 @@ class CreateTrainingTypeTable extends Migration
             "balance" => array('foundations')
         );
 
-        foreach ($training_types as $training_type => $workout_types) {
+        foreach ($types as $type => $workout_types) {
             foreach ($workout_types as $workout_type) {
-                DB::table('training_type')->insert(['training_type' => $training_type, 'workout_type' => $workout_type, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
+                DB::table('training')->insert(['type' => $type, 'workout_type' => $workout_type, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
             }
         }
     }
@@ -44,6 +45,6 @@ class CreateTrainingTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('training_type');
+        Schema::dropIfExists('training');
     }
 }

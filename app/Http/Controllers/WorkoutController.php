@@ -56,8 +56,8 @@ class WorkoutController extends Controller
      */
     public function showWorkoutFormView($workout_type, $workout_id = null)
     {
-        $params['title'] = ucwords(str_replace('_', ' ', $workout_type));
-        $params['workout_type'] = $workout_type;
+        $params['title'] = 'Add / Edit';
+        $params['workout_type'] = ucwords(str_replace('_', ' ', $workout_type));
 
         $workout = null;
 
@@ -85,7 +85,7 @@ class WorkoutController extends Controller
         $params['workout_type'] = $workout_type;
 
         if (!empty($workout_type)) {
-            $workouts = DB::table('workout')->where('workout_type', $workout_type)->get();
+            $workouts = DB::table('workout')->where('type', $workout_type)->get();
 
             if ($workouts->count() < 1) {
                 $workouts = null;
@@ -101,140 +101,42 @@ class WorkoutController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $workout_type)
+    public function store(Request $request)
     {
-        validator($request->all())->validate();
-
         $params = $request->all();
 
-        foreach ($params as $param) {
-            if (is_array($param)) {
-                foreach ($param as $value) {
-                    $value = strtolower(str_replace(' ', '_', $value));
-                }
-            } else {
-                $param = strtolower(str_replace(' ', '_', $param));
-            }
-        }
+        validator($params);
 
-        $current_start_date_time = strtotime($params['start_date_time']);
-        $current_start_date_time = date('m/d/Y', $current_start_date_time);
+        $workout_type = strtolower(str_replace(' ', '_', $params['workout_type']));
 
-        $current_end_date_time = strtotime($params['end_date_time']);
-        $current_end_date_time = date('m/d/Y', $current_end_date_time);
-
-        $db_training = DB::table('training')->where([ ['user_id', '=', Auth::user()->getAuthIdentifier()], ['training_type', '=', $params['training_type']], ])->get()->first();
-
-        if (!empty($db_training)) {
-            $db_session = DB::table('session')->where([ ['session_type', '=', $params['session_type']], ['training_id', '=', $db_training->id], ])->get()->first();
-        }
-
-        // create training object
-        if (!empty($db_training)) {
-            $existing_training = Training::find($db_training->id);
-
-            $existing_start_date_time = strtotime($existing_training->start_date_time);
-            $existing_start_date_time = date('m/d/Y', $existing_start_date_time);
-
-            $existing_end_date_time = strtotime($existing_training->end_date_time);
-            $existing_end_date_time = date('m/d/Y', $existing_end_date_time);
-
-            if ($existing_start_date_time > $current_start_date_time) {
-                // do nothing
-            } else {
-                $existing_training->start_date_time = $current_start_date_time;
-            }
-            if ($existing_end_date_time < $current_end_date_time) {
-                // do nothing
-            } else {
-                $existing_training->end_date_time = $current_end_date_time;
-            }
-            $existing_training->save();
-        } else {
-            $training = new Training;
-            $training->user_id = Auth::user()->getAuthIdentifier();
-            $training->training_type = $params['training_type'];
-            $training->start_date_time = $current_start_date_time;
-            $training->end_date_time = $current_end_date_time;
-            $training->active_status = 1;
-            $training->save();
-        }
-
-        // create session object
-        if (!empty($db_session)) {
-            $existing_session = Activity::find($db_session->id);
-
-            $existing_start_date_time = strtotime($existing_session->start_date_time);
-            $existing_start_date_time = date('m/d/Y', $existing_start_date_time);
-
-            $existing_end_date_time = strtotime($existing_session->end_date_time);
-            $existing_end_date_time = date('m/d/Y', $existing_end_date_time);
-
-            if ($existing_start_date_time < $current_start_date_time) {
-                // do nothing
-            } else {
-                $existing_session->start_date_time = $current_start_date_time;
-            }
-            if ($existing_end_date_time < $current_end_date_time) {
-                // do nothing
-            } else {
-                $existing_session->end_date_time = $current_end_date_time;
-            }
-            $existing_session->save();
-        } else {
-            $session = new Activity;
-            if (!empty($existing_training)) {
-                $session->training_id = $existing_training->id;
-            } else {
-                $session->training_id = $training->id;
-            }
-            $session->session_type = $params['session_type'];
-            $session->start_date_time = $current_start_date_time;
-            $session->end_date_time = $current_end_date_time;
-            $session->save();
-        }
-
-        $nextId = DB::table('workout')->max('id') + 1;
+        $training = DB::table('training')->where('workout_type', $workout_type)->first();
 
         $workout = new Workout;
-        $workout->id = $nextId;
-        if (!empty($existing_session)) {
-            $workout->session_id = $existing_session->id;
-        } else {
-            $workout->session_id = $session->id;
-        }
-        $workout->workout_type = $params['workout_type'];
-        $workout->start_date_time = $current_start_date_time;
-        $workout->end_date_time = $current_end_date_time;
+
+        if (!empty($params['id'])) { $workout->id = $params['id']; }
+
+        $workout->user_id = Auth::user()->getAuthIdentifier();
+        $workout->training_type = $training->type;
+        $workout->activity_type = empty($params['activity_type']) ? null : $params['activity_type'];
+        $workout->type = strtolower(str_replace(' ', '_', $params['workout_type']));
+        $workout->repetitions = empty($params['repetitions']) ? null : $params['repetitions'];
+        $workout->sets = empty($params['sets']) ? null : $params['sets'];
+
+        empty($params['duration_min']) ? $duration_min = '00' : $duration_min = $params['duration_min'];
+        empty($params['duration_sec']) ? $duration_sec = '00' : $duration_sec = $params['duration_sec'];
+        empty($params['duration_mil']) ? $duration_mil = '00' : $duration_mil = $params['duration_mil'];
+        $workout->duration = $duration_min . ':' . $duration_sec . ':' . $duration_mil;
+
+        empty($params['rest_min']) ? $rest_min = '00' : $rest_min = $params['rest_min'];
+        empty($params['rest_sec']) ? $rest_sec = '00' : $rest_sec = $params['rest_sec'];
+        empty($params['rest_mil']) ? $rest_mil = '00' : $rest_mil = $params['rest_mil'];
+        $workout->rest = $rest_min . ':' . $rest_sec . ':' . $rest_mil;
+
+        $workout->calories_burned = empty($params['calories_burned']) ? null : $params['calories_burned'];
+        $workout->weight = empty($params['weight']) ? null : $params['weight'];
+        $workout->weight_unit = "lbs";
+
         $workout->save();
-
-        $workout_report = new WorkoutReport;
-        $workout_report->workout_id = $workout->id;
-        $workout_report->repetitions = $params['repetitions'];
-        $workout_report->resistance_factor = $params['resistance_factor'];
-        $workout_report->duration = $params['duration_min'] . ':' . $params['duration_sec'] . ':' . $params['duration_mil'];
-        $workout_report->sets = $params['sets'];
-        $workout_report->rest = $params['rest_min'] . ':' . $params['rest_sec'] . ':' . $params['rest_mil'];
-        $workout_report->calories_burned = $params['calories'];
-        $workout_report->weight = $params['weight'];
-
-        $muscle_groups = null;
-
-        $index = 0;
-
-        foreach ($params['muscle_groups'] as $muscle_group)
-        {
-            if (++$index == sizeof($params['muscle_groups'])) {
-                $muscle_groups .= strtoupper(str_replace(' ', '_', $muscle_group));
-            } else {
-                $muscle_groups .= strtoupper(str_replace(' ', '_', $muscle_group)) . ', ';
-            }
-        }
-
-        $workout_report->muscle_groups = $muscle_groups;
-        //TODO if units is passed inside of input split and add here
-        $workout_report->weight_units = 'lbs';
-        $workout_report->save();
 
         return redirect('dashboard');
     }

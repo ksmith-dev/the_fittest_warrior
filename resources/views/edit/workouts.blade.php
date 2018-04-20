@@ -28,13 +28,13 @@
                         <thead>
                         <tbody>
                         @foreach($workouts as $workout)
-                            @if($workout->user_id == $member->id)
-                                <tr class='clickable-row' data-href='/workout/form/{{ $workout->workout_type }}/{{ $workout->id }}'>
+                            @if($workout->user_id == $params['user']->id)
+                                <tr class='clickable-row' data-href='/workout/form/{{ $workout->type }}/{{ $workout->id }}'>
                                     <th scope="row">{{ str_replace('_', ' ', $workout->training_type) }}</th>
-                                    <th>{{ str_replace('_', ' ', $workout->workout_type) }}</th>
+                                    <th>{{ str_replace('_', ' ', $workout->type) }}</th>
                                     <td>{{ date('d-m-Y', strtotime($workout->created_at)) }}</td>
                                     <td>{{ $workout->duration }}</td>
-                                    <td>{{ $workout->weight }} {{ $workout->weight_units }}</td>
+                                    <td>{{ $workout->weight }} {{ $workout->weight_unit }}</td>
                                     <td>{{ number_format($workout->calories_burned, 2, '.', ',') }}</td>
                                 </tr>
                             @endif
@@ -43,7 +43,7 @@
                     </table>
                 </div>
             @else
-                <h1 style="width: 90%;">Sorry {{ $member->first_name }}, we did not find any {{ str_replace('_', ' ', $params['workout_type']) }}'s  to display!</h1>
+                <h1 style="width: 90%;">Sorry {{ $params['user']->first_name }}, we did not find any {{ str_replace('_', ' ', $params['workout_type']) }}'s  to display!</h1>
                 <span class="spacer-50"></span>
                 <p style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some {{ str_replace('_', ' ', $params['workout_type']) }} records please start by clicking below.
                     <br>

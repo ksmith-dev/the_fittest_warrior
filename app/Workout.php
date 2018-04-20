@@ -7,6 +7,18 @@ class Workout extends Model
     const UPDATED_AT = 'updated_at';
 
     protected $table = 'workout';
-    protected $fillable = ['training_type', 'activity_type', 'workout_type', 'repetitions', 'sets', 'weight', 'weight_units', 'resistance_factor', 'calories_burned', 'duration', 'rest'];
+    protected $fillable = [
+        'type',
+        'training_type',
+        'activity_type',
+        'repetitions',
+        'sets',
+        'weight',
+        'weight_unit',
+        'resistance_factor',
+        'calories_burned',
+        'duration',
+        'rest'
+    ];
 
 }

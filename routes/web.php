@@ -27,6 +27,7 @@ Route::get('shop', 'ShopController@index');
 
 Auth::routes();
 
+Route::post('workout/report/store/{workout_type}/{id}', 'WorkoutController@store');
 Route::post('workout/report/store/{workout_type}', 'WorkoutController@store');
 Route::post('nutrition/save', 'NutritionController@store');
 Route::post('health/save', 'HealthController@store');

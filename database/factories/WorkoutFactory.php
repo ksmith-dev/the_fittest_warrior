@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 $factory->define(App\Workout::class, function (Faker $faker) {
 
-    $workout_types = array(
+    $types = array(
         "inch_worm",
         "tuck_jump",
         "bear_crawl",
@@ -21,19 +21,19 @@ $factory->define(App\Workout::class, function (Faker $faker) {
         "crunch"
     );
 
-    $workout_type = $workout_types[rand(0, 12)];
+    $type = $types[rand(0, 12)];
 
-    $training_type = DB::table('training_type')->where('workout_type', $workout_type)->first();
+    $training = DB::table('training')->where('workout_type', $type)->first();
 
     return [
         'user_id' => rand(1, 10),
-        'training_type' => $training_type->training_type,
+        'training_type' => $training->type,
         'activity_type' => null,
-        'workout_type' => $workout_type,
+        'type' => $type,
         'repetitions' => rand(1,100),
         'sets' => rand(1,10),
         'weight' => rand(1, 300),
-        'weight_units' => "LBS",
+        'weight_unit' => "LBS",
         'resistance_factor' => 1,
         'calories_burned' => rand(1,3000),
         'duration' => rand(10, 60) . ":" . rand(10,60) . ":" . rand(10,60),
