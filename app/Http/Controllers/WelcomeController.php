@@ -9,16 +9,6 @@ class WelcomeController extends Controller
     private $NEWS_ARTICLE_COUNT = 2;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Displays the welcome page for The Fittest Warrior
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
