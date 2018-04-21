@@ -125,7 +125,7 @@ h4
 {
     font-style: italic;
 }
-#dashboard, #form-workout, #fitness, #health, #nutrition, #form-nutrition, #about, #shop, #workouts
+#dashboard, #form-workout, #fitness, #health, #nutrition, #form-nutrition, #about, #shop, #workouts, #workout
 {
     padding: 25px;
     color: #343a40;
@@ -160,8 +160,8 @@ h4
 
 #banner-advertisement {
     margin: 0 auto;
-    background: #000000 url("../images/ads/ToughMudderBanner.jpg") no-repeat center top;
-    height: 350px;
+    background: #000000 url("http://via.placeholder.com/1000x200") no-repeat center top;
+    height: 200px;
 }
 
 #bruce-lee-story {
@@ -235,4 +235,25 @@ input[type="checkbox"][readonly], .label_readonly {
     color: #4e555b;
     font-size: 2em;
     font-weight: bold;
+}
+
+#workout {
+    padding-top: 50px;
+}
+
+#workout ul {
+    margin-top: 20px;
+}
+
+#workout ul li {
+    list-style: none;
+}
+
+.workout-list-item {
+    border-top: 1px solid #1b1e21;
+    padding: 15px 0;
+}
+
+#workout-video {
+    margin: auto;
 }

@@ -45,7 +45,7 @@ class WorkoutController extends Controller
             );
         }
 
-        return view('workout', ['params' => $params, 'workouts' => $workouts]);
+        return view('workouts', ['params' => $params, 'workouts' => $workouts]);
     }
 
     /**
@@ -140,6 +140,20 @@ class WorkoutController extends Controller
         $workout->save();
 
         return redirect('dashboard');
+    }
+
+    /**
+     * Show individual workout
+     *
+     *
+     */
+    public function showWorkoutView($workout_id) {
+
+        $params['title'] = 'Workout';
+
+        $workout = Workout::find($workout_id);
+
+        return view('workout', ['params' => $params, 'workout' => $workout]);
     }
 
     /**
