@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('head')
     @parent
-        <title>{{ config('app.name', 'The Fittest Warrior') }} | Home</title>
 @endsection
 @section('navigation')
     @parent
@@ -134,9 +133,7 @@
                                     </div>
 
                                     <button type="submit" class="btn logButton">Create Account</button>
-                                    <small id="emailHelp" class="form-text text-muted">We'll never share your
-                                        information with anyone else.
-                                    </small>
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else. </small>
                                 </form>
                             </div>
                         </div>

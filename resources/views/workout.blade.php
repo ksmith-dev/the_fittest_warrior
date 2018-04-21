@@ -13,7 +13,11 @@
             <div class="col">
                 <h1>WORKOUT</h1>
                 <div class="spacer-20"></div>
-                <h3>TRAINING TYPE - {{ strtoupper($workout['training_type']) }}</h3>
+                @if(empty($workout['training_type']))
+                    <h3>TRAINING TYPE - UNKNOWN }}</h3>
+                @else
+                    <h3>TRAINING TYPE - {{ strtoupper($workout['training_type']) }}</h3>
+                @endif
                 <ul>
                     @if(!empty($workout['type']))
                         <li class="workout-list-item"><b>TYPE:</b> {{ strtoupper(str_replace('_', ' ', $workout['type'])) }}</li>
