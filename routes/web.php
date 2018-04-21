@@ -27,10 +27,9 @@ Route::get('shop', 'ShopController@index');
 
 Auth::routes();
 
-Route::post('workout/report/store/{workout_type}/{id}', 'WorkoutController@store');
 Route::post('workout/report/store/{workout_type}', 'WorkoutController@store');
-Route::post('nutrition/save', 'NutritionController@store');
-Route::post('health/save', 'HealthController@store');
+Route::post('nutrition/store', 'NutritionController@store');
+Route::post('health/store', 'HealthController@store');
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('workout', 'WorkoutController@showWorkoutTab');
@@ -43,6 +42,7 @@ Route::get('workout/edit/{workout_type}', 'WorkoutController@showWorkoutEditView
 Route::get('nutrition/form', 'NutritionController@showNutritionFormView');
 Route::get('nutrition/form/{nutrition_id}', 'NutritionController@showNutritionFormView');
 Route::get('health/form', 'HealthController@showHealthFormView');
+Route::get('health/form/{health_id}', 'HealthController@showHealthFormView');
 
 Route::get('community', 'CommunityController@index');
 

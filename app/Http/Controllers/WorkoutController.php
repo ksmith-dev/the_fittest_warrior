@@ -57,12 +57,15 @@ class WorkoutController extends Controller
     public function showWorkoutFormView($workout_type, $workout_id = null)
     {
         $params['title'] = 'Add / Edit';
-        $params['workout_type'] = ucwords(str_replace('_', ' ', $workout_type));
+        $params['workout_type'] = $workout_type;
 
         $workout = null;
 
         if (!empty($workout_id)) {
-            $workout = DB::table('workout')->where('id', $workout_id)->first();
+
+            $params['workout_id'] = $workout_id;
+
+            $workout = Workout::find($workout_id);
 
             $duration = explode(':', $workout->duration);
             $rest = explode(':', $workout->rest);
@@ -103,37 +106,35 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
-        $params = $request->all();
+        $request = $request->all();
 
-        validator($params);
+        validator($request);
 
-        $workout_type = strtolower(str_replace(' ', '_', $params['workout_type']));
+        $workout_type = strtolower(str_replace(' ', '_', $request['workout_type']));
 
         $training = DB::table('training')->where('workout_type', $workout_type)->first();
 
-        $workout = new Workout;
-
-        if (!empty($params['id'])) { $workout->id = $params['id']; }
+        if (empty($request['workout_id'])) { $workout = new Workout; } else { $workout = Workout::find($request['workout_id']); }
 
         $workout->user_id = Auth::user()->getAuthIdentifier();
         $workout->training_type = $training->type;
-        $workout->activity_type = empty($params['activity_type']) ? null : $params['activity_type'];
-        $workout->type = strtolower(str_replace(' ', '_', $params['workout_type']));
-        $workout->repetitions = empty($params['repetitions']) ? null : $params['repetitions'];
-        $workout->sets = empty($params['sets']) ? null : $params['sets'];
+        $workout->activity_type = empty($request['activity_type']) ? null : $request['activity_type'];
+        $workout->type = strtolower(str_replace(' ', '_', $request['workout_type']));
+        $workout->repetitions = empty($request['repetitions']) ? null : $request['repetitions'];
+        $workout->sets = empty($request['sets']) ? null : $request['sets'];
 
-        empty($params['duration_min']) ? $duration_min = '00' : $duration_min = $params['duration_min'];
-        empty($params['duration_sec']) ? $duration_sec = '00' : $duration_sec = $params['duration_sec'];
-        empty($params['duration_mil']) ? $duration_mil = '00' : $duration_mil = $params['duration_mil'];
+        empty($request['duration_min']) ? $duration_min = '00' : $duration_min = $request['duration_min'];
+        empty($request['duration_sec']) ? $duration_sec = '00' : $duration_sec = $request['duration_sec'];
+        empty($request['duration_mil']) ? $duration_mil = '00' : $duration_mil = $request['duration_mil'];
         $workout->duration = $duration_min . ':' . $duration_sec . ':' . $duration_mil;
 
-        empty($params['rest_min']) ? $rest_min = '00' : $rest_min = $params['rest_min'];
-        empty($params['rest_sec']) ? $rest_sec = '00' : $rest_sec = $params['rest_sec'];
-        empty($params['rest_mil']) ? $rest_mil = '00' : $rest_mil = $params['rest_mil'];
+        empty($request['rest_min']) ? $rest_min = '00' : $rest_min = $request['rest_min'];
+        empty($request['rest_sec']) ? $rest_sec = '00' : $rest_sec = $request['rest_sec'];
+        empty($request['rest_mil']) ? $rest_mil = '00' : $rest_mil = $request['rest_mil'];
         $workout->rest = $rest_min . ':' . $rest_sec . ':' . $rest_mil;
 
-        $workout->calories_burned = empty($params['calories_burned']) ? null : $params['calories_burned'];
-        $workout->weight = empty($params['weight']) ? null : $params['weight'];
+        $workout->calories_burned = empty($request['calories_burned']) ? null : $request['calories_burned'];
+        $workout->weight = empty($request['weight']) ? null : $request['weight'];
         $workout->weight_unit = "lbs";
 
         $workout->save();

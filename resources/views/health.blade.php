@@ -27,7 +27,7 @@
                             <tbody>
                             <th scope="row">{{ date('m/d/Y H:i:s', strtotime($health->start_date_time)) }}</th>
                             <th scope="row">{{ date('m/d/Y H:i:s', strtotime($health->end_date_time)) }}</th>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>LDL Cholesterol</td>
                                 <td>{{ $health->ldl_cholesterol }}</td>
                                 <td>
@@ -36,7 +36,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>Fat Percentage</td>
                                 <td>{{ $health->fat_percentage }}</td>
                                 <td>
@@ -45,7 +45,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>Systolic Blood Pressure</td>
                                 <td>{{ $health->systolic_blood_pressure }}</td>
                                 <td>
@@ -54,7 +54,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>Systolic Blood Pressure</td>
                                 <td>{{ $health->diastolic_blood_pressure }}</td>
                                 <td>
@@ -63,7 +63,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>HDL Cholesterol</td>
                                 <td>{{ $health->hdl_cholesterol }}</td>
                                 <td>

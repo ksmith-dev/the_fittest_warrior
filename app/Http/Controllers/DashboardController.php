@@ -71,7 +71,7 @@ class DashboardController extends Controller
             }
         }
 
-        $workouts = Workout::where('user_id', $params['user']->getAuthIdentifier())->orderBy('created_at')->limit(15)->get();
+        $workouts = Workout::where('user_id', $params['user']->getAuthIdentifier())->orderBy('created_at', 'desc')->limit(15)->get();
 
         return view('dashboard', [ 'params' => $params, 'best_weight' => $best_weight, 'best_time' => $best_time, 'workouts' => $workouts]);
     }

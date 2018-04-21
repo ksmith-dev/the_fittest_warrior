@@ -61,10 +61,10 @@
                             <tr class="clickable-row" data-href="/workout/form/{{ $workout['type'] }}/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <th class="text-center">{{ $workout['training_type'] }}</th>
                                 <th class="text-center">{{ str_replace('_', ' ', $workout['type']) }}</th>
-                                <td class="text-center">{{ date('d-m-Y', strtotime($workout['created_at'])) }}</td>
+                                <td class="text-center">{{ date('d/m/Y', strtotime($workout['created_at'])) }}</td>
                                 <td class="text-center">{{ $workout['duration'] }}</td>
                                 <td class="text-center">{{ $workout['rest'] }}</td>
-                                <td class="text-center">{{ $workout['weight'] }}</td>
+                                <td class="text-center">{{ $workout['weight'] }} {{ $workout['weight_unit'] }}</td>
                                 <td class="text-center">{{ $workout['repetitions'] }}</td>
                             </tr>
                         @endforeach
@@ -91,10 +91,10 @@
                             <tr class="clickable-row" data-href="/workout/form/{{ $workout['type'] }}/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <th scope="row" class="text-center">{{ $workout['training_type'] }}</th>
                                 <th class="text-center">{{ str_replace('_', ' ', $workout['type']) }}</th>
-                                <td class="text-center">{{ date('d-m-Y', strtotime($workout['created_at'])) }}</td>
+                                <td class="text-center">{{ date('d/m/Y', strtotime($workout['created_at'])) }}</td>
                                 <td class="text-center">{{ $workout['duration'] }}</td>
                                 <td class="text-center">{{ $workout['rest'] }}</td>
-                                <td class="text-center">{{ $workout['weight'] }}</td>
+                                <td class="text-center">{{ $workout['weight'] }} {{ $workout['weight_unit'] }}</td>
                                 <td class="text-center">{{ $workout['repetitions'] }}</td>
                             </tr>
                         @endforeach
@@ -126,10 +126,10 @@
                                 <tr class="clickable-row" data-href="/workout/form/{{ $workout['type'] }}/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <th scope="row" class="text-center">{{ str_replace('_', ' ', $workout['training_type']) }}</th>
                                     <th class="text-center">{{ str_replace('_', ' ', $workout['type']) }}</th>
-                                    <td class="text-center">{{ date('d-m-Y', strtotime($workout['created_at'])) }}</td>
+                                    <td class="text-center">{{ date('d/m/Y', strtotime($workout['created_at'])) }}</td>
                                     <td class="text-center">{{ $workout['duration'] }}</td>
                                     <td class="text-center">{{ $workout['rest'] }}</td>
-                                    <td class="text-center">{{ $workout['weight'] }} LBS</td>
+                                    <td class="text-center">{{ $workout['weight'] }} {{ $workout['weight_unit'] }}</td>
                                     <td class="text-center">{{ $workout['repetitions'] }}</td>
                                 </tr>
                             @endif

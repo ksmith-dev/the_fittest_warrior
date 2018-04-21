@@ -18,24 +18,24 @@
                     <table class="table table-sm table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">TRAINING</th>
-                            <th scope="col">WORKOUT</th>
-                            <th scope="col">DATE CREATED</th>
-                            <th scope="col">DURATION</th>
-                            <th scope="col">WEIGHT</th>
-                            <th scope="col">CALORIES</th>
+                            <th scope="col" class="text-center">TRAINING</th>
+                            <th scope="col" class="text-center">WORKOUT</th>
+                            <th scope="col" class="text-center">DATE CREATED</th>
+                            <th scope="col" class="text-center">DURATION</th>
+                            <th scope="col" class="text-center">WEIGHT</th>
+                            <th scope="col" class="text-center">REPETITIONS</th>
                         </tr>
                         <thead>
                         <tbody>
                         @foreach($workouts as $workout)
                             @if($workout->user_id == $params['user']->id)
                                 <tr class='clickable-row' data-href='/workout/form/{{ $workout->type }}/{{ $workout->id }}'>
-                                    <th scope="row">{{ str_replace('_', ' ', $workout->training_type) }}</th>
-                                    <th>{{ str_replace('_', ' ', $workout->type) }}</th>
-                                    <td>{{ date('d-m-Y', strtotime($workout->created_at)) }}</td>
-                                    <td>{{ $workout->duration }}</td>
-                                    <td>{{ $workout->weight }} {{ $workout->weight_unit }}</td>
-                                    <td>{{ number_format($workout->calories_burned, 2, '.', ',') }}</td>
+                                    <th scope="row" class="text-center">{{ str_replace('_', ' ', $workout->training_type) }}</th>
+                                    <th class="text-center">{{ str_replace('_', ' ', $workout->type) }}</th>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($workout->created_at)) }}</td>
+                                    <td class="text-center">{{ $workout->duration }}</td>
+                                    <td class="text-center">{{ $workout->weight }} {{ $workout->weight_unit }}</td>
+                                    <td class="text-center">{{ $workout->repetitions }}</td>
                                 </tr>
                             @endif
                         @endforeach

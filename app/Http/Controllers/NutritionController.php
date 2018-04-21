@@ -9,26 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class NutritionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,26 +18,27 @@ class NutritionController extends Controller
     {
         validator($request->all())->validate();
 
-        $params = $request->all();
+        $request = $request->all();
 
-        $current_start_date_time = strtotime($params['start_date_time']);
+        $current_start_date_time = strtotime($request['start_date_time']);
         $current_start_date_time = date('m/d/Y H:i:s', $current_start_date_time);
 
-        $current_end_date_time = strtotime($params['end_date_time']);
+        $current_end_date_time = strtotime($request['end_date_time']);
         $current_end_date_time = date('m/d/Y H:i:s', $current_end_date_time);
 
-        $nutrition = new Nutrition;
+        if (empty($request['nutrition_id'])) { $nutrition = new Nutrition; } else { $nutrition = Nutrition::find($request['nutrition_id']); }
+
         $nutrition->user_id = Auth::user()->getAuthIdentifier();
-        $nutrition->portion_size = $params['portion_size'];
-        $nutrition->gram_protein = $params['gram_protein'];
-        $nutrition->gram_fat = $params['gram_fat'];
-        $nutrition->gram_saturated_fat = $params['gram_saturated_fat'];
-        $nutrition->cholesterol = $params['cholesterol'];
-        $nutrition->carbohydrates = $params['carbohydrates'];
-        $nutrition->sodium = $params['sodium'];
-        $nutrition->sugars = $params['sugars'];
-        $nutrition->fiber = $params['fiber'];
-        $nutrition->calories = $params['calories'];
+        $nutrition->portion_size = $request['portion_size'];
+        $nutrition->gram_protein = $request['gram_protein'];
+        $nutrition->gram_fat = $request['gram_fat'];
+        $nutrition->gram_saturated_fat = $request['gram_saturated_fat'];
+        $nutrition->cholesterol = $request['cholesterol'];
+        $nutrition->carbohydrates = $request['carbohydrates'];
+        $nutrition->sodium = $request['sodium'];
+        $nutrition->sugars = $request['sugars'];
+        $nutrition->fiber = $request['fiber'];
+        $nutrition->calories = $request['calories'];
         $nutrition->start_date_time = $current_start_date_time;
         $nutrition->end_date_time = $current_end_date_time;
         $nutrition->save();
@@ -88,38 +69,16 @@ class NutritionController extends Controller
     public function showNutritionFormView($nutrition_id) {
 
         $params['title'] = 'Nutrition';
+        $params['nutrition_id'] = $nutrition_id;
 
         if ($nutrition_id) {
 
-            $nutrition = Nutrition::where('id', $nutrition_id)->orderBy('created_at')->first();
+            $nutrition = Nutrition::where('id', $nutrition_id)->orderBy('created_at', 'desc')->first();
 
             if ($nutrition->count() < 1) { $nutrition = null; }
         }
 
         return view('forms.nutrition', ['params' => $params, 'nutrition' => $nutrition]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

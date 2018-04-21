@@ -15,6 +15,9 @@
         <div class="spacer-50"></div>
         <form method="POST" action="{{ url('workout/report/store/' . $params['workout_type']) }}">
             @csrf
+            @if(!empty($params['workout_id']))
+                <input type="hidden" name="workout_id" value="{{ $params['workout_id'] }}">
+            @endif
             <div class="form-group row">
                 <label for="workout_type" class="col-md-4 col-form-label text-md-right">{{ __('Workout Type') }}</label>
 

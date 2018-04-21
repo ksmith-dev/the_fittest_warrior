@@ -33,7 +33,7 @@ $factory->define(App\Workout::class, function (Faker $faker) {
         'repetitions' => rand(1,100),
         'sets' => rand(1,10),
         'weight' => rand(1, 300),
-        'weight_unit' => "LBS",
+        'weight_unit' => "lbs",
         'resistance_factor' => 1,
         'calories_burned' => rand(1,3000),
         'duration' => rand(10, 60) . ":" . rand(10,60) . ":" . rand(10,60),

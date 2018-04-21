@@ -13,11 +13,13 @@
     <div id="form-nutrition">
         <h2>Nutrition Information</h2>
         <div class="spacer-50"></div>
-        <form method="POST" action="{{ url('nutrition/save') }}">
+        <form method="POST" action="{{ url('nutrition/store') }}">
             @csrf
+            @if(!empty($params['nutrition_id']))
+                <input type="hidden" name="nutrition_id" value="{{ $params['nutrition_id'] }}">
+            @endif
             <div class="form-group row">
-                <label for="portion_size"
-                       class="col-md-4 col-form-label text-md-right">{{ __('Portion Size') }}</label>
+                <label for="portion_size" class="col-md-4 col-form-label text-md-right">{{ __('Portion Size') }}</label>
 
                 <div class="col-md-6">
                     @if(empty($nutrition->portion_size))
