@@ -12,7 +12,7 @@
     <div class="spacer-50"></div>
     <div class="row">
         <div class="col">
-            @if($workouts != null)
+            @if(!empty($workouts))
                 <div class="table-responsive d-none d-sm-block">
                     <h4>Workouts</h4>
                     <table class="table table-sm table-hover">
@@ -30,7 +30,7 @@
                         @foreach($workouts as $workout)
                             @if($workout->user_id == $params['user']->id)
                                 <tr class='clickable-row' data-href='/workout/form/{{ $workout->type }}/{{ $workout->id }}' data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <th scope="row" class="text-center">{{ str_replace('_', ' ', $workout->training_type) }}</th>
+                                    <th scope="row" class="text-center">{{ str_replace('_', ' ', $workout->training) }}</th>
                                     <th class="text-center">{{ str_replace('_', ' ', $workout->type) }}</th>
                                     <td class="text-center">{{ date('d-m-Y', strtotime($workout->created_at)) }}</td>
                                     <td class="text-center">{{ $workout->duration }}</td>
@@ -53,7 +53,9 @@
                     <button type="button" class="btn btn-secondary back">go back</button>
                 </p>
                 <div class="spacer-50"></div>
-                <a title="By Matthew Inman [CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Tumbeasts_sign1.png"><img width="256" alt="Tumbeasts sign1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Tumbeasts_sign1.png/256px-Tumbeasts_sign1.png"></a>
+                <a title="By Matthew Inman [CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Tumbeasts_sign1.png">
+                    <img id="omg-404" width="256" alt="Tumbeasts sign1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Tumbeasts_sign1.png/256px-Tumbeasts_sign1.png">
+                </a>
             @endif
         </div>
     </div>

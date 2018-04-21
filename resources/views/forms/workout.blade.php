@@ -35,17 +35,23 @@
                 <div class="col-md-6">
                     <div class="form-inline">
                         @if(empty($workout->duration))
-                            <input class="col form-control {{ $errors->has('duration_min') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="duration_min" value="{{ old('duration_min')  || '0' }}" placeholder="min" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('duration_sec') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="duration_sec" value="{{ old('duration_sec')  || '0' }}" placeholder="sec" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('duration_mil') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="duration_mil" value="{{ old('duration_mil') || '0' }}" placeholder="millisecond" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
+                            <input class="col form-control {{ $errors->has('duration_min') ? ' is-invalid' : '' }} duration" type="number" min="0" max="60" name="duration_min" value="{{ old('duration_min')  || '0' }}" placeholder="min" required>
+                            <div class="col-1" style="padding: 4px;">min</div>
+                            <input id="duration_sec" class="col form-control {{ $errors->has('duration_sec') ? ' is-invalid' : '' }} duration" type="number" min="0" max="60" name="duration_sec" value="{{ old('duration_sec')  || '0' }}" placeholder="sec" required>
+                            <div class="col-1" style="padding: 4px;">sec</div>
+                            <input id="duration_mil" class="col form-control {{ $errors->has('duration_mil') ? ' is-invalid' : '' }} duration" type="number" min="0" max="60" name="duration_mil" value="{{ old('duration_mil') || '0' }}" placeholder="millisecond" required>
+                            <div class="col-1" style="padding: 4px;">mil</div>
+                            <div class="invalid-feedback">please provide a valid time input</div>
+                            <div id="duration-valid" class="valid-feedback">looks good!</div>
                         @else
-                            <input class="col form-control {{ $errors->has('duration_min') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="duration_min" value="{{ $workout->duration['min'] }}" placeholder="min" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('duration_sec') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="duration_sec" value="{{ $workout->duration['sec'] }}" placeholder="sec" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('duration_mil') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="duration_mil" value="{{ $workout->duration['mil'] }}" placeholder="millisecond" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
+                            <input id="duration_min" class="col form-control {{ $errors->has('duration_min') ? ' is-invalid' : '' }} duration" type="number" min="0" max="60" name="duration_min" value="{{ $workout->duration['min'] }}" placeholder="min" required>
+                            <div class="col-1" style="padding: 4px;">min</div>
+                            <input id="duration_sec" class="col form-control {{ $errors->has('duration_sec') ? ' is-invalid' : '' }} duration" type="number" min="0" max="60" name="duration_sec" value="{{ $workout->duration['sec'] }}" placeholder="sec" required>
+                            <div class="col-1" style="padding: 4px;">sec</div>
+                            <input id="duration_mil" class="col form-control {{ $errors->has('duration_mil') ? ' is-invalid' : '' }} duration" type="number" min="0" max="60" name="duration_mil" value="{{ $workout->duration['mil'] }}" placeholder="millisecond" required>
+                            <div class="col-1" style="padding: 4px;">mil</div>
+                            <div class="invalid-feedback">please provide a valid time input</div>
+                            <div id="duration-valid" class="valid-feedback">looks good!</div>
                         @endif
                     </div>
                     @if ($errors->has('duration_min'))
@@ -71,17 +77,23 @@
                 <div class="col-md-6">
                     <div class="form-inline">
                         @if(empty($workout->rest))
-                            <input class="col form-control {{ $errors->has('rest_min') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="rest_min" value="{{ old('rest_min') }}" placeholder="min" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('rest_sec') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="rest_sec" value="{{ old('rest_sec') }}" placeholder="sec" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('rest_mil') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="rest_mil" value="{{ old('rest_mil') }}" placeholder="millisecond" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
+                            <input class="col form-control {{ $errors->has('rest_min') ? ' is-invalid' : '' }} rest" type="number" min="0" max="60" name="rest_min" value="{{ old('rest_min') }}" placeholder="min" required>
+                            <div class="col-1" style="padding: 4px;">min</div>
+                            <input class="col form-control {{ $errors->has('rest_sec') ? ' is-invalid' : '' }} rest" type="number" min="0" max="60" name="rest_sec" value="{{ old('rest_sec') }}" placeholder="sec" required>
+                            <div class="col-1" style="padding: 4px;">sec</div>
+                            <input class="col form-control {{ $errors->has('rest_mil') ? ' is-invalid' : '' }} rest" type="number" min="0" max="60" name="rest_mil" value="{{ old('rest_mil') }}" placeholder="millisecond" required>
+                            <div class="col-1" style="padding: 4px;">mil</div>
+                            <div class="invalid-feedback">please provide a valid time input</div>
+                            <div id="duration-valid" class="valid-feedback">looks good!</div>
                         @else
-                            <input class="col form-control {{ $errors->has('rest_min') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="rest_min" value="{{ $workout->rest['min'] }}" placeholder="min" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('rest_sec') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="rest_sec" value="{{ $workout->rest['sec'] }}" placeholder="sec" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
-                            <div class="col-1"></div>
-                            <input class="col form-control {{ $errors->has('rest_mil') ? ' is-invalid' : '' }}" type="number" min="0" max="60" name="rest_mil" value="{{ $workout->rest['mil'] }}" placeholder="millisecond" onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;" required>
+                            <input class="col form-control {{ $errors->has('rest_min') ? ' is-invalid' : '' }} rest" type="number" min="0" max="60" name="rest_min" value="{{ $workout->rest['min'] }}" placeholder="min" required>
+                            <div class="col-1" style="padding: 4px;">min</div>
+                            <input class="col form-control {{ $errors->has('rest_sec') ? ' is-invalid' : '' }} rest" type="number" min="0" max="60" name="rest_sec" value="{{ $workout->rest['sec'] }}" placeholder="sec" required>
+                            <div class="col-1" style="padding: 4px;">sec</div>
+                            <input class="col form-control {{ $errors->has('rest_mil') ? ' is-invalid' : '' }} rest" type="number" min="0" max="60" name="rest_mil" value="{{ $workout->rest['mil'] }}" placeholder="millisecond" required>
+                            <div class="col-1" style="padding: 4px;">mil</div>
+                            <div class="invalid-feedback">please provide a valid time input</div>
+                            <div id="rest-valid" class="valid-feedback">looks good!</div>
                         @endif
                     </div>
                     @if ($errors->has('rest_min'))
@@ -109,8 +121,12 @@
 
                     @if(empty($workout->weight))
                         <input id="weight" type="number" min="1.0" max="1000.00" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ old('weight') }}" placeholder="Enter Weight (lbs)" required autofocus>
+                        <div class="invalid-feedback">please provide a valid weight</div>
+                        <div class="valid-feedback">looks good!</div>
                     @else
                         <input id="weight" type="number" min="1.0" max="1000.00" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" value="{{ $workout->weight }}" placeholder="Enter Weight (lbs)" required autofocus>
+                        <div class="invalid-feedback">please provide a valid weight</div>
+                        <div class="valid-feedback">looks good!</div>
                     @endif
 
                     @if ($errors->has('weight'))
@@ -127,8 +143,12 @@
                 <div class="col-md-6">
                     @if(empty($workout->repetitions))
                         <input id="repetitions" type="number" min="1" max="100" class="form-control{{ $errors->has('repetitions') ? ' is-invalid' : '' }}" name="repetitions" placeholder="Enter number of Reps" required>
+                        <div class="invalid-feedback">please provide a valid full repetition number</div>
+                        <div class="valid-feedback">looks good!</div>
                     @else
                         <input id="repetitions" type="number" min="1" max="100" class="form-control{{ $errors->has('repetitions') ? ' is-invalid' : '' }}" name="repetitions" value="{{ $workout->repetitions }}" required>
+                        <div class="invalid-feedback">please provide a valid full repetition number</div>
+                        <div class="valid-feedback">looks good!</div>
                     @endif
 
                     @if ($errors->has('repetitions'))
@@ -144,8 +164,12 @@
                 <div class="col-md-6">
                     @if(empty($workout->sets))
                         <input id="sets" type="number" min="1" max="1000" class="form-control{{ $errors->has('sets') ? ' is-invalid' : '' }}" name="sets" placeholder="Enter number of Sets" required>
+                        <div class="invalid-feedback">please provide a valid full set number</div>
+                        <div class="valid-feedback">looks good!</div>
                     @else
                         <input id="sets" type="number" min="1" max="1000" class="form-control{{ $errors->has('sets') ? ' is-invalid' : '' }}" name="sets" value="{{ $workout->sets }}" required>
+                        <div class="invalid-feedback">please provide a valid full set number</div>
+                        <div class="valid-feedback">looks good!</div>
                     @endif
 
                     @if ($errors->has('sets'))

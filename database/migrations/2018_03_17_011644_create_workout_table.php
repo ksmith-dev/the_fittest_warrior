@@ -17,8 +17,7 @@ class CreateWorkoutTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('type');
-            $table->string('training_type')->nullable();
-            $table->string('activity_type')->nullable();
+            $table->string('activity')->nullable();
             $table->integer('repetitions')->nullable();
             $table->integer('sets')->nullable();
             $table->double('weight')->nullable();

@@ -87,12 +87,15 @@ class WorkoutController extends Controller
         $params['user'] = Auth::user();
         $params['workout_type'] = $workout_type;
 
+        $workouts = null;
+
         if (!empty($workout_type)) {
             $workouts = DB::table('workout')->where('type', $workout_type)->get();
+        }
 
-            if ($workouts->count() < 1) {
-                $workouts = null;
-            }
+        foreach ($workouts as $workout) {
+            $training = DB::table('training')->where('workout_type', $workout->type)->first();
+            $workout->training = $training->type;
         }
 
         return view('edit.workouts', ['params' => $params, 'workouts' => $workouts]);
@@ -110,15 +113,10 @@ class WorkoutController extends Controller
 
         validator($request);
 
-        $workout_type = strtolower(str_replace(' ', '_', $request['workout_type']));
-
-        $training = DB::table('training')->where('workout_type', $workout_type)->first();
-
         if (empty($request['workout_id'])) { $workout = new Workout; } else { $workout = Workout::find($request['workout_id']); }
 
         $workout->user_id = Auth::user()->getAuthIdentifier();
-        $workout->training_type = $training->type;
-        $workout->activity_type = empty($request['activity_type']) ? null : $request['activity_type'];
+        $workout->activity = empty($request['activity_type']) ? null : $request['activity_type'];
         $workout->type = strtolower(str_replace(' ', '_', $request['workout_type']));
         $workout->repetitions = empty($request['repetitions']) ? null : $request['repetitions'];
         $workout->sets = empty($request['sets']) ? null : $request['sets'];
@@ -152,6 +150,10 @@ class WorkoutController extends Controller
         $params['title'] = 'Workout';
 
         $workout = Workout::find($workout_id);
+
+        $training = DB::table('training')->where('workout_type', $workout->type)->first();
+
+        $workout->training = $training->type;
 
         return view('workout', ['params' => $params, 'workout' => $workout]);
     }

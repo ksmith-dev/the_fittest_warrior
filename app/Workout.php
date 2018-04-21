@@ -1,6 +1,8 @@
 <?php
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+
 class Workout extends Model
 {
     const CREATED_AT = 'created_at';
@@ -9,8 +11,7 @@ class Workout extends Model
     protected $table = 'workout';
     protected $fillable = [
         'type',
-        'training_type',
-        'activity_type',
+        'activity',
         'repetitions',
         'sets',
         'weight',

@@ -257,3 +257,9 @@ input[type="checkbox"][readonly], .label_readonly {
 #workout-video {
     margin: auto;
 }
+
+#omg-404 {
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}

@@ -146,19 +146,14 @@
         <div class="col-md-8 mb-3 mb-md-0 mr-md-3">
             <div class="row">
 
-                <div class="col mr-md-3 bodyPanelStyle p-3">
-                    <a id="imageLink1" href="http://">
-                        <img id="headImage1" src="" alt="" class="w-100 mb-3"></a>
-                    <h3 id="headline1"></h3><span id="byline1"></span>
-                    <p id="desc1"></p><a id="link1" href="">Read More...</a>
-                </div>
-
-                <div class="col bodyPanelStyle p-3">
-                    <a id="imageLink2" href="http://">
-                        <img id="headImage2" src="" alt="" class="w-100 mb-3"></a>
-                    <h3 id="headline2"></h3><span id="byline2"></span>
-                    <p id="desc2"></p><a id="link2" href="">Read More...</a>
-                </div>
+                @foreach($articles as $article)
+                    <div class="col mr-md-3 bodyPanelStyle p-3">
+                        <a id="imageLink1" href="{{ $article['url'] }}">
+                            <img id="headImage1" src="{{ $article['urlToImage'] }}" alt="article image" class="w-100 mb-3"></a>
+                        <h3 id="headline1">{{ $article['title'] }}</h3><span id="byline1"></span>
+                        <p id="desc1">{{ $article['description'] }}</p><a id="link1" href="{{ $article['url'] }}">Read More...</a>
+                    </div>
+                @endforeach
 
             </div>
 
@@ -207,5 +202,4 @@
 @endsection
 @section('footer')
     @parent
-        <script src="{{ asset('js/news.js') }}"></script>
 @endsection

@@ -1,7 +1,6 @@
 <?php
 
 use Faker\Generator as Faker;
-use Illuminate\Support\Facades\DB;
 
 $factory->define(App\Workout::class, function (Faker $faker) {
 
@@ -23,12 +22,9 @@ $factory->define(App\Workout::class, function (Faker $faker) {
 
     $type = $types[rand(0, 12)];
 
-    $training = DB::table('training')->where('workout_type', $type)->first();
-
     return [
         'user_id' => rand(1, 10),
-        'training_type' => $training->type,
-        'activity_type' => null,
+        'activity' => null,
         'type' => $type,
         'repetitions' => rand(1,100),
         'sets' => rand(1,10),

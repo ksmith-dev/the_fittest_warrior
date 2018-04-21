@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Workout;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -34,6 +35,10 @@ class DashboardController extends Controller
 
         foreach ($workouts as $workout)
         {
+            $training = DB::table('training')->where('workout_type', $workout['type'])->first();
+
+            $workout['training'] = $training->type;
+
             if (empty($best_weight)) {
                 $best_weight[$workout['type']] = $workout;
             } elseif (empty($best_weight[$workout['type']])) {

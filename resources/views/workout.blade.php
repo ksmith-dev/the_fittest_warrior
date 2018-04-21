@@ -13,10 +13,10 @@
             <div class="col">
                 <h1>WORKOUT</h1>
                 <div class="spacer-20"></div>
-                @if(empty($workout['training_type']))
-                    <h3>TRAINING TYPE - UNKNOWN }}</h3>
+                @if(empty($workout['training']))
+                    <h3>TRAINING TYPE - UNKNOWN</h3>
                 @else
-                    <h3>TRAINING TYPE - {{ strtoupper($workout['training_type']) }}</h3>
+                    <h3>TRAINING TYPE - {{ strtoupper($workout['training']) }}</h3>
                 @endif
                 <ul>
                     @if(!empty($workout['type']))
