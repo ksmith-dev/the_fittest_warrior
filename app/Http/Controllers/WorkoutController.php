@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Training;
-use App\Session;
+use App\Activity;
 use App\Workout;
 use App\WorkoutReport;
 use Illuminate\Contracts\Validation\Validator;
@@ -21,11 +21,81 @@ class WorkoutController extends Controller
     protected $redirectTo = '/dashboard';
 
     /**
+     * Show the application dashboard fitness tab.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showWorkoutTab() {
+
+        $params['user'] = Auth::user();
+        $params['title'] = 'Workouts';
+
+        $database_workouts = Workout::where('user_id', $params['user']->getAuthIdentifier())->orderBy('created_at')->get();
+        $workouts = array();
+
+        $percentages = array('10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100');
+
+        $status = array('bg-success', 'bg-danger', 'bg-warning');
+
+        foreach ($database_workouts as $workout) {
+            $workouts[$workout->workout_type] = array(
+                'repetitions' => $workout->repetitions,
+                'status' => $status[rand(0,2)],
+                'percentage' => $percentages[rand(0,18)]
+            );
+        }
+
+        return view('workout', ['params' => $params, 'workouts' => $workouts]);
+    }
+
+    /**
+     *
+     * @param $workout_type
+     * @param $workout_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showWorkoutReportForm()
+    public function showWorkoutFormView($workout_type, $workout_id = null)
     {
-        return view('forms.workout');
+        $params['title'] = 'Add / Edit';
+        $params['workout_type'] = $workout_type;
+
+        $workout = null;
+
+        if (!empty($workout_id)) {
+
+            $params['workout_id'] = $workout_id;
+
+            $workout = Workout::find($workout_id);
+
+            $duration = explode(':', $workout->duration);
+            $rest = explode(':', $workout->rest);
+
+            $workout->duration = array('min' => $duration[0], 'sec' => $duration[1], 'mil' => $duration[2]);
+            $workout->rest = array('min' => $rest[0], 'sec' => $rest[1], 'mil' => $rest[2]);
+        }
+
+        return view('forms.workout', ['params' => $params, 'workout' => $workout]);
+    }
+
+    /**
+     *
+     * @param $workout_type
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showWorkoutEditView($workout_type)
+    {
+        $params['user'] = Auth::user();
+        $params['workout_type'] = $workout_type;
+
+        if (!empty($workout_type)) {
+            $workouts = DB::table('workout')->where('type', $workout_type)->get();
+
+            if ($workouts->count() < 1) {
+                $workouts = null;
+            }
+        }
+
+        return view('edit.workouts', ['params' => $params, 'workouts' => $workouts]);
     }
 
     /**
@@ -36,113 +106,38 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
-        validator($request->all())->validate();
+        $request = $request->all();
 
-        $params = $request->all();
+        validator($request);
 
-        $current_start_date_time = strtotime($params['start_date_time']);
-        $current_start_date_time = date('m/d/Y', $current_start_date_time);
+        $workout_type = strtolower(str_replace(' ', '_', $request['workout_type']));
 
-        $current_end_date_time = strtotime($params['end_date_time']);
-        $current_end_date_time = date('m/d/Y', $current_end_date_time);
+        $training = DB::table('training')->where('workout_type', $workout_type)->first();
 
-        $db_training = DB::table('training')->where([ ['user_id', '=', Auth::user()->getAuthIdentifier()], ['training_type', '=', $params['training_type']], ])->get()->first();
-        if (!empty($db_training)) {
-            $db_session = DB::table('session')->where([ ['session_type', '=', $params['session_type']], ['training_id', '=', $db_training->id], ])->get()->first();
-        }
+        if (empty($request['workout_id'])) { $workout = new Workout; } else { $workout = Workout::find($request['workout_id']); }
 
-        // create training object
-        if (!empty($db_training)) {
-            $existing_training = Training::find($db_training->id);
+        $workout->user_id = Auth::user()->getAuthIdentifier();
+        $workout->training_type = $training->type;
+        $workout->activity_type = empty($request['activity_type']) ? null : $request['activity_type'];
+        $workout->type = strtolower(str_replace(' ', '_', $request['workout_type']));
+        $workout->repetitions = empty($request['repetitions']) ? null : $request['repetitions'];
+        $workout->sets = empty($request['sets']) ? null : $request['sets'];
 
-            $existing_start_date_time = strtotime($existing_training->start_date_time);
-            $existing_start_date_time = date('m/d/Y', $existing_start_date_time);
+        empty($request['duration_min']) ? $duration_min = '00' : $duration_min = $request['duration_min'];
+        empty($request['duration_sec']) ? $duration_sec = '00' : $duration_sec = $request['duration_sec'];
+        empty($request['duration_mil']) ? $duration_mil = '00' : $duration_mil = $request['duration_mil'];
+        $workout->duration = $duration_min . ':' . $duration_sec . ':' . $duration_mil;
 
-            $existing_end_date_time = strtotime($existing_training->end_date_time);
-            $existing_end_date_time = date('m/d/Y', $existing_end_date_time);
+        empty($request['rest_min']) ? $rest_min = '00' : $rest_min = $request['rest_min'];
+        empty($request['rest_sec']) ? $rest_sec = '00' : $rest_sec = $request['rest_sec'];
+        empty($request['rest_mil']) ? $rest_mil = '00' : $rest_mil = $request['rest_mil'];
+        $workout->rest = $rest_min . ':' . $rest_sec . ':' . $rest_mil;
 
-            if ($existing_start_date_time > $current_start_date_time) {
-                // do nothing
-            } else {
-                $existing_training->start_date_time = $current_start_date_time;
-            }
-            if ($existing_end_date_time < $current_end_date_time) {
-                // do nothing
-            } else {
-                $existing_training->end_date_time = $current_end_date_time;
-            }
-            $existing_training->save();
-        } else {
-            $training = new Training;
-            $training->user_id = Auth::user()->getAuthIdentifier();
-            $training->training_type = $params['training_type'];
-            $training->start_date_time = $current_start_date_time;
-            $training->end_date_time = $current_end_date_time;
-            $training->active_status = 1;
-            $training->save();
-        }
+        $workout->calories_burned = empty($request['calories_burned']) ? null : $request['calories_burned'];
+        $workout->weight = empty($request['weight']) ? null : $request['weight'];
+        $workout->weight_unit = "lbs";
 
-        // create session object
-        if (!empty($db_session)) {
-            $existing_session = Session::find($db_session->id);
-
-            $existing_start_date_time = strtotime($existing_session->start_date_time);
-            $existing_start_date_time = date('m/d/Y', $existing_start_date_time);
-
-            $existing_end_date_time = strtotime($existing_session->end_date_time);
-            $existing_end_date_time = date('m/d/Y', $existing_end_date_time);
-
-            if ($existing_start_date_time < $current_start_date_time) {
-                // do nothing
-            } else {
-                $existing_session->start_date_time = $current_start_date_time;
-            }
-            if ($existing_end_date_time < $current_end_date_time) {
-                // do nothing
-            } else {
-                $existing_session->end_date_time = $current_end_date_time;
-            }
-            $existing_session->save();
-        } else {
-            $session = new Session;
-            if (!empty($existing_training)) {
-                $session->training_id = $existing_training->id;
-            } else {
-                $session->training_id = $training->id;
-            }
-            $session->session_type = $params['session_type'];
-            $session->start_date_time = $current_start_date_time;
-            $session->end_date_time = $current_end_date_time;
-            $session->save();
-        }
-
-        $nextId = DB::table('workout')->max('id') + 1;
-
-        $workout = new Workout;
-        $workout->id = $nextId;
-        if (!empty($existing_session)) {
-            $workout->session_id = $existing_session->id;
-        } else {
-            $workout->session_id = $session->id;
-        }
-        $workout->workout_type = $params['workout_type'];
-        $workout->start_date_time = $current_start_date_time;
-        $workout->end_date_time = $current_end_date_time;
         $workout->save();
-
-        $workout_report = new WorkoutReport;
-        $workout_report->workout_id = $workout->id;
-        $workout_report->repetitions = $params['repetitions'];
-        $workout_report->resistance_factor = $params['resistance_factor'];
-        $workout_report->duration = $params['duration'];
-        $workout_report->sets = $params['sets'];
-        $workout_report->rest = $params['rest'];
-        $workout_report->calories_burned = $params['calories'];
-        $workout_report->weight = $params['weight'];
-        $workout_report->muscle_groups = $params['muscle_groups'];
-        //TODO if units is passed inside of input split and add here
-        $workout_report->weight_units = 'lbs';
-        $workout_report->save();
 
         return redirect('dashboard');
     }
@@ -157,11 +152,22 @@ class WorkoutController extends Controller
     {
         //TODO edit validation
         return Validator::make($data, [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            ''
+            'training_type' => 'required|string|max:255',
+            'session_type' => 'required|string|max:255',
+            'workout_type' => 'required|string|max:255',
+            'duration_min' => 'string|min:2',
+            'duration_sec' => 'string|min:2',
+            'duration_mil' => 'string|min:2',
+            'rest_min' => 'string|min:2|max:2',
+            'rest_sec' => 'string|min:2|max:2',
+            'rest_mil' => 'string|min:2|max:2',
+            'weight' => 'string|max:100',
+            'repetitions' => 'string|max:50',
+            'sets' => 'string|max:50',
+            'rest' => 'string|max:50',
+            'start_date_time' => 'string|max:255',
+            'end_date_time' => 'string|max:255',
+            'calories' => 'string|max:255'
         ]);
     }
 }

@@ -9,6 +9,39 @@ use Illuminate\Contracts\Validation\Validator;
 
 class HealthController extends Controller
 {
+
+    /**
+     * Show the application dashboard health tab.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showHealthTab() {
+
+        $params['title'] = 'Health';
+
+        $health_collection = Health::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('start_date_time')->get();
+
+        return view('health', ['params' => $params, 'health_collection' => $health_collection]);
+    }
+
+    /**
+     * Show the application dashboard health form.
+     *
+     * @param $health_id
+     * @return \Illuminate\Http\Response
+     */
+    public function showHealthFormView($health_id) {
+        $params['title'] = 'Health';
+        $params['health_id'] = $health_id;
+
+        if ($health_id) {
+
+            $health = Health::find($health_id);
+        }
+
+        return view('forms.health', ['params' => $params, 'health' => $health]);
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -37,23 +70,25 @@ class HealthController extends Controller
     {
         validator($request->all())->validate();
 
-        $params = $request->all();
+        $request = $request->all();
 
-        $current_start_date_time = strtotime($params['start_date_time']);
+        $current_start_date_time = strtotime($request['start_date_time']);
         $current_start_date_time = date('m/d/Y H:i:s', $current_start_date_time);
 
-        $current_end_date_time = strtotime($params['end_date_time']);
+        $current_end_date_time = strtotime($request['end_date_time']);
         $current_end_date_time = date('m/d/Y H:i:s', $current_end_date_time);
 
-        $health = new Health;
+        if (empty($request['health_id'])) { $health = new Health; } else { $health = Health::find($request['health_id']); }
+
         $health->user_id = Auth::user()->getAuthIdentifier();
-        $health->ldl_cholesterol = $params['ldl_cholesterol'];
-        $health->fat_percentage = $params['fat_percentage'];
-        $health->systolic_blood_pressure = $params['systolic_blood_pressure'];
-        $health->diastolic_blood_pressure = $params['diastolic_blood_pressure'];
-        $health->hdl_cholesterol = $params['hdl_cholesterol'];
+        $health->ldl_cholesterol = $request['ldl_cholesterol'];
+        $health->fat_percentage = $request['fat_percentage'];
+        $health->systolic_blood_pressure = $request['systolic_blood_pressure'];
+        $health->diastolic_blood_pressure = $request['diastolic_blood_pressure'];
+        $health->hdl_cholesterol = $request['hdl_cholesterol'];
         $health->start_date_time = $current_start_date_time;
         $health->end_date_time = $current_end_date_time;
+
         $health->save();
 
         return redirect('health');

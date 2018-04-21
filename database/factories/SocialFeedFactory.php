@@ -1,8 +1,9 @@
 <?php
 
+use App\SocialFeed;
 use Faker\Generator as Faker;
 
-$factory->define(App\SocialFeed::class, function (Faker $faker) {
+$factory->define(SocialFeed::class, function (Faker $faker) {
     return [
         'user_id' => 1,
         'type' => $faker->mimeType(),

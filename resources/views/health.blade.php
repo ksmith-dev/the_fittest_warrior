@@ -9,28 +9,11 @@
     @parent
 @endsection
 @section('content')
-    <div class="col">
-        <div class="row">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('fitness') }}">Fitness</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('nutrition') }}">Nutrition</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  active" href="{{ url('health') }}">Health</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    @include('layouts.dashboard_nav')
     <div id="health">
         <a href="{{ url('health/form') }}" class="btn btn-secondary" role="button">add health info</a>
         <div class="spacer-50"></div>
-        @foreach($healths as $health)
+        @foreach($health_collection as $health)
             <div class="col">
                 <div class="row">
                     <div class="table-responsive d-block">
@@ -44,7 +27,7 @@
                             <tbody>
                             <th scope="row">{{ date('m/d/Y H:i:s', strtotime($health->start_date_time)) }}</th>
                             <th scope="row">{{ date('m/d/Y H:i:s', strtotime($health->end_date_time)) }}</th>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>LDL Cholesterol</td>
                                 <td>{{ $health->ldl_cholesterol }}</td>
                                 <td>
@@ -53,7 +36,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>Fat Percentage</td>
                                 <td>{{ $health->fat_percentage }}</td>
                                 <td>
@@ -62,7 +45,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>Systolic Blood Pressure</td>
                                 <td>{{ $health->systolic_blood_pressure }}</td>
                                 <td>
@@ -71,7 +54,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>Systolic Blood Pressure</td>
                                 <td>{{ $health->diastolic_blood_pressure }}</td>
                                 <td>
@@ -80,7 +63,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class='clickable-row' data-href='/dashboard/health/'>
+                            <tr class='clickable-row' data-href="/health/form/{{ $health->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                 <td>HDL Cholesterol</td>
                                 <td>{{ $health->hdl_cholesterol }}</td>
                                 <td>

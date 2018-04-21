@@ -1,5 +1,6 @@
 <?php
 
+use App\SocialFeed;
 use Illuminate\Database\Seeder;
 
 class SocialFeedTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class SocialFeedTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\SocialFeed::class, 10)->create();
+        factory(SocialFeed::class, 10)->create();
     }
 }
