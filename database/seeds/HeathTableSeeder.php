@@ -1,5 +1,6 @@
 <?php
 
+use App\Health;
 use Illuminate\Database\Seeder;
 
 class HeathTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class HeathTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Health::class, 5)->create();
+        factory(Health::class, 5)->create();
     }
 }

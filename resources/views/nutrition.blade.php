@@ -9,28 +9,11 @@
     @parent
 @endsection
 @section('content')
-    <div class="col">
-        <div class="row">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('fitness') }}">Fitness</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  active" href="{{ url('nutrition') }}">Nutrition</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('health') }}">Health</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    @include('layouts.dashboard_nav')
     <div id="nutrition">
         <a href="{{ url('nutrition/form') }}" class="btn btn-secondary" role="button">add nutrition info</a>
         <div class="spacer-50"></div>
-        @foreach($nutritions as $nutrition)
+        @foreach($nutrition_collection as $nutrition)
             <div class="col">
                 <div class="row">
                     <div class="table-responsive d-block">
@@ -44,7 +27,7 @@
                             <tbody>
                                 <th scope="row">{{ date('m/d/Y H:i:s', strtotime($nutrition->start_date_time)) }}</th>
                                 <th scope="row">{{ date('m/d/Y H:i:s', strtotime($nutrition->end_date_time)) }}</th>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Portion</td>
                                     <td>{{ $nutrition->portion_size }}</td>
                                     <td>
@@ -53,7 +36,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Protein</td>
                                     <td>{{ $nutrition->gram_protein }} g</td>
                                     <td>
@@ -62,7 +45,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Fat</td>
                                     <td>{{ $nutrition->gram_fat }} g</td>
                                     <td>
@@ -71,7 +54,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Saturated Fat</td>
                                     <td>{{ $nutrition->gram_saturated_fat }} g</td>
                                     <td>
@@ -80,7 +63,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Cholesterol</td>
                                     <td>{{ $nutrition->cholesterol }} mg</td>
                                     <td>
@@ -89,7 +72,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Sodium</td>
                                     <td>{{ $nutrition->sodium }} mg</td>
                                     <td>
@@ -98,7 +81,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Carbohydrates</td>
                                     <td>{{ $nutrition->carbohydrates }} g</td>
                                     <td>
@@ -107,7 +90,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Sugar</td>
                                     <td>{{ $nutrition->sugars }} g</td>
                                     <td>
@@ -116,7 +99,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Fiber</td>
                                     <td>{{ $nutrition->fiber }} g</td>
                                     <td>
@@ -125,7 +108,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href='/dashboard/nutrition/'>
+                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
                                     <td>Calories</td>
                                     <td>{{ number_format($nutrition->calories, 2, '.', ',') }}</td>
                                     <td>

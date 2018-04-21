@@ -12,7 +12,7 @@
     <div id="about">
         <div class="row">
             <div class="col">
-                <h1>Feed</h1>
+                <h2>Activity</h2>
                 <div class="share">
                     <div class="col feed-tabs">
                         <div class="row">
@@ -68,18 +68,37 @@
                 @endif
             </div>
             <div class="col-5">
-                <h1>Upcoming Events</h1>
+                <h2>Training Video</h2>
+                <h4>Video by - bodybuilding.com</h4>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/YdB1HMCldJY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <div class="spacer-20"></div>
+                <h2>Upcoming Events</h2>
                 <div class="event">
-                    <img src="http://via.placeholder.com/100x100">
                     <hr style="border: 2px solid #ccc;">
                     <h4>Event Title</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus egestas leo eu rutrum accumsan. Proin dictum euismod mollis. Quisque a ex id nunc dictum iaculis. Ut sem sapien, euismod vitae suscipit nec, fermentum pharetra arcu. Ut condimentum neque in eros mollis lacinia. Aenean urna felis, sollicitudin ut massa id, malesuada mollis est. Fusce fringilla mi sed semper vulputate. Nullam ac enim quam. Donec malesuada molestie nisl in egestas. Fusce maximus, massa sagittis imperdiet lobortis, ex nisl lacinia libero, sit amet volutpat eros est non leo. Fusce suscipit eu orci eu mollis. Nullam consectetur iaculis semper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut congue risus. Sed vitae molestie orci.</p>
+                    <img src="http://via.placeholder.com/200x100" class="event-img">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus egestas leo eu rutrum accumsan. Proin dictum euismod mollis. Quisque a ex id nunc dictum iaculis. Ut sem sapien, euismod vitae suscipit nec, fermentum pharetra arcu. Ut condimentum neque in eros mollis lacinia. Aenean urna felis, sollicitudin ut massa id, malesuada mollis est. Fusce fringilla mi sed semper vulputate.</p>
+                    <h5>Event Details</h5>
+                    <address>
+                        4250 Honeysuckle Lane<br>
+                        Seattle, WA<br>
+                        98119<br>
+                        360-505-8184
+                    </address>
                 </div>
                 <div class="event">
-                    <img src="http://via.placeholder.com/100x100">
                     <hr style="border: 2px solid #ccc;">
                     <h4>Event Title</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus egestas leo eu rutrum accumsan. Proin dictum euismod mollis. Quisque a ex id nunc dictum iaculis. Ut sem sapien, euismod vitae suscipit nec, fermentum pharetra arcu. Ut condimentum neque in eros mollis lacinia. Aenean urna felis, sollicitudin ut massa id, malesuada mollis est. Fusce fringilla mi sed semper vulputate. Nullam ac enim quam. Donec malesuada molestie nisl in egestas. Fusce maximus, massa sagittis imperdiet lobortis, ex nisl lacinia libero, sit amet volutpat eros est non leo. Fusce suscipit eu orci eu mollis. Nullam consectetur iaculis semper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut congue risus. Sed vitae molestie orci.</p>
+                    <div class="spacer-20"></div>
+                    <img src="http://via.placeholder.com/200x100" class="event-img">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus egestas leo eu rutrum accumsan. Proin dictum euismod mollis. Quisque a ex id nunc dictum iaculis. Ut sem sapien, euismod vitae suscipit nec, fermentum pharetra arcu. Ut condimentum neque in eros mollis lacinia. Aenean urna felis, sollicitudin ut massa id, malesuada mollis est. Fusce fringilla mi sed semper vulputate. Nullam ac enim quam. Donec malesuada molestie nisl in egestas.</p>
+                    <h5>Event Details</h5>
+                    <address>
+                        3561 Neville Street<br>
+                        Seattle, WA<br>
+                        98119<br>
+                        812-599-0357
+                    </address>
                 </div>
 
             </div>
