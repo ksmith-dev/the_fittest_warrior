@@ -80,28 +80,47 @@
                     @else
                         <h3>Strength Standings</h3>
                     @endif
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Workout</th>
-                            <th scope="col">Weight</th>
-                            <th scope="col">Repetitions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($leader_board as $leader)
+                    @if (empty($leader_board))
+                            <table class="table">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Workout</th>
+                                    <th scope="col">Weight</th>
+                                    <th scope="col">Repetitions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5">no data available</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    @else
+                        <table class="table">
+                            <thead class="thead-dark">
                             <tr>
-                                <td>{{ $leader['first_name'] }}</td>
-                                <td>{{ $leader['last_name'] }}</td>
-                                <td>{{ $leader['type'] }}</td>
-                                <td>{{ $leader['weight'] }}</td>
-                                <td>{{ $leader['repetitions'] }}</td>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Workout</th>
+                                <th scope="col">Weight</th>
+                                <th scope="col">Repetitions</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($leader_board as $leader)
+                                <tr>
+                                    <td>{{ $leader['first_name'] }}</td>
+                                    <td>{{ $leader['last_name'] }}</td>
+                                    <td>{{ $leader['type'] }}</td>
+                                    <td>{{ $leader['weight'] }}</td>
+                                    <td>{{ $leader['repetitions'] }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>
