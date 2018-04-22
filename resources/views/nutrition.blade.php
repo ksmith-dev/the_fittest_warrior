@@ -11,107 +11,117 @@
 @section('content')
     @include('layouts.dashboard_nav')
     <div id="nutrition">
-        <a href="{{ url('nutrition/form') }}" class="btn btn-secondary" role="button">add nutrition info</a>
-        <div class="spacer-50"></div>
+        <a href="{{ url('nutrition/form') }}" class="btn btn-secondary" role="button">add nutrition information</a>
+        <div class="spacer-50" style="border-bottom: 1px solid black"></div>
+        <div class="spacer-20"></div>
         @foreach($nutrition_collection as $nutrition)
             <div class="col">
                 <div class="row">
                     <div class="table-responsive d-block">
                         <h4>Nutrition Record</h4>
-                        <table class="table table-sm table-hover">
+                        <hr>
+                        <a href="{{ url('nutrition/form') }}/{{ $nutrition->id }}" class="btn btn-secondary" role="button">edit</a>
+                        <a href="{{ url('nutrition/delete') }}/{{ $nutrition->id }}" class="btn btn-secondary" role="button" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
+
+                        <form id="delete-form" action="{{ url('nutrition/delete') }}/{{ $nutrition->id }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="spacer-20"></div>
+                        <table class="table table-sm">
                             <thead>
-                            <th>Start Date Time</th>
-                            <th>End Date Time</th>
-                            <th>Status</th>
+                            <th class="text-center">Start Date Time</th>
+                            <th class="text-center">End Date Time</th>
+                            <th class="text-center">Status</th>
                             </thead>
                             <tbody>
-                                <th scope="row">{{ date('m/d/Y H:i:s', strtotime($nutrition->start_date_time)) }}</th>
-                                <th scope="row">{{ date('m/d/Y H:i:s', strtotime($nutrition->end_date_time)) }}</th>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Portion</td>
-                                    <td>{{ $nutrition->portion_size }}</td>
-                                    <td>
+                                <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($nutrition->start_date_time)) }}</th>
+                                <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($nutrition->end_date_time)) }}</th>
+                                <th scope="row" class="text-center">daily values - calculated</th>
+                                <tr>
+                                    <td class="text-center">Portion</td>
+                                    <td class="text-center">{{ $nutrition->portion_size }}</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Protein</td>
-                                    <td>{{ $nutrition->gram_protein }} g</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Protein</td>
+                                    <td class="text-center">{{ $nutrition->gram_protein }} g</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Fat</td>
-                                    <td>{{ $nutrition->gram_fat }} g</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Fat</td>
+                                    <td class="text-center">{{ $nutrition->gram_fat }} g</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Saturated Fat</td>
-                                    <td>{{ $nutrition->gram_saturated_fat }} g</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Saturated Fat</td>
+                                    <td class="text-center">{{ $nutrition->gram_saturated_fat }} g</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80% high</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Cholesterol</td>
-                                    <td>{{ $nutrition->cholesterol }} mg</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Cholesterol</td>
+                                    <td class="text-center">{{ $nutrition->cholesterol }} mg</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90% very high</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Sodium</td>
-                                    <td>{{ $nutrition->sodium }} mg</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Sodium</td>
+                                    <td class="text-center">{{ $nutrition->sodium }} mg</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50% mid</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Carbohydrates</td>
-                                    <td>{{ $nutrition->carbohydrates }} g</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Carbohydrates</td>
+                                    <td class="text-center">{{ $nutrition->carbohydrates }} g</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Sugar</td>
-                                    <td>{{ $nutrition->sugars }} g</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Sugar</td>
+                                    <td class="text-center">{{ $nutrition->sugars }} g</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80% high</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Fiber</td>
-                                    <td>{{ $nutrition->fiber }} g</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Fiber</td>
+                                    <td class="text-center">{{ $nutrition->fiber }} g</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">40% low mid</div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class='clickable-row' data-href="/nutrition/form/{{ $nutrition->id }}" data-toggle="tooltip" data-placement="top" title="click to edit">
-                                    <td>Calories</td>
-                                    <td>{{ number_format($nutrition->calories, 2, '.', ',') }}</td>
-                                    <td>
+                                <tr>
+                                    <td class="text-center">Calories</td>
+                                    <td class="text-center">{{ number_format($nutrition->calories, 2, '.', ',') }}</td>
+                                    <td class="text-center">
                                         <div class="progress">
                                             <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50% mid</div>
                                         </div>
@@ -128,4 +138,11 @@
 @endsection
 @section('footer')
     @parent
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">nutrition</li>
+                <li class="breadcrumb-item"><a href="{{ url('nutrition/form') }}">add nutrition</a></li>
+            </ol>
+        </nav>
 @endsection

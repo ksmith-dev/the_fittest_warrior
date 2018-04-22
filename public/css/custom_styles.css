@@ -263,3 +263,24 @@ input[type="checkbox"][readonly], .label_readonly {
     margin: 0 auto;
     padding-bottom: 50px;
 }
+
+/* Container holding the image and the text */
+.img-container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+/* Centered text */
+.img-centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.breadcrumb {
+    border-radius: 0;
+    background-color:  #f2f2f2;
+    margin-left: 1px;
+    margin-right: 1px;
+}

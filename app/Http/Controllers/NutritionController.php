@@ -55,7 +55,7 @@ class NutritionController extends Controller
     {
         $params['title'] = 'Nutrition';
 
-        $nutrition_collection = Nutrition::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('created_at')->get();
+        $nutrition_collection = Nutrition::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('created_at', 'desc')->limit(15)->get();
 
         return view('nutrition', ['params' => $params, 'nutrition_collection' => $nutrition_collection]);
     }
@@ -66,16 +66,15 @@ class NutritionController extends Controller
      * @param $nutrition_id
      * @return \Illuminate\Http\Response
      */
-    public function showNutritionFormView($nutrition_id) {
+    public function showNutritionFormView($nutrition_id = null) {
 
         $params['title'] = 'Nutrition';
         $params['nutrition_id'] = $nutrition_id;
 
+        $nutrition = null;
+
         if ($nutrition_id) {
-
             $nutrition = Nutrition::where('id', $nutrition_id)->orderBy('created_at', 'desc')->first();
-
-            if ($nutrition->count() < 1) { $nutrition = null; }
         }
 
         return view('forms.nutrition', ['params' => $params, 'nutrition' => $nutrition]);
@@ -89,7 +88,9 @@ class NutritionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Nutrition::destroy($id);
+
+        return redirect('nutrition');
     }
 
     /**

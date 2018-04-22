@@ -45,5 +45,9 @@ Route::get('health/form/{health_id}', 'HealthController@showHealthFormView');
 
 Route::get('community', 'CommunityController@index');
 
+Route::post('workout/delete/{workout_type}/{id}', 'WorkoutController@destroy');
+Route::post('nutrition/delete/{id}', 'NutritionController@destroy');
+Route::post('health/delete/{id}', 'HealthController@destroy');
+
 
 

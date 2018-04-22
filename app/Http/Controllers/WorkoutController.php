@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Training;
 use App\Activity;
+use App\User;
 use App\Workout;
 use App\WorkoutReport;
 use Illuminate\Contracts\Validation\Validator;
@@ -27,25 +28,9 @@ class WorkoutController extends Controller
      */
     public function showWorkoutTab() {
 
-        $params['user'] = Auth::user();
         $params['title'] = 'Workouts';
 
-        $database_workouts = Workout::where('user_id', $params['user']->getAuthIdentifier())->orderBy('created_at')->get();
-        $workouts = array();
-
-        $percentages = array('10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100');
-
-        $status = array('bg-success', 'bg-danger', 'bg-warning');
-
-        foreach ($database_workouts as $workout) {
-            $workouts[$workout->workout_type] = array(
-                'repetitions' => $workout->repetitions,
-                'status' => $status[rand(0,2)],
-                'percentage' => $percentages[rand(0,18)]
-            );
-        }
-
-        return view('workouts', ['params' => $params, 'workouts' => $workouts]);
+        return view('workouts', ['params' => $params]);
     }
 
     /**
@@ -90,13 +75,23 @@ class WorkoutController extends Controller
         $workouts = null;
 
         if (!empty($workout_type)) {
-            $workouts = DB::table('workout')->where('type', $workout_type)->get();
+            $workouts = Workout::where([['type', $workout_type], ['active', 1]])->get();
         }
 
-        foreach ($workouts as $workout) {
-            $training = DB::table('training')->where('workout_type', $workout->type)->first();
-            $workout->training = $training->type;
+        if ($workouts->count() < 1) {
+            $workouts = null;
+        } else {
+            foreach ($workouts as $workout) {
+                $training = DB::table('training')->where('workout_type', $workout->type)->first();
+
+                if (!empty($training)) {
+                    $workout->training = $training->type;
+                } else {
+                    $workout->training = 'unknown';
+                }
+            }
         }
+
 
         return view('edit.workouts', ['params' => $params, 'workouts' => $workouts]);
     }
@@ -143,7 +138,8 @@ class WorkoutController extends Controller
     /**
      * Show individual workout
      *
-     *
+     * @param $workout_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showWorkoutView($workout_id) {
 
@@ -153,9 +149,123 @@ class WorkoutController extends Controller
 
         $training = DB::table('training')->where('workout_type', $workout->type)->first();
 
-        $workout->training = $training->type;
+        if (!empty($training)) {
+            $workout->training = $training->type;
+        } else {
+            $workout->training = null;
+        }
 
-        return view('workout', ['params' => $params, 'workout' => $workout]);
+        /** leader board code */
+        $leader_board = null;
+        $max_workout = null;
+
+        if (!empty($training)) {
+            if ($training->type == 'strength') {
+
+                $strength_trainings = DB::table('training')->where('type', $training->type)->get();
+
+                $array = array();
+
+                foreach ($strength_trainings as $strength_training) {
+                    array_push($array, $strength_training->workout_type);
+                }
+
+                $strength_workouts = DB::table('workout')->whereIn('type', $array)->orderBy('weight', 'desc')->get();
+
+                foreach ($strength_workouts as $strength_workout) {
+
+                    $user = User::find($strength_workout->user_id);
+
+                    if (!empty($strength_workout)) {
+
+                        if (empty($leader_board[$strength_workout->type])) {
+                            $leader_board[$strength_workout->type] = array(
+                                'first_name' => $user->first_name,
+                                'last_name' => $user->last_name,
+                                'type' => $strength_workout->type,
+                                'sets' => $strength_workout->sets,
+                                'repetitions' => $strength_workout->repetitions,
+                                'weight' => $strength_workout->weight,
+                                'duration' => $strength_workout->duration,
+                                'rest' => $strength_workout->rest
+                            );
+                        } else if ($strength_workout->weight > $leader_board[$strength_workout->type]['weight']) {
+                            $leader_board[$strength_workout->type] = array(
+                                'first_name' => $user->first_name,
+                                'last_name' => $user->last_name,
+                                'type' => $strength_workout->type,
+                                'sets' => $strength_workout->sets,
+                                'repetitions' => $strength_workout->repetitions,
+                                'weight' => $strength_workout->weight,
+                                'duration' => $strength_workout->duration,
+                                'rest' => $strength_workout->rest
+                            );
+                        }
+                    }
+                }
+
+            } else if ($training->type == 'aerobic') {
+
+                $aerobic_trainings = DB::table('training')->where('type', $training->type)->get();
+
+                $array = array();
+
+                foreach ($aerobic_trainings as $aerobic_training) {
+                    array_push($array, $aerobic_training->workout_type);
+                }
+
+                $aerobic_workouts = DB::table('workout')->whereIn('type', $array)->orderBy('repetitions', 'desc')->get();
+
+                foreach ($aerobic_workouts as $aerobic_workout) {
+
+                    $user = User::find($aerobic_workout->user_id);
+
+                    if (!empty($aerobic_workout)) {
+
+                        if (empty($leader_board[$aerobic_workout->type])) {
+                            $leader_board[$aerobic_workout->type] = array(
+                                'first_name' => $user->first_name,
+                                'last_name' => $user->last_name,
+                                'type' => $aerobic_workout->type,
+                                'sets' => $aerobic_workout->sets,
+                                'repetitions' => $aerobic_workout->repetitions,
+                                'weight' => $aerobic_workout->weight,
+                                'duration' => $aerobic_workout->duration,
+                                'rest' => $aerobic_workout->rest
+                            );
+                        } else if ($aerobic_workout->repetitions > $leader_board[$aerobic_workout->type]['repetitions']) {
+                            $leader_board[$aerobic_workout->type] = array(
+                                'first_name' => $user->first_name,
+                                'last_name' => $user->last_name,
+                                'type' => $aerobic_workout->type,
+                                'sets' => $aerobic_workout->sets,
+                                'repetitions' => $aerobic_workout->repetitions,
+                                'weight' => $aerobic_workout->weight,
+                                'duration' => $aerobic_workout->duration,
+                                'rest' => $aerobic_workout->rest
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
+        return view('workout', ['params' => $params, 'workout' => $workout, 'leader_board' => $leader_board]);
+    }
+
+    /**
+     * deactivate record
+     *
+     * @param $workout_type
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function destroy($workout_type, $id) {
+
+        $workout = Workout::where('id', $id)->update(['active' => 0]);
+
+        return redirect('workout/edit/' . $workout_type);
     }
 
     /**

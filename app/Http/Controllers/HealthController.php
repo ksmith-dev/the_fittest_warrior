@@ -19,7 +19,7 @@ class HealthController extends Controller
 
         $params['title'] = 'Health';
 
-        $health_collection = Health::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('start_date_time')->get();
+        $health_collection = Health::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('start_date_time', 'desc')->limit(15)->get();
 
         return view('health', ['params' => $params, 'health_collection' => $health_collection]);
     }
@@ -30,12 +30,13 @@ class HealthController extends Controller
      * @param $health_id
      * @return \Illuminate\Http\Response
      */
-    public function showHealthFormView($health_id) {
+    public function showHealthFormView($health_id = null) {
         $params['title'] = 'Health';
         $params['health_id'] = $health_id;
 
-        if ($health_id) {
+        $health = null;
 
+        if ($health_id) {
             $health = Health::find($health_id);
         }
 
@@ -90,6 +91,19 @@ class HealthController extends Controller
         $health->end_date_time = $current_end_date_time;
 
         $health->save();
+
+        return redirect('health');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Health::destroy($id);
 
         return redirect('health');
     }

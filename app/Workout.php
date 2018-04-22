@@ -19,7 +19,8 @@ class Workout extends Model
         'resistance_factor',
         'calories_burned',
         'duration',
-        'rest'
+        'rest',
+        'active'
     ];
 
 }

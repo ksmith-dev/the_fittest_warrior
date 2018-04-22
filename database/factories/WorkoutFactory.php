@@ -23,7 +23,7 @@ $factory->define(App\Workout::class, function (Faker $faker) {
     $type = $types[rand(0, 12)];
 
     return [
-        'user_id' => rand(1, 10),
+        'user_id' => rand(1, 5),
         'activity' => null,
         'type' => $type,
         'repetitions' => rand(1,100),

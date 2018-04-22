@@ -9,7 +9,10 @@ $( document ).ready(function() {
 
     /********* workout form input validation *********/
     $('.duration').blur(function () {
-        if (this.value.length == 1) {
+        if (this.value == null || this.value == "" ) {
+            this.classList.remove('is-valid');
+            this.classList.add('is-invalid');
+        } else if (this.value.length == 1) {
             this.value = 0 + this.value;
             this.classList.remove('is-invalid');
             this.classList.add('is-valid');
@@ -26,7 +29,10 @@ $( document ).ready(function() {
     });
 
     $('.rest').blur(function () {
-        if (this.value.length == 1) {
+        if (this.value == null || this.value == "" ) {
+            this.classList.remove('is-valid');
+            this.classList.add('is-invalid');
+        } else if (this.value.length == 1) {
             this.value = 0 + this.value;
             this.classList.remove('is-invalid');
             this.classList.add('is-valid');
@@ -43,7 +49,10 @@ $( document ).ready(function() {
     });
 
     $('#weight').blur(function () {
-        if (this.value.includes(".")) {
+        if (this.value == null || this.value == "" ) {
+            this.classList.remove('is-valid');
+            this.classList.add('is-invalid');
+        } else if (this.value.includes(".")) {
             this.classList.remove('is-valid');
             this.classList.add('is-invalid');
             this.value = this.value.split('.', 1);
@@ -54,7 +63,10 @@ $( document ).ready(function() {
     });
 
     $('#repetitions').blur(function () {
-        if (this.value.includes(".")) {
+        if (this.value == null || this.value == "" ) {
+            this.classList.remove('is-valid');
+            this.classList.add('is-invalid');
+        } else if (this.value.includes(".")) {
             this.classList.remove('is-valid');
             this.classList.add('is-invalid');
         } else {
@@ -71,7 +83,10 @@ $( document ).ready(function() {
     });
 
     $('#sets').blur(function () {
-        if (this.value.includes(".")) {
+        if (this.value == null || this.value == "" ) {
+            this.classList.remove('is-valid');
+            this.classList.add('is-invalid');
+        } else if (this.value.includes(".")) {
             this.classList.remove('is-valid');
             this.classList.add('is-invalid');
         } else {

@@ -15,7 +15,7 @@
             @if(!empty($workouts))
                 <div class="table-responsive d-none d-sm-block">
                     <h4>Workouts</h4>
-                    <table class="table table-sm table-hover">
+                    <table class="table table-sm">
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">TRAINING</th>
@@ -24,18 +24,33 @@
                             <th scope="col" class="text-center">DURATION</th>
                             <th scope="col" class="text-center">WEIGHT</th>
                             <th scope="col" class="text-center">REPETITIONS</th>
+                            <th scope="col" class="text-center">EDIT</th>
+                            <th scope="col" class="text-center">DELETE</th>
                         </tr>
                         <thead>
                         <tbody>
                         @foreach($workouts as $workout)
                             @if($workout->user_id == $params['user']->id)
-                                <tr class='clickable-row' data-href='/workout/form/{{ $workout->type }}/{{ $workout->id }}' data-toggle="tooltip" data-placement="top" title="click to edit">
+                                <tr>
                                     <th scope="row" class="text-center">{{ str_replace('_', ' ', $workout->training) }}</th>
                                     <th class="text-center">{{ str_replace('_', ' ', $workout->type) }}</th>
                                     <td class="text-center">{{ date('d-m-Y', strtotime($workout->created_at)) }}</td>
                                     <td class="text-center">{{ $workout->duration }}</td>
                                     <td class="text-center">{{ $workout->weight }} {{ $workout->weight_unit }}</td>
                                     <td class="text-center">{{ $workout->repetitions }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ url('workout/form') }}/{{ $workout->type }}/{{ $workout->id }}">edit</a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ url('workout/delete') }}/{{ $workout->id }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
+
+                                        <form id="delete-form" action="{{ url('workout/delete') }}/{{ $workout->type }}/{{ $workout->id }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+
                                 </tr>
                             @endif
                         @endforeach
