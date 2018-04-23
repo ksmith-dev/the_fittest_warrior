@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(SocialFeed::class, function (Faker $faker) {
     return [
-        'user_id' => 1,
+        'user_id' => 6,
         'type' => $faker->mimeType(),
         'share_date' => $faker->dateTimeThisMonth(),
         'comment' => $faker->text(),

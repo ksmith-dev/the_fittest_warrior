@@ -160,7 +160,7 @@ h4
 
 #banner-advertisement {
     margin: 0 auto;
-    background: #000000 url("http://via.placeholder.com/1000x200") no-repeat center top;
+    background: #000000 url("http://via.placeholder.com/2000x200") no-repeat center top;
     height: 200px;
 }
 
@@ -283,4 +283,12 @@ input[type="checkbox"][readonly], .label_readonly {
     background-color:  #f2f2f2;
     margin-left: 1px;
     margin-right: 1px;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
 }

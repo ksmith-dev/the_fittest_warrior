@@ -13,10 +13,10 @@
             <div class="col">
                 <h1>WORKOUT</h1>
                 <div class="spacer-20"></div>
-                @if(empty($workout->training))
-                    <h3>TRAINING TYPE - UNKNOWN</h3>
+                @if(empty($params['training']))
+                    <h3>TRAINING</h3>
                 @else
-                    <h3>TRAINING TYPE - {{ strtoupper($workout->training) }}</h3>
+                    <h3>TRAINING TYPE - {{ strtoupper($params['training']) }}</h3>
                 @endif
                 <ul>
                     @if(!empty($workout->type))
@@ -43,13 +43,22 @@
                     @if(!empty($workout->rest))
                         <li class="workout-list-item"><b>REST:</b> {{ $workout->rest }}</li>
                     @endif
+                    @if(!empty($muscle_groups))
+                            <li><b>Muscle Groups:</b>
+                            <ul>
+                                @foreach($muscle_groups as $muscle_group)
+                                    <li>{{ $muscle_group->muscle_group }}</li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
                 <div class="spacer-50"></div>
-                @if(empty($workout->training))
-                    <h4>Unknown Badges</h4>
+                @if(empty($params['training']))
+                    <h4>Badges</h4>
                     <hr>
                 @else
-                    <h4>{{ ucwords($workout->training) }} Badges</h4>
+                    <h4>{{ ucwords($params['training']) }} Badges</h4>
                     <hr>
                 @endif
                 <div class="row">
@@ -75,10 +84,10 @@
                 </div>
                 <div class="spacer-50"></div>
                 <div class="col">
-                    @if(!empty(ucwords($workout->training)))
-                        <h3>{{ ucwords($workout->training) }} Standings</h3>
+                    @if(empty($params['training']))
+                        <h3>Standings</h3>
                     @else
-                        <h3>Strength Standings</h3>
+                        <h3>{{ ucwords($params['training']) }} Standings</h3>
                     @endif
                     @if (empty($leader_board))
                             <table class="table">

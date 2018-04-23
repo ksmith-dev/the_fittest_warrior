@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\User;
+use App\Workout;
 
 class WelcomeController extends Controller
 {
@@ -39,6 +40,57 @@ class WelcomeController extends Controller
             );
         }
 
-        return view('welcome', ['articles' => $articles]);
+        $workouts = Workout::all();
+
+        $workouts->where('active', 1);
+        $workouts->sortByDesc('weight');
+        $workouts->values()->all();
+
+        $leaders = null;
+
+        foreach ($workouts as $workout) {
+
+            $user = User::find($workout->user_id);
+
+            if (empty($leaders[$workout->type])) {
+                $leaders[$workout->type] = array(
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'type' => str_replace('_', ' ', $workout->type),
+                    'sets' => $workout->sets,
+                    'repetitions' => $workout->repetitions,
+                    'weight' => $workout->weight,
+                    'duration' => $workout->duration,
+                    'rest' => $workout->rest
+                );
+            } else if ($workout->repetitions > $leaders[$workout->type]['repetitions']) {
+                $leaders[$workout->type] = array(
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'type' => str_replace('_', ' ', $workout->type),
+                    'sets' => $workout->sets,
+                    'repetitions' => $workout->repetitions,
+                    'weight' => $workout->weight,
+                    'duration' => $workout->duration,
+                    'rest' => $workout->rest
+                );
+            }
+
+        }
+
+        $leader_board = null;
+
+        $count = 0;
+
+        foreach ($leaders as $key => $value) {
+
+            if ($count < 5) {
+                $leader_board[$key] = $value;
+            }
+
+            $count++;
+        }
+
+        return view('welcome', ['articles' => $articles, 'leader_board' => $leader_board]);
     }
 }

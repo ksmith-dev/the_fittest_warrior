@@ -24,6 +24,7 @@
                             <th scope="col" class="text-center">DURATION</th>
                             <th scope="col" class="text-center">WEIGHT</th>
                             <th scope="col" class="text-center">REPETITIONS</th>
+                            <th scope="col" class="text-center">VIEW</th>
                             <th scope="col" class="text-center">EDIT</th>
                             <th scope="col" class="text-center">DELETE</th>
                         </tr>
@@ -38,6 +39,9 @@
                                     <td class="text-center">{{ $workout->duration }}</td>
                                     <td class="text-center">{{ $workout->weight }} {{ $workout->weight_unit }}</td>
                                     <td class="text-center">{{ $workout->repetitions }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ url('workout/view') }}/{{ $workout->id }}">view</a>
+                                    </td>
                                     <td class="text-center">
                                         <a href="{{ url('workout/form') }}/{{ $workout->type }}/{{ $workout->id }}">edit</a>
                                     </td>

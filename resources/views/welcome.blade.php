@@ -58,7 +58,27 @@
                 <!-- sign up -->
                 @if (Auth::check())
                     <div class="col p-3 bodyPanelStyle">
-                        <img src="http://via.placeholder.com/285x344">
+                        <div class="row" style="padding: 0 10px;">
+                            <h2>Leader Board</h2>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">Name</th>
+                                    <th scope="col" class="text-center">Workout</th>
+                                    <th scope="col" class="text-center">Weight</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($leader_board as $leader)
+                                    <tr>
+                                        <td class="text-center">{{ $leader['first_name'] }} {{ $leader['last_name'] }}</td>
+                                        <td class="text-center">{{ $leader['type'] }}</td>
+                                        <td class="text-center">{{ $leader['weight'] }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 @else
                     <div class="col p-3 bodyPanelStyle">
@@ -193,7 +213,7 @@
             </div>
             <div class="row">
                 <div class="col bodyPanelStyle p-3">
-                    <img src="http://via.placeholder.com/300x137" alt="" class="w-100">
+                    <img src="http://via.placeholder.com/300x120" alt="" class="w-100">
 
                 </div>
             </div>

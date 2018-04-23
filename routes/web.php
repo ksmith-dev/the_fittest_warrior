@@ -37,7 +37,7 @@ Route::get('health', 'HealthController@showHealthTab');
 Route::get('workout/form/{workout_type}', 'WorkoutController@showWorkoutFormView');
 Route::get('workout/form/{workout_type}/{workout_id}', 'WorkoutController@showWorkoutFormView');
 Route::get('workout/edit/{workout_type}', 'WorkoutController@showWorkoutEditView');
-Route::get('workout/view/{workout_type}', 'WorkoutController@showWorkoutView');
+Route::get('workout/view/{workout_id}', 'WorkoutController@showWorkoutView');
 Route::get('nutrition/form', 'NutritionController@showNutritionFormView');
 Route::get('nutrition/form/{nutrition_id}', 'NutritionController@showNutritionFormView');
 Route::get('health/form', 'HealthController@showHealthFormView');

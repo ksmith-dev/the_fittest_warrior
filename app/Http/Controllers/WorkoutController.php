@@ -148,18 +148,17 @@ class WorkoutController extends Controller
         $workout = Workout::find($workout_id);
 
         $training = DB::table('training')->where('workout_type', $workout->type)->first();
-
-        if (!empty($training)) {
-            $workout->training = $training->type;
-        } else {
-            $workout->training = null;
-        }
+        $muscle_groups = DB::table('muscle_group')->where('workout_type', $workout->type)->get();
+        if ($muscle_groups->count() < 1) { $muscle_groups = null; }
 
         /** leader board code */
         $leader_board = null;
         $max_workout = null;
 
         if (!empty($training)) {
+
+            $params['training'] = $training->type;
+
             if ($training->type == 'strength') {
 
                 $strength_trainings = DB::table('training')->where('type', $training->type)->get();
@@ -248,9 +247,55 @@ class WorkoutController extends Controller
                     }
                 }
             }
+        } else {
+
+            $workouts = Workout::all();
+
+            $unknown_workouts = array();
+
+            foreach ($workouts as $workout) {
+
+                $unknown_training = DB::table('training')->where('workout_type', $workout->type)->first();
+
+                if (empty($unknown_training)) {
+                    array_push($unknown_workouts, $workout);
+                }
+            }
+
+            foreach ($unknown_workouts as $unknown_workout) {
+
+                $user = User::find($unknown_workout->user_id);
+
+                if (!empty($unknown_workout)) {
+
+                    if (empty($leader_board[$unknown_workout->type])) {
+                        $leader_board[$unknown_workout->type] = array(
+                            'first_name' => $user->first_name,
+                            'last_name' => $user->last_name,
+                            'type' => $unknown_workout->type,
+                            'sets' => $unknown_workout->sets,
+                            'repetitions' => $unknown_workout->repetitions,
+                            'weight' => $unknown_workout->weight,
+                            'duration' => $unknown_workout->duration,
+                            'rest' => $unknown_workout->rest
+                        );
+                    } else if ($unknown_workout->weight > $leader_board[$unknown_workout->type]['weight']) {
+                        $leader_board[$unknown_workout->type] = array(
+                            'first_name' => $user->first_name,
+                            'last_name' => $user->last_name,
+                            'type' => $unknown_workout->type,
+                            'sets' => $unknown_workout->sets,
+                            'repetitions' => $unknown_workout->repetitions,
+                            'weight' => $unknown_workout->weight,
+                            'duration' => $unknown_workout->duration,
+                            'rest' => $unknown_workout->rest
+                        );
+                    }
+                }
+            }
         }
 
-        return view('workout', ['params' => $params, 'workout' => $workout, 'leader_board' => $leader_board]);
+        return view('workout', ['params' => $params, 'workout' => $workout, 'leader_board' => $leader_board, 'muscle_groups' => $muscle_groups]);
     }
 
     /**
