@@ -248,4 +248,11 @@
 
 @section('footer')
     @parent
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('nutrition') }}">nutrition</a></li>
+                <li class="breadcrumb-item active" aria-current="page">add nutrition</li>
+            </ol>
+        </nav>
 @endsection

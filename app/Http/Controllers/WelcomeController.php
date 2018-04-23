@@ -75,7 +75,6 @@ class WelcomeController extends Controller
                     'rest' => $workout->rest
                 );
             }
-
         }
 
         $leader_board = null;
@@ -84,7 +83,7 @@ class WelcomeController extends Controller
 
         foreach ($leaders as $key => $value) {
 
-            if ($count < 5) {
+            if ($count < 4) {
                 $leader_board[$key] = $value;
             }
 

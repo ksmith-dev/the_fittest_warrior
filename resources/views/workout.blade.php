@@ -41,10 +41,10 @@
                         <li class="workout-list-item"><b>DURATION:</b> {{ $workout->duration }}</li>
                     @endif
                     @if(!empty($workout->rest))
-                        <li class="workout-list-item"><b>REST:</b> {{ $workout->rest }}</li>
+                        <li  class="workout-list-item"><b>REST:</b> {{ $workout->rest }}</li>
                     @endif
                     @if(!empty($muscle_groups))
-                            <li><b>Muscle Groups:</b>
+                            <li class="workout-list-item"><b>Muscle Groups:</b>
                             <ul>
                                 @foreach($muscle_groups as $muscle_group)
                                     <li>{{ $muscle_group->muscle_group }}</li>
