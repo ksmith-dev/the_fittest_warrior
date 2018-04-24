@@ -14,81 +14,97 @@
         <a href="{{ url('health/form') }}" class="btn btn-secondary" role="button">add health information</a>
         <div class="spacer-50" style="border-bottom: 1px solid black"></div>
         <div class="spacer-20"></div>
-        @foreach($health_collection as $health)
-            <div class="col">
-                <div class="row">
-                    <div class="table-responsive d-block">
-                        <h4>Health Record</h4>
-                        <hr>
-                        <a href="{{ url('health/form') }}/{{ $health->id }}" class="btn btn-secondary" role="button">edit</a>
-                        <a href="{{ url('health/delete') }}/{{ $health->id }}" class="btn btn-secondary" role="button" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
+        @if(empty($health_collection))
+            <h1 style="width: 90%;">Sorry {{ $params['user']->first_name }}, we did not find any health records  to display!</h1>
+            <span class="spacer-50"></span>
+            <p style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some health records please start by clicking below.
+                <br>
+                <br>
+                <a href="{{ url('health/form') }}" class="btn btn-secondary" role="button">add a health record</a>
+                <span style="display: inline-block; width: 20px;"></span>or<span style="display: inline-block; width: 20px;"></span>
+                <button type="button" class="btn btn-secondary back">go back</button>
+            </p>
+            <div class="spacer-50"></div>
+            <a title="By Matthew Inman [CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Tumbeasts_sign1.png">
+                <img id="omg-404" width="256" alt="Tumbeasts sign1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Tumbeasts_sign1.png/256px-Tumbeasts_sign1.png">
+            </a>
+        @else
+            @foreach($health_collection as $health)
+                <div class="col">
+                    <div class="row">
+                        <div class="table-responsive d-block">
+                            <h4>Health Record</h4>
+                            <hr>
+                            <a href="{{ url('health/form') }}/{{ $health->id }}" class="btn btn-secondary" role="button">edit</a>
+                            <a href="{{ url('health/delete') }}/{{ $health->id }}" class="btn btn-secondary" role="button" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
 
-                        <form id="delete-form" action="{{ url('health/delete') }}/{{ $health->id }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                        <div class="spacer-20"></div>
-                        <table class="table table-sm">
-                            <thead>
-                            <th class="text-center">Start Date Time</th>
-                            <th class="text-center">End Date Time</th>
-                            <th class="text-center">Status</th>
-                            </thead>
-                            <tbody>
-                            <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->start_date_time)) }}</th>
-                            <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->end_date_time)) }}</th>
-                            <th scope="row" class="text-center">average/age - calculated</th>
-                            <tr>
-                                <td class="text-center">LDL Cholesterol</td>
-                                <td class="text-center">{{ $health->ldl_cholesterol }}</td>
-                                <td class="text-center">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Fat Percentage</td>
-                                <td class="text-center">{{ $health->fat_percentage }}</td>
-                                <td class="text-center">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Systolic Blood Pressure</td>
-                                <td class="text-center">{{ $health->systolic_blood_pressure }}</td>
-                                <td class="text-center">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Systolic Blood Pressure</td>
-                                <td class="text-center">{{ $health->diastolic_blood_pressure }}</td>
-                                <td class="text-center">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80% high</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">HDL Cholesterol</td>
-                                <td class="text-center">{{ $health->hdl_cholesterol }}</td>
-                                <td class="text-center">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90% very high</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <form id="delete-form" action="{{ url('health/delete') }}/{{ $health->id }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <div class="spacer-20"></div>
+                            <table class="table table-sm">
+                                <thead>
+                                <th class="text-center">Start Date Time</th>
+                                <th class="text-center">End Date Time</th>
+                                <th class="text-center">Status</th>
+                                </thead>
+                                <tbody>
+                                <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->start_date_time)) }}</th>
+                                <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->end_date_time)) }}</th>
+                                <th scope="row" class="text-center">average/age - calculated</th>
+                                <tr>
+                                    <td class="text-center">LDL Cholesterol</td>
+                                    <td class="text-center">{{ $health->ldl_cholesterol }}</td>
+                                    <td class="text-center">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Fat Percentage</td>
+                                    <td class="text-center">{{ $health->fat_percentage }}</td>
+                                    <td class="text-center">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Systolic Blood Pressure</td>
+                                    <td class="text-center">{{ $health->systolic_blood_pressure }}</td>
+                                    <td class="text-center">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Systolic Blood Pressure</td>
+                                    <td class="text-center">{{ $health->diastolic_blood_pressure }}</td>
+                                    <td class="text-center">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80% high</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">HDL Cholesterol</td>
+                                    <td class="text-center">{{ $health->hdl_cholesterol }}</td>
+                                    <td class="text-center">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90% very high</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="spacer-50"></div>
-        @endforeach
+                <div class="spacer-50"></div>
+            @endforeach
+        @endif
     </div>
 @endsection
 @section('footer')

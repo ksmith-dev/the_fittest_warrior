@@ -18,8 +18,11 @@ class HealthController extends Controller
     public function showHealthTab() {
 
         $params['title'] = 'Health';
+        $params['user'] = Auth::user();
 
         $health_collection = Health::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('start_date_time', 'desc')->limit(15)->get();
+
+        if ($health_collection->count() < 1) { $health_collection = null; }
 
         return view('health', ['params' => $params, 'health_collection' => $health_collection]);
     }

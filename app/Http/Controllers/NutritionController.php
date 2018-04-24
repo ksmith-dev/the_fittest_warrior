@@ -54,8 +54,11 @@ class NutritionController extends Controller
     public function showNutritionTab()
     {
         $params['title'] = 'Nutrition';
+        $params['user'] = Auth::user();
 
         $nutrition_collection = Nutrition::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('created_at', 'desc')->limit(15)->get();
+
+        if ($nutrition_collection->count() < 1) { $nutrition_collection = null; }
 
         return view('nutrition', ['params' => $params, 'nutrition_collection' => $nutrition_collection]);
     }
