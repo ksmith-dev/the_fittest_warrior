@@ -77,9 +77,9 @@ class NutritionController extends Controller
 
         if ($nutrition_id) {
             $nutrition = Nutrition::where('id', $nutrition_id)->orderBy('created_at', 'desc')->first();
-        }
 
-        if ($nutrition->count() < 1 ) { $nutrition = null; }
+            if ($nutrition->count() < 1 ) { $nutrition = null; }
+        }
 
         return view('forms.nutrition', ['params' => $params, 'nutrition' => $nutrition]);
     }
