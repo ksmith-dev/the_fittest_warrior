@@ -158,7 +158,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">nutrition</li>
-                <li class="breadcrumb-item"><a href="{{ url('nutrition/form') }}">add nutrition</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('nutrition/form') }}">add</a></li>
             </ol>
         </nav>
 @endsection

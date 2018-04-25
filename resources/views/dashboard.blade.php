@@ -236,9 +236,9 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">dashboard</li>
-                <li class="breadcrumb-item"><a href="{{ url('workout') }}">add workout</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('nutrition/form') }}">add nutrition</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('health/form') }}">add health</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('workout') }}">workout</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('nutrition/form') }}">nutrition</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('health/form') }}">health</a></li>
             </ol>
         </nav>
         <script src="{{ asset('js/dashboard_charts.js') }}"></script>

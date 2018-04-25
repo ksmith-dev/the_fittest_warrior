@@ -292,3 +292,21 @@ input[type="checkbox"][readonly], .label_readonly {
 a {
     cursor: pointer;
 }
+
+.feed-pagination {
+    text-align: center;
+    display: block;
+    width: 100%;
+    border: 1px solid #1d2124;
+    padding: 20px 0;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #4e555b;
+}
+
+a.feed-pagination {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: none;
+    color: #dae0e5;
+}

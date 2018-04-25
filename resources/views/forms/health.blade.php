@@ -161,7 +161,11 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('health') }}">health</a></li>
-                <li class="breadcrumb-item active" aria-current="page">add health</li>
+                @if(empty($health))
+                    <li class="breadcrumb-item active" aria-current="page">add</li>
+                @else
+                    <li class="breadcrumb-item active" aria-current="page">edit</li>
+                @endif
             </ol>
         </nav>
 @endsection

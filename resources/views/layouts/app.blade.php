@@ -57,7 +57,7 @@
                                 </li>
 
                                 <li class="nav-item ml-1">
-                                    <a class="nav-link" href="/community">Community</a>
+                                    <a class="nav-link" href="/community/0">Community</a>
                                 </li>
                             @endauth
 

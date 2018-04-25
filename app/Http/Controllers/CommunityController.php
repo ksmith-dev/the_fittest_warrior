@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App;
+use App\SocialFeed;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,15 +10,20 @@ class CommunityController extends Controller {
     /**
      * Display a listing of the resource.
      *
+     * @param $index
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($index)
     {
         $member = Auth::user();
 
-        $feeds = App\SocialFeed::where('user_id', $member->getAuthIdentifier())->orderBy('share_date')->get();
+        $feeds = SocialFeed::where('user_id', $member->getAuthIdentifier())->orderBy('share_date')->get();
 
-        return view('community', ['member' => $member, 'feeds' => $feeds]);
+        $chunked = $feeds->chunk(4);
+
+        $pagination = array('index' => intval($index), 'max_index' => sizeof($chunked) - 1);
+
+        return view('community', ['pagination' => $pagination, 'member' => $member, 'feeds' => $chunked[$index]]);
     }
 
     /**
@@ -34,8 +39,8 @@ class CommunityController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
     public function store(Request $request)
     {

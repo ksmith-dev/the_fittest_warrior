@@ -72,13 +72,14 @@ class NutritionController extends Controller
     public function showNutritionFormView($nutrition_id = null) {
 
         $params['title'] = 'Nutrition';
-        $params['nutrition_id'] = $nutrition_id;
 
         $nutrition = null;
 
         if ($nutrition_id) {
             $nutrition = Nutrition::where('id', $nutrition_id)->orderBy('created_at', 'desc')->first();
         }
+
+        if ($nutrition->count() < 1 ) { $nutrition = null; }
 
         return view('forms.nutrition', ['params' => $params, 'nutrition' => $nutrition]);
     }

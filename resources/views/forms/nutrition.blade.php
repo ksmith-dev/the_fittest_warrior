@@ -15,8 +15,8 @@
         <div class="spacer-50"></div>
         <form method="POST" action="{{ url('nutrition/store') }}">
             @csrf
-            @if(!empty($params['nutrition_id']))
-                <input type="hidden" name="nutrition_id" value="{{ $params['nutrition_id'] }}">
+            @if(!empty($nutrition->id))
+                <input type="hidden" name="nutrition_id" value="{{ $nutrition->id }}">
             @endif
             <div class="form-group row">
                 <label for="portion_size" class="col-md-4 col-form-label text-md-right">{{ __('Portion Size') }}</label>
@@ -251,8 +251,11 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('nutrition') }}">nutrition</a></li>
-                <li class="breadcrumb-item active" aria-current="page">add nutrition</li>
+                @if (empty($nutrition))
+                    <li class="breadcrumb-item active" aria-current="page">add</li>
+                @else
+                    <li class="breadcrumb-item active" aria-current="page">edit</li>
+                @endif
             </ol>
         </nav>
 @endsection

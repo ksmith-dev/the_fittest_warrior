@@ -196,7 +196,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">add workout</li>
+                @if(empty($workout))
+                    <li class="breadcrumb-item"><a href="{{ url('workout') }}">workouts</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">add</li>
+                @else
+                    <li class="breadcrumb-item"><a href="{{ url('workout') }}">workouts</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">edit</li>
+                @endif
             </ol>
         </nav>
 @endsection

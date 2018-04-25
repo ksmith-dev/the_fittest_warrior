@@ -144,7 +144,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">workout</li>
-                <li class="breadcrumb-item"><a href="{{ url('workout') }}">add workout</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('workout') }}">add</a></li>
             </ol>
         </nav>
 @endsection
