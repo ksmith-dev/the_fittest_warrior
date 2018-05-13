@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -29,7 +30,8 @@ class CreateUserTable extends Migration
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
             $table->string('b_m_i')->nullable();
-            $table->string('group_id')->nullable();
+            $table->string('role')->default('member');
+            $table->string('status')->default('active');
             $table->rememberToken();
             $table->timestamps();
         });

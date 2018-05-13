@@ -21,33 +21,42 @@ Route::get('about', function () {
     return view('about');
 });
 
-Route::get('shop', 'ShopController@index');
-
 Auth::routes();
 
-Route::post('workout/report/store/{workout_type}', 'WorkoutController@store');
-Route::post('nutrition/store', 'NutritionController@store');
-Route::post('health/store', 'HealthController@store');
-
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-Route::get('workout', 'WorkoutController@showWorkoutTab');
-Route::get('nutrition', 'NutritionController@showNutritionTab');
-Route::get('health', 'HealthController@showHealthTab');
 
+Route::get('workout', 'WorkoutController@showWorkoutTab');
 Route::get('workout/form/{workout_type}', 'WorkoutController@showWorkoutFormView');
 Route::get('workout/form/{workout_type}/{workout_id}', 'WorkoutController@showWorkoutFormView');
 Route::get('workout/edit/{workout_type}', 'WorkoutController@showWorkoutEditView');
 Route::get('workout/view/{workout_id}', 'WorkoutController@showWorkoutView');
+
+Route::get('nutrition', 'NutritionController@showNutritionTab');
 Route::get('nutrition/form', 'NutritionController@showNutritionFormView');
 Route::get('nutrition/form/{nutrition_id}', 'NutritionController@showNutritionFormView');
+
+Route::get('health', 'HealthController@showHealthTab');
 Route::get('health/form', 'HealthController@showHealthFormView');
 Route::get('health/form/{health_id}', 'HealthController@showHealthFormView');
 
-Route::get('community/{feed_index}', 'CommunityController@index');
+Route::get('gyms', 'GymController@index');
+Route::get('fitness_group/{id}', 'GymController@showFitnessGroup');
+
+Route::get('account', 'UserController@index');
+Route::get('account/form', 'UserController@form');
+Route::get('admin', 'UserController@admin');
+Route::get('admin/{data_type}', 'UserController@admin');
+
+/*-------------------------------POST ROUTES-------------------------------*/
 
 Route::post('workout/delete/{workout_type}/{id}', 'WorkoutController@destroy');
 Route::post('nutrition/delete/{id}', 'NutritionController@destroy');
 Route::post('health/delete/{id}', 'HealthController@destroy');
+
+Route::post('workout/report/store/{workout_type}', 'WorkoutController@store');
+Route::post('nutrition/store', 'NutritionController@store');
+Route::post('health/store', 'HealthController@store');
+Route::post('account/store', 'UserController@store');
 
 
 

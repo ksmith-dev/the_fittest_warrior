@@ -46,24 +46,22 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="brand">
-                        <a class="navbar-brand " href="/">T F W</a>
+                        <a class="navbar-brand " href="/"><img src="{{ asset('images/icons/brand_logo.png') }}" width="40px"></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-center navLinks">
 
                             @auth
                                 <li class="nav-item ml-1">
+                                    <a class="nav-link" href="{{ url('account') }}">Account</a>
+                                </li>
+                                <li class="nav-item ml-1">
                                     <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
                                 </li>
-
-                                <li class="nav-item ml-1">
-                                    <a class="nav-link" href="/community/0">Community</a>
-                                </li>
                             @endauth
-
-                            <li class="nav-item ml-1">
-                                <a class="nav-link" href="/shop">Shop</a>
-                            </li>
+                                <li class="nav-item ml-1">
+                                    <a class="nav-link" href="/gyms">Gyms</a>
+                                </li>
                             <li class="nav-item ml-1">
                                 <a class="nav-link" href="/about">About</a>
                             </li>

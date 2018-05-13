@@ -43,7 +43,7 @@ class CreateTrainingTable extends Migration
                                 'front_delt_raise', 'shoulder_shrugs', 'high_pulls', 'tricep_extensions', 'dips', 'tricep_push_downs',
                                 'over_head_cable_extensions', 'single_arm_pull_over', 'one_arm_cable_extension',
                                 'over_head_dumbbell_extension', 'kick_backs',
-                                'plank', 'side_plank', 'bear_crawl', 'lunge', 'squat', 'dead_lift', 'crunch'),
+                                'plank', 'side_plank', 'bear_crawl', 'lunge', 'squat', 'crunch'),
             "intensity" => array('high', 'medium', 'low'),
             "interval" => array('low_high', 'high_low', 'low_medium', 'medium_low'),
             "flexibility" => array('yoga', 'stretch', 'stretching'),

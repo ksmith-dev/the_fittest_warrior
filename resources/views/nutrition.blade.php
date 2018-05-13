@@ -11,23 +11,18 @@
 @section('content')
     @include('layouts.dashboard_nav')
     <div id="nutrition">
-        <a href="{{ url('nutrition/form') }}" class="btn btn-secondary" role="button">add nutrition information</a>
+        <a href="{{ url('nutrition/form') }}" class="btn btn-secondary" role="button">add nutrition record</a>
         <div class="spacer-50" style="border-bottom: 1px solid black"></div>
         <div class="spacer-20"></div>
         @if(empty($nutrition_collection))
-            <h1 style="width: 90%;">Sorry {{ $params['user']->first_name }}, we did not find any nutrition records  to display!</h1>
+            <h2 style="width: 90%;">Welcome to your nutrition tracker, there are no records to display.</h2>
             <span class="spacer-50"></span>
-            <p style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some nutrition records please start by clicking below.
+            <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some nutrition records please start by clicking below.
                 <br>
                 <br>
-                <a href="{{ url('nutrition/form') }}" class="btn btn-secondary" role="button">add a nutrition record</a>
-                <span style="display: inline-block; width: 20px;"></span>or<span style="display: inline-block; width: 20px;"></span>
-                <button type="button" class="btn btn-secondary back">go back</button>
-            </p>
+                <a href="{{ url('workout') }}" class="btn btn-secondary" role="button">add a nutrition record</a>
+            </h5>
             <div class="spacer-50"></div>
-            <a title="By Matthew Inman [CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Tumbeasts_sign1.png">
-                <img id="omg-404" width="256" alt="Tumbeasts sign1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Tumbeasts_sign1.png/256px-Tumbeasts_sign1.png">
-            </a>
         @else
             @foreach($nutrition_collection as $nutrition)
                 <div class="col">

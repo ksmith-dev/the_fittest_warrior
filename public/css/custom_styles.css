@@ -125,7 +125,7 @@ h4
 {
     font-style: italic;
 }
-#dashboard, #form-workout, #fitness, #health, #nutrition, #form-nutrition, #about, #shop, #workouts, #workout
+#dashboard, #form-workout, #form-nutrition, #form-contact, #form-account, #fitness, #health, #nutrition, #about, #shop, #workouts, #workout, #gym, #fitness-group, #account, #admin
 {
     padding: 25px;
     color: #343a40;
@@ -258,14 +258,9 @@ input[type="checkbox"][readonly], .label_readonly {
     margin: auto;
 }
 
-#omg-404 {
-    display: block;
-    margin: 0 auto;
-    padding-bottom: 50px;
-}
-
 /* Container holding the image and the text */
 .img-container {
+    display: inline;
     position: relative;
     text-align: center;
     color: white;
@@ -309,4 +304,27 @@ a.feed-pagination {
     font-style: italic;
     text-decoration: none;
     color: #dae0e5;
+}
+
+.gym-group {
+    border: 1px solid #1d2124;
+    border-radius: 5px;
+    margin: 15px 0;
+    padding: 20px 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-decoration: none;
+    color: #1d2124;
+}
+
+.gym-group img {
+    display: block;
+    margin: auto;
+    width: 300px;
+}
+
+.vertical-banner {
+    float: right;
+    width: 200px;
+    height: 700px;
+    background: #1d2124 url("http://via.placeholder.com/200x700") no-repeat center;
 }
