@@ -15,7 +15,7 @@
                         <a class="btn btn-dark" href="{{ url('admin') }}" role="button">Admin Dashboard</a>
                     @endif
                 @endauth
-                <a class="btn btn-dark" href="{{ url('account/form') }}" role="button">Edit Account Information</a>
+                <a class="btn btn-dark" href="{{ url('user/form') }}" role="button">Edit Account Information</a>
                 <div class="spacer-20"></div>
                 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
                 <h3><b>Site Role:</b>&nbsp;&nbsp;&nbsp;{{ ucwords($user->role) }}</h3>

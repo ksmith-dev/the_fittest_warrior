@@ -18,6 +18,7 @@ class CreateMemberTable extends Migration
             $table->integer('user_id');
             $table->integer('group_id');
             $table->string('group_role');
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

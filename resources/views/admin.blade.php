@@ -13,32 +13,32 @@
                 @if(!empty($advertisements))
                     <div class="spacer-50"></div>
                     <h3>Advertisement Data</h3>
-                    <a class="btn btn-dark" href="{{ url('advertisement/add') }}" role="button">Add Advertisement</a>
+                    <a class="btn btn-dark" href="{{ url('admin/advertisement/add') }}" role="button">Add Advertisement</a>
                     <div class="spacer-50"></div>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
                             <th scope="col">User ID</th>
+                            <th scope="col">Company Name</th>
                             <th scope="col">Subscription</th>
                             <th scope="col">Frequency</th>
                             <th scope="col">Status</th>
                             <th scope="col">view</th>
                             <th scope="col">edit</th>
-                            <th scope="col">deactivate</th>
+                            <th scope="col">change status</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach($advertisements as $advertisement)
                             <tr>
-                                <th scope="row">{{ $advertisement->id }}</th>
-                                <td>{{ $advertisement->user_id }}</td>
+                                <th scope="row">{{ $advertisement->user_id }}</th>
+                                <td>{{ $advertisement->company_name }}</td>
                                 <td>{{ $advertisement->subscription }}</td>
-                                <td>{{ $advertisement->frequencty }}</td>
+                                <td>{{ $advertisement->frequency }}</td>
                                 <td>{{ $advertisement->status }}</td>
-                                <td><a href="">view</a></td>
-                                <td><a href="">edit</a></td>
-                                <td><a href="">deactivate</a></td>
+                                <td><a href="{{ url('admin/advertisement/' . $advertisement->id) }}">view</a></td>
+                                <td><a href="{{ url('admin/advertisement/edit/' . $advertisement->id) }}">edit</a></td>
+                                <td><a href="{{ url('admin/advertisement/deactivate/' . $advertisement->id) }}">change status</a></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -68,9 +68,9 @@
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->status }}</td>
-                                <td><a href="">view</a></td>
-                                <td><a href="">edit</a></td>
-                                <td><a href="">deactivate</a></td>
+                                <td><a href="{{ url('user/' . $user->id) }}">view</a></td>
+                                <td><a href="{{ url('admin/user/edit/' . $user->id) }}">edit</a></td>
+                                <td><a href="{{ url('admin/user/deactivate/' . $user->id) }}">deactivate</a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -87,6 +87,7 @@
                             <th scope="col">User Name</th>
                             <th scope="col">Group Name</th>
                             <th scope="col">Group Role</th>
+                            <th scope="col">Status</th>
                             <th scope="col">view</th>
                             <th scope="col">edit</th>
                             <th scope="col">deactivate</th>
@@ -99,9 +100,10 @@
                                 <td>{{ $member->user_name }}</td>
                                 <td>{{ $member->group_name }}</td>
                                 <td>{{ $member->group_role }}</td>
-                                <td><a href="">view</a></td>
-                                <td><a href="">edit</a></td>
-                                <td><a href="">deactivate</a></td>
+                                <td>{{ $member->status }}</td>
+                                <td><a href="{{ url('admin/member/' . $member->id) }}">view</a></td>
+                                <td><a href="{{ url('admin/member/edit/' . $member->id) }}">edit</a></td>
+                                <td><a href="{{ url('admin/member/deactivate/' . $member->id) }}">deactivate</a></td>
                             </tr>
                         @endforeach
                         </tbody>
