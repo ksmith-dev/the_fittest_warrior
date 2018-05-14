@@ -42,10 +42,14 @@ Route::get('health/form/{health_id}', 'HealthController@showHealthFormView');
 Route::get('gyms', 'GymController@index');
 Route::get('fitness_group/{id}', 'GymController@showFitnessGroup');
 
-Route::get('account', 'UserController@index');
-Route::get('account/form', 'UserController@form');
-Route::get('admin', 'UserController@admin');
+Route::get('admin', 'UserController@admin')->name('admin');
 Route::get('admin/{data_type}', 'UserController@admin');
+Route::get('admin/{data_type}/add', 'UserController@form');
+Route::get('admin/{data_type}/edit/{identity}', 'UserController@form');
+Route::get('admin/{data_type}/deactivate/{identity}', 'UserController@deactivate');
+
+Route::get('account', 'UserController@index');
+Route::get('{data_type}/form', 'UserController@form');
 
 /*-------------------------------POST ROUTES-------------------------------*/
 
@@ -57,6 +61,9 @@ Route::post('workout/report/store/{workout_type}', 'WorkoutController@store');
 Route::post('nutrition/store', 'NutritionController@store');
 Route::post('health/store', 'HealthController@store');
 Route::post('account/store', 'UserController@store');
+
+Route::post('admin/store/{data_type}/{identity}', 'UserController@store');
+Route::post('admin/store/{data_type}', 'UserController@store');
 
 
 
