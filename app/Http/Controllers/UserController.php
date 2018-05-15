@@ -169,8 +169,9 @@ class UserController extends Controller
                 if ($request->data_type == 'user')
                 {
                     $model = Auth::user();
-                    $local_input_structure = array_push($this->_input_structure['protected'], 'role');
-                    $inputs = new FormFactory('user', $this->_input_structure);
+                    $local_input_structure = $this->_input_structure;
+                    array_push($local_input_structure['protected'], 'role');
+                    $inputs = new FormFactory('user', $local_input_structure);
                 }
             }
 
