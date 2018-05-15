@@ -74,7 +74,7 @@
                                            type="{{ $element['input']->getType() }}"
                                            class="{{ $element['input']->getClass() }}"
                                            name="{{ $element['input']->getName() }}"
-                                           value="{{ $model->$type }}"
+                                           value="{{ str_replace('_', ' ', $model->$type) }}"
                                             {{ $element['input']->getInputAttribute() }}>
                                 @endif
 

@@ -11,45 +11,97 @@ use App\FormFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 
 class UserController extends Controller
 {
-    // list of editable columns for user table
-    private $editable = array(
-        'user' => array(
-            'first_name',
-            'last_name',
-            'email',
-            'address',
-            'unit',
-            'city',
-            'state',
-            'zip',
-            'age',
-            'sex',
-            'weight',
-            'height',
-            'b_m_i'
-        ),
-        'advertisement' => array(
-            "user_id",
-            "company_name",
-            "subscription",
-            "frequency",
-            "pricing",
-            "banner_src",
-            "banner_alt",
-            "message",
-            "link",
-            "status",
-        ),
-        'member' => array(
-            "user_id",
-            "group_id",
-            "group_role",
-            "status"
-        ),
+    /*--------------------------------- GLOBAL INPUT STRUCTURE ---------------------------------*/
+    /*---- MAKE EDITS BEFORE ADDING THIS AS A PARAMETER IF YOU NEED TO CHANGE FUNCTIONALITY ----*/
+    // list of protected columns - will be ignored by parser
+    private $_protected = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
+    // key => value pairs of 'option value' => 'option label'
+    private $_states = array(
+    'AL' => 'Alabama',
+    'AK' => 'Alaska',
+    'AZ' => 'Arizona',
+    'AR' => 'Arkansas',
+    'CA' => 'California',
+    'CO' => 'Colorado',
+    'CT' => 'Connecticut',
+    'DE' => 'Delaware',
+    'DC' => 'District Of Columbia',
+    'FL' => 'Florida',
+    'GA' => 'Georgia',
+    'HI' => 'Hawaii',
+    'ID' => 'Idaho',
+    'IL' => 'Illinois',
+    'IN' => 'Indiana',
+    'IA' => 'Iowa',
+    'KS' => 'Kansas',
+    'KY' => 'Kentucky',
+    'LA' => 'Louisiana',
+    'ME' => 'Maine',
+    'MD' => 'Maryland',
+    'MA' => 'Massachusetts',
+    'MI' => 'Michigan',
+    'MN' => 'Minnesota',
+    'MS' => 'Mississippi',
+    'MO' => 'Missouri',
+    'MT' => 'Montana',
+    'NE' => 'Nebraska',
+    'NV' => 'Nevada',
+    'NH' => 'New Hampshire',
+    'NJ' => 'New Jersey',
+    'NM' => 'New Mexico',
+    'NY' => 'New York',
+    'NC' => 'North Carolina',
+    'ND' => 'North Dakota',
+    'OH' => 'Ohio',
+    'OK' => 'Oklahoma',
+    'OR' => 'Oregon',
+    'PA' => 'Pennsylvania',
+    'RI' => 'Rhode Island',
+    'SC' => 'South Carolina',
+    'SD' => 'South Dakota',
+    'TN' => 'Tennessee',
+    'TX' => 'Texas',
+    'UT' => 'Utah',
+    'VT' => 'Vermont',
+    'VA' => 'Virginia',
+    'WA' => 'Washington',
+    'WV' => 'West Virginia',
+    'WI' => 'Wisconsin',
+    'WY' => 'Wyoming',
     );
+    private $_sex = array('male' => 'male', 'female' => 'female');
+    private $_status = array('active' => 'active', 'deactivated' => 'deactivated');
+    private $_roles = array('admin' => 'admin', 'member' => 'member', 'guest' => 'guest');
+    private $_group_roles = array('admin' => 'admin', 'member' => 'member', 'guest' => 'guest', 'coach' => 'coach');
+    // key => value pairs of 'mixed' => 'mixed' look at default for further info
+    private $_input_structure = null;
+    /*--------------------------------- GLOBAL INPUT STRUCTURE ---------------------------------*/
+
+    /**
+     * UserController constructor.
+     * @param array|null $input_structure
+     */
+    public function  buildInputStructure(array $input_structure = null)
+    {
+        if (empty($input_structure))
+        {
+            $this->_input_structure['class'] = array('label' => 'col-md-4 col-form-label text-md-right', 'input' => 'form-control', 'select' => 'form-control');
+            // key => value pairs of 'old label' => 'new label'
+            $this->_input_structure['override_label'] = array('user_id' => 'user_name', 'group_id' => 'group_name');
+            //list input types other than of type text
+            $this->_input_structure['override_type'] = array('state' => 'select', 'sex' => 'select', 'status' => 'select', 'role' => 'select', 'group_role' => 'select');
+            // key => value pairs 'column key' => array of options (example should be seen above)
+            $this->_input_structure['options'] = array('state' => $this->_states, 'sex' => $this->_sex, 'status' => $this->_status, 'role' => $this->_roles, 'group_role' => $this->_group_roles);
+            // list of columns that will be ignored by form factory and not displayed on form for editing
+            $this->_input_structure['protected'] = $this->_protected;
+        } else {
+            $this->_input_structure = $input_structure;
+        }
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -76,79 +128,12 @@ class UserController extends Controller
      */
     public function form(Request $request) {
 
+        //builds global form input structure,
+        //no param will result in a default structure
+        $this->buildInputStructure();
+
         $model = null;
         $inputs = null;
-
-        /*--------------------------------- GLOBAL INPUT STRUCTURE ---------------------------------*/
-        /*---- MAKE EDITS BEFORE ADDING THIS AS A PARAMETER IF YOU NEED TO CHANGE FUNCTIONALITY ----*/
-        // key => value pairs of 'option value' => 'option label'
-        $states = array(
-            'AL' => 'Alabama',
-            'AK' => 'Alaska',
-            'AZ' => 'Arizona',
-            'AR' => 'Arkansas',
-            'CA' => 'California',
-            'CO' => 'Colorado',
-            'CT' => 'Connecticut',
-            'DE' => 'Delaware',
-            'DC' => 'District Of Columbia',
-            'FL' => 'Florida',
-            'GA' => 'Georgia',
-            'HI' => 'Hawaii',
-            'ID' => 'Idaho',
-            'IL' => 'Illinois',
-            'IN' => 'Indiana',
-            'IA' => 'Iowa',
-            'KS' => 'Kansas',
-            'KY' => 'Kentucky',
-            'LA' => 'Louisiana',
-            'ME' => 'Maine',
-            'MD' => 'Maryland',
-            'MA' => 'Massachusetts',
-            'MI' => 'Michigan',
-            'MN' => 'Minnesota',
-            'MS' => 'Mississippi',
-            'MO' => 'Missouri',
-            'MT' => 'Montana',
-            'NE' => 'Nebraska',
-            'NV' => 'Nevada',
-            'NH' => 'New Hampshire',
-            'NJ' => 'New Jersey',
-            'NM' => 'New Mexico',
-            'NY' => 'New York',
-            'NC' => 'North Carolina',
-            'ND' => 'North Dakota',
-            'OH' => 'Ohio',
-            'OK' => 'Oklahoma',
-            'OR' => 'Oregon',
-            'PA' => 'Pennsylvania',
-            'RI' => 'Rhode Island',
-            'SC' => 'South Carolina',
-            'SD' => 'South Dakota',
-            'TN' => 'Tennessee',
-            'TX' => 'Texas',
-            'UT' => 'Utah',
-            'VT' => 'Vermont',
-            'VA' => 'Virginia',
-            'WA' => 'Washington',
-            'WV' => 'West Virginia',
-            'WI' => 'Wisconsin',
-            'WY' => 'Wyoming',
-        );
-        $sex = array('male' => 'male', 'female' => 'female');
-        $status = array('active' => 'active', 'deactivated' => 'deactivated');
-        $roles = array('admin' => 'admin', 'member' => 'member', 'guest' => 'guest');
-        // key => value pairs of 'input type' => 'class list'
-        $input_structure['class'] = array('label' => 'col-md-4 col-form-label text-md-right', 'input' => 'form-control', 'select' => 'form-control');
-        // key => value pairs of 'old label' => 'new label'
-        $input_structure['override_label'] = array('user_id' => 'user_name', 'group_id' => 'group_name');
-        //list input types other than of type text
-        $input_structure['override_type'] = array('state' => 'select', 'sex' => 'select', 'status' => 'select', 'role' => 'select');
-        // key => value pairs 'column key' => array of options (example should be seen above)
-        $input_structure['options'] = array('state' => $states, 'sex' => $sex, 'status' => $status, 'role' => $roles);
-        // list of columns that will be ignored by form factory and not displayed on form for editing
-        $input_structure['protected'] = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
-        /*--------------------------------- GLOBAL INPUT STRUCTURE ---------------------------------*/
 
         if (Auth::check())
         {
@@ -156,13 +141,13 @@ class UserController extends Controller
             {
                 if ($request->data_type == 'user')
                 {
-                    empty($request->identity) ? $model = null : $model = User::find($request->identity);
-                    $inputs = new FormFactory('user', $input_structure);
+                    empty($request->identity) ? $model = Auth::user() : $model = User::find($request->identity);
+                    $inputs = new FormFactory('user', $this->_input_structure);
                 }
                 if ($request->data_type == 'advertisement')
                 {
                     empty($request->identity) ? $model = null : $model = DB::table('advertisement')->where('id', $request->identity)->first();
-                    $inputs = new FormFactory('advertisement', $input_structure);
+                    $inputs = new FormFactory('advertisement', $this->_input_structure);
                 }
                 if ($request->data_type == 'member')
                 {
@@ -178,13 +163,13 @@ class UserController extends Controller
                         $group = Group::find($model['group_id']);
                         $model['group_id'] = $group['name'];
                     }
-                    $inputs = new FormFactory('member', $input_structure);
+                    $inputs = new FormFactory('member', $this->_input_structure);
                 }
             } else {
                 if ($request->data_type == 'user')
                 {
                     $model = Auth::user();
-                    $inputs = new FormFactory('user', $input_structure);
+                    $inputs = new FormFactory('user', $this->_input_structure);
                 }
             }
 
@@ -195,7 +180,7 @@ class UserController extends Controller
         $inputs->createFormInputs();
         $inputs = $inputs->getInputs();
 
-        return view('forms.form', ['data_type' => $request->data_type, 'data_id' => $request->identity, 'model' => $model, 'states' => $states, 'inputs' => $inputs]);
+        return view('forms.form', ['data_type' => $request->data_type, 'data_id' => $request->identity, 'model' => $model, 'states' => $this->_states, 'inputs' => $inputs]);
     }
 
     /**
@@ -215,28 +200,21 @@ class UserController extends Controller
 
             if ($data_type == 'user')
             {
-                if ($request['data_type'] == 'user')
+                $user = User::find($request['id']);
+
+                $columns = Schema::getColumnListing('user');
+
+                foreach ($columns as $column)
                 {
-                    $user = User::find($request['id']);
-
-                    if (!empty($request['first_name'])) { $user->first_name = $request['first_name']; }
-                    if (!empty($request['last_name'])) { $user->last_name = $request['last_name']; }
-                    if (!empty($request['email'])) { $user->email = $request['email']; }
-                    if (!empty($request['address'])) { $user->address = $request['address']; }
-                    if (!empty($request['unit'])) { $user->unit = $request['unit']; }
-                    if (!empty($request['city'])) { $user->city = $request['city']; }
-                    if (!empty($request['state'])) { $user->state = $request['state']; }
-                    if (!empty($request['age'])) { $user->age = $request['age']; }
-                    if (!empty($request['sex'])) { $user->sex = $request['sex']; }
-                    if (!empty($request['zip'])) { $user->zip = $request['zip']; }
-                    if (!empty($request['weight'])) { $user->weight = $request['weight']; }
-                    if (!empty($request['height'])) { $user->height = $request['height']; }
-                    if (!empty($request['b_m_i'])) { $user->b_m_i = $request['b_m_i']; }
-
-                    $user->save();
-
-                    return redirect('admin/users');
+                    if (!in_array($column, $this->_protected))
+                    {
+                        empty($request[$column]) ? null : $user->$column = $request[$column];
+                    }
                 }
+
+                $user->save();
+
+                return redirect('admin/users');
             }
 
             if ($data_type == 'advertisement')
@@ -328,19 +306,15 @@ class UserController extends Controller
                 {
                     $user = User::find(Auth::user()->getAuthIdentifier());
 
-                    if (!empty($request['first_name'])) { $user->first_name = $request['first_name']; }
-                    if (!empty($request['last_name'])) { $user->last_name = $request['last_name']; }
-                    if (!empty($request['email'])) { $user->email = $request['email']; }
-                    if (!empty($request['address'])) { $user->address = $request['address']; }
-                    if (!empty($request['unit'])) { $user->unit = $request['unit']; }
-                    if (!empty($request['city'])) { $user->city = $request['city']; }
-                    if (!empty($request['state'])) { $user->state = $request['state']; }
-                    if (!empty($request['age'])) { $user->age = $request['age']; }
-                    if (!empty($request['sex'])) { $user->sex = $request['sex']; }
-                    if (!empty($request['zip'])) { $user->zip = $request['zip']; }
-                    if (!empty($request['weight'])) { $user->weight = $request['weight']; }
-                    if (!empty($request['height'])) { $user->height = $request['height']; }
-                    if (!empty($request['b_m_i'])) { $user->b_m_i = $request['b_m_i']; }
+                    $columns = Schema::getColumnListing('user');
+
+                    foreach ($columns as $column)
+                    {
+                        if (!in_array($column, $this->_protected))
+                        {
+                            empty($request[$column]) ? null : $user->$column = $request[$column];
+                        }
+                    }
 
                     $user->save();
 
@@ -358,10 +332,8 @@ class UserController extends Controller
 
         $admin = Auth::user();
 
-        if (empty($admin)) {
-            return redirect('/');
-        } else {
-
+        if (!empty($admin))
+        {
             if ($admin->role == 'admin') {
 
                 switch ($request->data_type) {
@@ -386,6 +358,8 @@ class UserController extends Controller
 
                 return redirect('account', ['user' => $user]);
             }
+        } else {
+            return redirect('/login');
         }
     }
 
@@ -470,15 +444,5 @@ class UserController extends Controller
      */
     private function adminDefault() {
         return view('admin', []);
-    }
-
-    /**
-     * @param string $column
-     * @param string $data_type
-     * @return bool
-     */
-    private function isEditable(string $column, string $data_type)
-    {
-        return in_array($column, $this->editable[$data_type]);
     }
 }

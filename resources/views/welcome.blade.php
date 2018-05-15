@@ -69,13 +69,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($leader_board as $leader)
-                                    <tr>
-                                        <td class="text-center">{{ $leader['first_name'] }} {{ $leader['last_name'] }}</td>
-                                        <td class="text-center">{{ $leader['type'] }}</td>
-                                        <td class="text-center">{{ $leader['weight'] }}</td>
-                                    </tr>
-                                @endforeach
+                                @if(!empty($leader_board))
+                                    @foreach($leader_board as $leader)
+                                        <tr>
+                                            <td class="text-center">{{ $leader['first_name'] }} {{ $leader['last_name'] }}</td>
+                                            <td class="text-center">{{ $leader['type'] }}</td>
+                                            <td class="text-center">{{ $leader['weight'] }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>

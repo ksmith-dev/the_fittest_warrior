@@ -7,7 +7,7 @@ use App\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class GymController extends Controller
+class MemberController extends Controller
 {
     public function index() {
 

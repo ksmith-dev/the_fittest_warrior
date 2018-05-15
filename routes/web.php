@@ -39,8 +39,8 @@ Route::get('health', 'HealthController@showHealthTab');
 Route::get('health/form', 'HealthController@showHealthFormView');
 Route::get('health/form/{health_id}', 'HealthController@showHealthFormView');
 
-Route::get('gyms', 'GymController@index');
-Route::get('fitness_group/{id}', 'GymController@showFitnessGroup');
+Route::get('gyms', 'MemberController@index');
+Route::get('fitness_group/{id}', 'MemberController@showFitnessGroup');
 
 Route::get('admin', 'UserController@admin')->name('admin');
 Route::get('admin/{data_type}', 'UserController@admin');
