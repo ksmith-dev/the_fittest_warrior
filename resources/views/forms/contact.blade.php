@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="spacer-50"></div>
-    <div id="form-contact">
+    <div id="form">
         <h2>Contact Us</h2>
         <div class="spacer-20"></div>
         <form method="POST" action="{{ url('contact/submit') }}">

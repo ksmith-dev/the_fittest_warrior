@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="spacer-100"></div>
-    <div id="form-workout">
+    <div id="form">
         <h2>{{ ucwords(str_replace('_',' ', $params['workout_type'])) }}</h2>
         <div class="spacer-50"></div>
         <form method="POST" action="{{ url('workout/report/store/' . $params['workout_type']) }}">

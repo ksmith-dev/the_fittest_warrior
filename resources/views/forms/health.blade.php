@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="spacer-100"></div>
-    <div id="form-nutrition">
+    <div id="form">
         <h2>Health Infomation</h2>
         <div class="spacer-50"></div>
         <form method="POST" action="{{ url('health/store') }}">
