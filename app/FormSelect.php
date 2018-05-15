@@ -8,8 +8,8 @@ class FormSelect extends Model
 {
     private $_id = null;
     private $_name = null;
-    private $_options = null;
     private $_class = null;
+    private $_options = null;
 
     /**
      * @return null

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class FormInput extends Model
 {
     private $_name = null;
-    private $_value = null;
     private $_type = null;
     private $_class = null;
     private $_identity = null;
@@ -28,22 +27,6 @@ class FormInput extends Model
     public function setName($name): void
     {
         $this->_name = $name;
-    }
-
-    /**
-     * @return null
-     */
-    public function getValue()
-    {
-        return $this->_value;
-    }
-
-    /**
-     * @param null $value
-     */
-    public function setValue($value): void
-    {
-        $this->_value = $value;
     }
 
     /**

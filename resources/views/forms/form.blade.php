@@ -15,33 +15,41 @@
         <div class="spacer-20"></div>
         <form method="POST" action="{{ url('admin/store/' . $data_type . '/' . $data_id) }}">
             @csrf
-            @if(!empty($forms))
+            @if(!empty($inputs))
                 <input type="text" name="id" value="{{ $data_id }}" hidden>
                 <input type="text" name="data_type" value="{{ $data_type }}" hidden>
-                @foreach($forms as $name => $form)
-                    @if($name == 'state' || $name == 'sex')
+                @foreach($inputs as $type => $element)
+                    @if(!empty($element['select']))
                         <div class="form-group row">
-                            <label class="{{ $form['label']->getClass() }}" for="{{ $form['label']->getFor() }}">{{ _(ucwords(str_replace('_', ' ', $form['label']->getValue()))) }}</label>
+                            <label class="{{ $element['label']->getClass() }}" for="{{ $element['label']->getFor() }}">{{ _(ucwords(str_replace('_', ' ', $element['label']->getValue()))) }}</label>
 
-                            @if(!empty($form['select']))
+                            @if(!empty($element['select']))
                                 <div class="col-md-6">
-                                    <select id="{{ $form['select']->getName() }}"
-                                            class="{{ $form['select']->getClass() }}"
-                                            name="{{ $form['select']->getName() }}">
-                                        @if(!in_array($model->$name, $form['select']->getOptions()))
-                                            <option selected disabled>Chosse...</option>
+                                    <select id="{{ $element['select']->getName() }}"
+                                            class="{{ $element['select']->getClass() }}"
+                                            name="{{ $element['select']->getName() }}">
+                                        @if(!empty($model))
+                                            @if(!in_array($model->$type, $element['select']->getOptions()))
+                                                <option selected disabled>Choose...</option>
+                                            @endif
+                                        @else
+                                            <option selected disabled>Choose...</option>
                                         @endif
-                                        @foreach($form['select']->getOptions() as $option_value => $option_label)
-                                            @if($model->$name == $option_value)
-                                                <option value="{{ $option_value }}" selected>{{ $option_label }}</option>
+                                        @foreach($element['select']->getOptions() as $option_value => $option_label)
+                                            @if(!empty($model))
+                                                @if($model->$type == $option_value)
+                                                    <option value="{{ $option_value }}" selected>{{ $option_label }}</option>
+                                                @else
+                                                    <option value="{{ $option_value }}">{{ $option_label }}</option>
+                                                @endif
                                             @else
                                                 <option value="{{ $option_value }}">{{ $option_label }}</option>
                                             @endif
                                         @endforeach
                                     </select>
-                                    @if ($errors->has($form['select']->getName()))
+                                    @if ($errors->has($element['select']->getName()))
                                         <span class="invalid-feedback">
-                                            <strong>{{ $errors->first($form['select']->getName()) }}</strong>
+                                            <strong>{{ $errors->first($element['select']->getName()) }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -49,30 +57,30 @@
                         </div>
                     @else
                         <div class="form-group row">
-                            <label for="{{ $form['label']->getFor() }}"
-                                   class="{{ $form['label']->getClass() }}">{{ __(ucwords(str_replace('_', ' ', $form['label']->getValue()))) }}</label>
+                            <label for="{{ $element['label']->getFor() }}"
+                                   class="{{ $element['label']->getClass() }}">{{ __(ucwords(str_replace('_', ' ', $element['label']->getValue()))) }}</label>
 
                             <div class="col-md-6">
-                                @if(empty($form['input']->getValue()))
-                                    <input id="{{ $form['input']->getName() }}"
-                                           type="{{ $form['input']->getType() }}"
-                                           class="{{ $form['input']->getClass() }}{{ $errors->has($form['input']->getName()) ? ' is-invalid' : '' }}"
-                                           name="{{ $form['input']->getName() }}"
-                                           value="{{ old($form['input']->getName()) }}"
-                                           placeholder="{{ $form['input']->getPlaceholder() }}"
-                                           {{ $form['input']->getInputAttribute() }}>
+                                @if(empty($model->$type))
+                                    <input id="{{ $element['input']->getName() }}"
+                                           type="{{ $element['input']->getType() }}"
+                                           class="{{ $element['input']->getClass() }}{{ $errors->has($element['input']->getName()) ? ' is-invalid' : '' }}"
+                                           name="{{ $element['input']->getName() }}"
+                                           value="{{ old($element['input']->getName()) }}"
+                                           placeholder="{{ $element['input']->getPlaceholder() }}"
+                                           {{ $element['input']->getInputAttribute() }}>
                                 @else
-                                    <input id="{{ $form['input']->getName() }}"
-                                           type="{{ $form['input']->getType() }}"
-                                           class="{{ $form['input']->getClass() }}"
-                                           name="{{ $form['input']->getName() }}"
-                                           value="{{ str_replace('_', ' ', $form['input']->getValue()) }}"
-                                           {{ $form['input']->getInputAttribute() }}>
+                                    <input id="{{ $element['input']->getName() }}"
+                                           type="{{ $element['input']->getType() }}"
+                                           class="{{ $element['input']->getClass() }}"
+                                           name="{{ $element['input']->getName() }}"
+                                           value="{{ $model->$type }}"
+                                            {{ $element['input']->getInputAttribute() }}>
                                 @endif
 
-                                @if ($errors->has($form['input']->getName()))
+                                @if ($errors->has($element['input']->getName()))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first($form['input']->getName()) }}</strong>
+                                        <strong>{{ $errors->first($element['input']->getName()) }}</strong>
                                     </span>
                                 @endif
                             </div>
