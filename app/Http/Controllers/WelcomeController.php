@@ -81,13 +81,15 @@ class WelcomeController extends Controller
 
         $count = 0;
 
-        foreach ($leaders as $key => $value) {
+        if (!empty($leaders)) {
+            foreach ($leaders as $key => $value) {
 
-            if ($count < 4) {
-                $leader_board[$key] = $value;
+                if ($count < 4) {
+                    $leader_board[$key] = $value;
+                }
+
+                $count++;
             }
-
-            $count++;
         }
 
         return view('welcome', ['articles' => $articles, 'leader_board' => $leader_board]);
