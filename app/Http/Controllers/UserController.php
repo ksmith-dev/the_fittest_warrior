@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 
-use App\FormSelect;
+
 use App\User;
 use App\Group;
 use App\Member;
-use App\FormColumns;
-use App\FormInput;
-use App\FormLabel;
+use App\FormFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Schema;
 
 class UserController extends Controller
 {
@@ -80,7 +77,11 @@ class UserController extends Controller
     public function form(Request $request) {
 
         $model = null;
-        $columns = null;
+        $inputs = null;
+
+        /*--------------------------------- GLOBAL INPUT STRUCTURE ---------------------------------*/
+        /*---- MAKE EDITS BEFORE ADDING THIS AS A PARAMETER IF YOU NEED TO CHANGE FUNCTIONALITY ----*/
+        // key => value pairs of 'option value' => 'option label'
         $states = array(
             'AL' => 'Alabama',
             'AK' => 'Alaska',
@@ -134,174 +135,67 @@ class UserController extends Controller
             'WI' => 'Wisconsin',
             'WY' => 'Wyoming',
         );
-        $sex = array('male' => 'Male', 'female' => 'Female');
+        $sex = array('male' => 'male', 'female' => 'female');
+        $status = array('active' => 'active', 'deactivated' => 'deactivated');
+        $roles = array('admin' => 'admin', 'member' => 'member', 'guest' => 'guest');
+        // key => value pairs of 'input type' => 'class list'
+        $input_structure['class'] = array('label' => 'col-md-4 col-form-label text-md-right', 'input' => 'form-control', 'select' => 'form-control');
+        // key => value pairs of 'old label' => 'new label'
+        $input_structure['override_label'] = array('user_id' => 'user_name', 'group_id' => 'group_name');
+        //list input types other than of type text
+        $input_structure['override_type'] = array('state' => 'select', 'sex' => 'select', 'status' => 'select', 'role' => 'select');
+        // key => value pairs 'column key' => array of options (example should be seen above)
+        $input_structure['options'] = array('state' => $states, 'sex' => $sex, 'status' => $status, 'role' => $roles);
+        // list of columns that will be ignored by form factory and not displayed on form for editing
+        $input_structure['protected'] = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
+        /*--------------------------------- GLOBAL INPUT STRUCTURE ---------------------------------*/
 
-        if (Auth::check() &&  Auth::user()->role == 'admin' && $request->identity) {
-
-            if ($request->data_type == 'user')
+        if (Auth::check())
+        {
+            if (Auth::user()->role == 'admin')
             {
-                $columns = Schema::getColumnListing('user');
-
-                if ($request->identity)
+                if ($request->data_type == 'user')
                 {
-                    $model = User::find($request->identity);
+                    empty($request->identity) ? $model = null : $model = User::find($request->identity);
+                    $inputs = new FormFactory('user', $input_structure);
                 }
-            }
-
-            if ($request->data_type == 'advertisement')
-            {
-                $columns = Schema::getColumnListing('advertisement');
-
-                if ($request->identity)
+                if ($request->data_type == 'advertisement')
                 {
-                    $model = DB::table('advertisement')->where('id', $request->identity)->first();
+                    empty($request->identity) ? $model = null : $model = DB::table('advertisement')->where('id', $request->identity)->first();
+                    $inputs = new FormFactory('advertisement', $input_structure);
                 }
-            }
-
-            if ($request->data_type == 'member')
-            {
-                $columns = Schema::getColumnListing('member');
-
-                if ($request->identity)
+                if ($request->data_type == 'member')
                 {
-                    $model = DB::table('member')->where('id', $request->identity)->first();
-                }
-            }
+                    empty($request->identity) ? $model = null : $model = Member::find($request->identity);
 
-            $forms = new FormColumns();
-
-            foreach ($columns as $column) {
-
-                if ($this->isEditable($column, $request->data_type)) {
-
-                    if ($column == 'state' || $column == 'sex')
+                    if(empty($model))
                     {
-                        $label = new FormLabel();
-                        $label->setFor($column);
-                        $label->setValue($column);
-                        $label->setClass('col-md-4 col-form-label text-md-right');
-                        $forms->addFormLabel($label);
-
-                        $select = new FormSelect();
-                        $select->setId($column);
-                        $select->setName($column);
-                        $select->setClass('form-control');
-
-                        if ($column == 'state') { $select->setOptions($states); }
-                        if ($column == 'sex') { $select->setOptions($sex); }
-
-                        $forms->addFormSelect($select);
+                        // do nothing
                     } else {
-                        $label = new FormLabel();
-                        $label->setFor($column);
-                        if ($request->data_type == 'member')
-                        {
-                            if ($column == 'user_id')
-                            {
-                                $label->setValue('user_name');
-                            } elseif($column == 'group_id')
-                            {
-                                $label->setValue('group_name');
-                            } else {
-                                $label->setValue($column);
-                            }
-                        } else {
-                            $label->setValue($column);
-                        }
-                        $label->setClass('col-md-4 col-form-label text-md-right');
-                        $forms->addFormLabel($label);
+                        $user = User::find($model['user_id']);
+                        $model['user_id'] = $user['first_name'] . ' ' . $user['last_name'];
 
-                        $input = new FormInput();
-                        $input->setType('text');
-                        $input->setClass('form-control');
-                        $input->setName($column);
-                        $input->setIdentity($column);
-                        if ($request->data_type == 'member')
-                        {
-                            if (!empty($model))
-                            {
-                                if ($column == 'user_id')
-                                {
-                                    $user = User::find($model->$column);
-
-                                    if (!empty($user)) { $input->setValue($user->first_name . ' ' . $user->last_name); }
-                                } elseif($column == 'group_id') {
-                                    $group = Group::find($model->$column);
-
-                                    if (!empty($group)) { $input->setValue($group->name); }
-                                }else {
-                                    $input->setValue(strval($model->$column));
-                                }
-                            }
-                        } else {
-                            if (!empty($model)) { $input->setValue(strval($model->$column)); }
-                        }
-                        $input->setPlaceholder(ucwords(str_replace('_', ' ', 'enter ' . $column)));
-                        $forms->addFormInput($input);
+                        $group = Group::find($model['group_id']);
+                        $model['group_id'] = $group['name'];
                     }
+                    $inputs = new FormFactory('member', $input_structure);
+                }
+            } else {
+                if ($request->data_type == 'user')
+                {
+                    $model = Auth::user();
+                    $inputs = new FormFactory('user', $input_structure);
                 }
             }
-
-            $forms = $forms->getFormColumns();
-
-            return view('forms.form', ['data_type' => $request->data_type, 'data_id' => $request->identity, 'model' => $model, 'states' => $states, 'forms' => $forms]);
 
         } else {
-
-            if ($request->data_type == 'user')
-            {
-                $columns = Schema::getColumnListing('user');
-
-                $model = Auth::user();
-            }
-
-            $forms = new FormColumns();
-
-            foreach ($columns as $column) {
-
-                if ($this->isEditable($column, $request->data_type)) {
-
-                    if ($column == 'state' || $column == 'sex')
-                    {
-                        $label = new FormLabel();
-                        $label->setFor($column);
-                        $label->setValue($column);
-                        $label->setClass('col-md-4 col-form-label text-md-right');
-                        $forms->addFormLabel($label);
-
-                        $select = new FormSelect();
-                        $select->setId($column);
-                        $select->setName($column);
-                        $select->setClass('form-control');
-
-                        if ($column == 'state') { $select->setOptions($states); }
-                        if ($column == 'sex') { $select->setOptions($sex); }
-
-                        $forms->addFormSelect($select);
-                    } else {
-                        $label = new FormLabel();
-                        $label->setFor($column);
-                        $label->setValue($column);
-                        $label->setClass('col-md-4 col-form-label text-md-right');
-                        $forms->addFormLabel($label);
-
-                        $input = new FormInput();
-                        $input->setType('text');
-                        $input->setClass('form-control');
-                        $input->setName($column);
-                        $input->setIdentity($column);
-                        if (!empty($model)) { $input->setValue(strval($model->$column)); }
-                        $input->setPlaceholder(ucwords(str_replace('_', ' ', 'enter ' . $column)));
-                        $forms->addFormInput($input);
-                    }
-                }
-            }
-
-            $forms = $forms->getFormColumns();
-
-            return view('forms.form', ['data_type' => $request->data_type, 'data_id' => Auth::user()->getAuthIdentifier(), 'model' => $model, 'states' => $states, 'forms' => $forms]);
+            return view('/login');
         }
 
+        $inputs->createFormInputs();
+        $inputs = $inputs->getInputs();
+
+        return view('forms.form', ['data_type' => $request->data_type, 'data_id' => $request->identity, 'model' => $model, 'states' => $states, 'inputs' => $inputs]);
     }
 
     /**
