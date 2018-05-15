@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="spacer-50"></div>
-    <div id="form-account">
+    <div id="form">
         <h2>{{ ucwords($data_type) }} Information</h2>
         <div class="spacer-20"></div>
         <form method="POST" action="{{ url('admin/store/' . $data_type . '/' . $data_id) }}">
