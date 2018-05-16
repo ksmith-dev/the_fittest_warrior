@@ -63,6 +63,9 @@
                                     <a class="nav-link" href="/gyms">Gyms</a>
                                 </li>
                             <li class="nav-item ml-1">
+                                <a class="nav-link" href="https://the-fittest-warrior.myshopify.com/">Shop</a>
+                            </li>
+                            <li class="nav-item ml-1">
                                 <a class="nav-link" href="/about">About</a>
                             </li>
                             <li class="nav-item ml-1">
