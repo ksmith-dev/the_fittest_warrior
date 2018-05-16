@@ -154,7 +154,7 @@
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
                                     </div>
 
-                                    <button type="submit" class="btn logButton">Create Account</button>
+                                    <button type="submit" class="btn logButton" id="submitButton">Create Account</button>
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else. </small>
                                 </form>
                             </div>
