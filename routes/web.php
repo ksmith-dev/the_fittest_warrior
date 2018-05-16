@@ -42,28 +42,25 @@ Route::get('health/form/{health_id}', 'HealthController@showHealthFormView');
 Route::get('gyms', 'MemberController@index');
 Route::get('fitness_group/{id}', 'MemberController@showFitnessGroup');
 
-Route::get('admin', 'UserController@admin')->name('admin');
-Route::get('admin/{data_type}', 'UserController@admin');
-Route::get('admin/{data_type}/add', 'UserController@form');
-Route::get('admin/{data_type}/edit/{identity}', 'UserController@form');
-Route::get('admin/{data_type}/deactivate/{identity}', 'UserController@deactivate');
+Route::get('admin/dashboard', 'FormController@admin')->name('admin');
+Route::get('admin/{type}', 'FormController@admin');
 
-Route::get('account', 'UserController@index');
-Route::get('{data_type}/form', 'UserController@form');
+Route::get('account', 'FormController@index');
+
+Route::get('form/{type}', 'FormController@form');
+Route::get('form/{type}/{identity}', 'FormController@form');
+Route::get('form/{type}/{identity}/{modifier}', 'FormController@formModified');
 
 /*-------------------------------POST ROUTES-------------------------------*/
-
-Route::post('workout/delete/{workout_type}/{id}', 'WorkoutController@destroy');
-Route::post('nutrition/delete/{id}', 'NutritionController@destroy');
-Route::post('health/delete/{id}', 'HealthController@destroy');
 
 Route::post('workout/report/store/{workout_type}', 'WorkoutController@store');
 Route::post('nutrition/store', 'NutritionController@store');
 Route::post('health/store', 'HealthController@store');
-Route::post('account/store', 'UserController@store');
+Route::post('account/store', 'FormController@store');
 
-Route::post('admin/store/{data_type}/{identity}', 'UserController@store');
-Route::post('admin/store/{data_type}', 'UserController@store');
+Route::post('store/{type}', 'FormController@store');
+Route::post('store/{type}/{identity}', 'FormController@store');
+
 
 
 

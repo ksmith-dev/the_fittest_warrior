@@ -11,13 +11,13 @@
 @section('content')
     <div class="spacer-50"></div>
     <div id="form">
-        <h2>{{ ucwords($data_type) }} Information</h2>
+        <h2>{{ ucwords($params['form_type']) }} Information</h2>
         <div class="spacer-20"></div>
-        <form method="POST" action="{{ url('admin/store/' . $data_type . '/' . $data_id) }}">
+        <form method="POST" action="{{ url('store/' . $params['form_type'] . '/' . $params['form_id']) }}">
             @csrf
             @if(!empty($inputs))
-                <input type="text" name="id" value="{{ $data_id }}" hidden>
-                <input type="text" name="data_type" value="{{ $data_type }}" hidden>
+                <input type="text" name="id" value="{{ $params['form_id'] }}" hidden>
+                <input type="text" name="data_type" value="{{ $params['form_type'] }}" hidden>
                 @foreach($inputs as $type => $element)
                     @if(!empty($element['select']))
                         <div class="form-group row">
@@ -105,15 +105,10 @@
     @parent
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            @if(Request::url() == 'http://fittestwarrior.local/admin')
-                <li class="breadcrumb-item active" aria-current="page">admin</li>
+            @if(Auth::user()->role == 'admin')
+                <li class="breadcrumb-item"><a href="{{ url('account') }}">account</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $params['form_type'] }}</li>
             @else
-                <li class="breadcrumb-item"><a href="{{ url('admin') }}">admin</a></li>
-            @endif
-            @if(Request::url() == 'http://fittestwarrior.local/admin/' . $data_type . 's')
-                <li class="breadcrumb-item active" aria-current="page">{{ $data_type }}s</li>
-            @else
-                <li class="breadcrumb-item"><a href="{{ url('admin/' . $data_type . 's') }}">{{ $data_type }}s</a></li>
             @endif
         </ol>
     </nav>

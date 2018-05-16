@@ -13,7 +13,7 @@
                 @if(!empty($advertisements))
                     <div class="spacer-50"></div>
                     <h3>Advertisement Data</h3>
-                    <a class="btn btn-dark" href="{{ url('admin/advertisement/add') }}" role="button">Add Advertisement</a>
+                    <a class="btn btn-dark" href="{{ url('form/advertisement') }}" role="button">Add Advertisement</a>
                     <div class="spacer-50"></div>
                     <table class="table">
                         <thead>
@@ -36,9 +36,9 @@
                                 <td>{{ $advertisement->subscription }}</td>
                                 <td>{{ $advertisement->frequency }}</td>
                                 <td>{{ $advertisement->status }}</td>
-                                <td><a href="{{ url('admin/advertisement/' . $advertisement->id) }}">view</a></td>
-                                <td><a href="{{ url('admin/advertisement/edit/' . $advertisement->id) }}">edit</a></td>
-                                <td><a href="{{ url('admin/advertisement/deactivate/' . $advertisement->id) }}">change status</a></td>
+                                <td><a href="{{ url('view/advertisement/' . $advertisement->id) }}">view</a></td>
+                                <td><a href="{{ url('form/advertisement/' . $advertisement->id) }}">edit</a></td>
+                                <td><a href="{{ url('form/advertisement/' . $advertisement->id . '/toggle_status') }}">change status</a></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -57,7 +57,7 @@
                             <th scope="col">Status</th>
                             <th scope="col">view</th>
                             <th scope="col">edit</th>
-                            <th scope="col">deactivate</th>
+                            <th scope="col">change status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -68,9 +68,9 @@
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->status }}</td>
-                                <td><a href="{{ url('user/' . $user->id) }}">view</a></td>
-                                <td><a href="{{ url('admin/user/edit/' . $user->id) }}">edit</a></td>
-                                <td><a href="{{ url('admin/user/deactivate/' . $user->id) }}">deactivate</a></td>
+                                <td><a href="{{ url('view/user/' . $user->id) }}">view</a></td>
+                                <td><a href="{{ url('form/user/' . $user->id) }}">edit</a></td>
+                                <td><a href="{{ url('form/user/' . $user->id . '/toggle_status') }}">change status</a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -90,7 +90,7 @@
                             <th scope="col">Status</th>
                             <th scope="col">view</th>
                             <th scope="col">edit</th>
-                            <th scope="col">deactivate</th>
+                            <th scope="col">change status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -101,9 +101,9 @@
                                 <td>{{ $member->group_name }}</td>
                                 <td>{{ $member->group_role }}</td>
                                 <td>{{ $member->status }}</td>
-                                <td><a href="{{ url('admin/member/' . $member->id) }}">view</a></td>
-                                <td><a href="{{ url('admin/member/edit/' . $member->id) }}">edit</a></td>
-                                <td><a href="{{ url('admin/member/deactivate/' . $member->id) }}">deactivate</a></td>
+                                <td><a href="{{ url('view/member/' . $member->id) }}">view</a></td>
+                                <td><a href="{{ url('form/member/' . $member->id) }}">edit</a></td>
+                                <td><a href="{{ url('form/toggle_status/' . $member->id) }}">change status</a></td>
                             </tr>
                         @endforeach
                         </tbody>

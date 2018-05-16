@@ -10,12 +10,12 @@
     <div id="account">
         <div class="row">
             <div class="col">
+                <a class="btn btn-dark" href="{{ url('form/user/' . $user->id) }}" role="button">Edit Account Information</a>
                 @auth
                     @if($user->role == 'admin')
-                        <a class="btn btn-dark" href="{{ url('admin') }}" role="button">Admin Dashboard</a>
+                        <a class="btn btn-dark" href="{{ url('admin/dashboard') }}" role="button">Admin Dashboard</a>
                     @endif
                 @endauth
-                <a class="btn btn-dark" href="{{ url('user/form') }}" role="button">Edit Account Information</a>
                 <div class="spacer-20"></div>
                 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
                 <h3><b>Site Role:</b>&nbsp;&nbsp;&nbsp;{{ ucwords($user->role) }}</h3>
@@ -71,9 +71,7 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <div class="vertical-banner">
-                            <h3 class="text-center" style="margin-top: 300px;">SPECIAL OFFER</h3>
-                        </div>
+                        <div class="vertical-advertisement">{{ empty($vertical_banner) ? null : $vertical_banner }}</div>
                     </div>
                 </div>
             </div>
@@ -102,11 +100,12 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             @auth
-                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">account</li>
+                <li class="breadcrumb-item"><a href="{{ url('form/user' . Auth::user()->getAuthIdentifier()) }}">edit account</a></li>
             @endauth
-            <li class="breadcrumb-item active" aria-current="page">gyms</li>
-            <li class="breadcrumb-item"><a href="{{ url('about') }}">about</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('contact') }}">contact</a></li>
+            @if(\Illuminate\Support\Facades\Auth::user()->role == 'admin')
+                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard') }}">admin dashboard</a></li>
+            @endif
         </ol>
     </nav>
 @endsection

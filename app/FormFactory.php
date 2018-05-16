@@ -37,7 +37,7 @@ class FormFactory extends Model
 
             foreach ($columns as $column)
             {
-                $columns_and_types[$column] = Schema::getColumnType('user', $column);
+                $columns_and_types[$column] = Schema::getColumnType($this->table, $column);
             }
 
             foreach ($columns_and_types as $column => $type)
@@ -63,7 +63,7 @@ class FormFactory extends Model
 
             foreach ($columns as $column)
             {
-                if (!in_array($column, $this->_input_structure['protected']))
+                if (!in_array($column, $this->_input_structure['protected']['global']))
                 {
                     if (!empty($this->_input_structure['override_type'][$column]))
                     {
