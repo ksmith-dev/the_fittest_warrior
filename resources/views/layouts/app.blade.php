@@ -76,7 +76,7 @@
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 60px;">
                             <!-- Authentication Links -->
                             @guest
-                                <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                                <li><a class="nav-link" name="logInWindowButton" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                                 <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                             @else
                                 <li class="nav-item dropdown">
