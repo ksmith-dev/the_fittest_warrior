@@ -7,24 +7,27 @@
     @parent
 @endsection
 @section('content')
-    <div id="fitness-group">
+    <div id="gym">
         <div class="row">
-            @if($auth)
-                <div class="col">
-                    <h2>{{ $user->first_name }} {{ $user->last_name }} - {{ ucwords($auth->group_role) }}</h2>
-                    <hr>
-                    <h3>{{ ucwords(str_replace('_', ' ', $group->name)) }}</h3>
-                    <p>You have are a member of this group and have permission to view this groups information. Your role still needs implementation.</p>
-                </div>
-            @else
-                <div class="col">
-                    <h1>{{  ucwords(str_replace('_', ' ', $group->name)) }}</h1>
-                    <img src="{{ asset($group->img_src) }}" alt="{{ $group->img_alt }}">
-                    <p>{{ $group->description }}</p>
-                    <hr>
-                    <h4>Register or Login to see more...</h4>
-                </div>
-            @endif
+            <div class="fitness-group">
+                    @if($auth)
+                        <div class="col">
+
+                            <h2>{{ $user->first_name }} {{ $user->last_name }} - {{ ucwords($auth->group_role) }}</h2>
+                            <hr>
+                            <h3>{{ ucwords(str_replace('_', ' ', $group->name)) }}</h3>
+                            <p>You have are a member of this group and have permission to view this groups information. Your role still needs implementation.</p>
+                        </div>
+                    @else
+                        <div class="col">
+                            <h1>{{  ucwords(str_replace('_', ' ', $group->name)) }}</h1>
+                            <img src="{{ asset($group->img_src) }}" alt="{{ $group->img_alt }}">
+                            <p>{{ $group->description }}</p>
+                            <hr>
+                            <h4>Register or Login to see more...</h4>
+                        </div>
+                    @endif
+            </div>
         </div>
     </div>
 @endsection
