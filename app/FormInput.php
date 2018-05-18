@@ -10,11 +10,12 @@ class FormInput extends Model
     private $_type = null;
     private $_class = null;
     private $_identity = null;
-    private $_input_attribute = null;
     private $_placeholder = null;
+    private $_input_attribute = null;
+    private $_default_input_value = null;
 
     /**
-     * @return null
+     * @return string
      */
     public function getName()
     {
@@ -22,7 +23,7 @@ class FormInput extends Model
     }
 
     /**
-     * @param null $name
+     * @param string $name
      */
     public function setName($name): void
     {
@@ -30,7 +31,7 @@ class FormInput extends Model
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getType()
     {
@@ -38,7 +39,7 @@ class FormInput extends Model
     }
 
     /**
-     * @param null $type
+     * @param string $type
      */
     public function setType($type): void
     {
@@ -46,7 +47,7 @@ class FormInput extends Model
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getClass()
     {
@@ -54,7 +55,7 @@ class FormInput extends Model
     }
 
     /**
-     * @param null $class
+     * @param string $class
      */
     public function setClass($class): void
     {
@@ -62,7 +63,7 @@ class FormInput extends Model
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getIdentity()
     {
@@ -70,7 +71,7 @@ class FormInput extends Model
     }
 
     /**
-     * @param null $identity
+     * @param string $identity
      */
     public function setIdentity($identity): void
     {
@@ -78,7 +79,7 @@ class FormInput extends Model
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getInputAttribute()
     {
@@ -86,7 +87,7 @@ class FormInput extends Model
     }
 
     /**
-     * @param null $attribute
+     * @param string $attribute
      */
     public function setInputAttribute($attribute): void
     {
@@ -94,7 +95,7 @@ class FormInput extends Model
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getPlaceholder()
     {
@@ -102,10 +103,26 @@ class FormInput extends Model
     }
 
     /**
-     * @param null $placeholder
+     * @param string $placeholder
      */
     public function setPlaceholder($placeholder): void
     {
         $this->_placeholder = $placeholder;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultInputValue()
+    {
+        return $this->_default_input_value;
+    }
+
+    /**
+     * @param string $default_input_value
+     */
+    public function setDefaultInputValue($default_input_value): void
+    {
+        $this->_default_input_value = $default_input_value;
     }
 }

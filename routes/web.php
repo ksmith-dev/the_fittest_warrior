@@ -25,38 +25,23 @@ Auth::routes();
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::get('workout', 'WorkoutController@showWorkoutTab');
-Route::get('workout/form/{workout_type}', 'WorkoutController@showWorkoutFormView');
-Route::get('workout/form/{workout_type}/{workout_id}', 'WorkoutController@showWorkoutFormView');
-Route::get('workout/edit/{workout_type}', 'WorkoutController@showWorkoutEditView');
-Route::get('workout/view/{workout_id}', 'WorkoutController@showWorkoutView');
-
-Route::get('nutrition', 'NutritionController@showNutritionTab');
-Route::get('nutrition/form', 'NutritionController@showNutritionFormView');
-Route::get('nutrition/form/{nutrition_id}', 'NutritionController@showNutritionFormView');
-
 Route::get('health', 'HealthController@showHealthTab');
-Route::get('health/form', 'HealthController@showHealthFormView');
-Route::get('health/form/{health_id}', 'HealthController@showHealthFormView');
+Route::get('workout', 'WorkoutController@showWorkoutTab');
+Route::get('nutrition', 'NutritionController@showNutritionTab');
+Route::get('workout/view/{workout_id}', 'WorkoutController@showWorkoutView');
 
 Route::get('gyms', 'MemberController@index');
 Route::get('fitness_group/{id}', 'MemberController@showFitnessGroup');
 
-Route::get('admin/dashboard', 'FormController@admin')->name('admin');
-Route::get('admin/{type}', 'FormController@admin');
-
 Route::get('account', 'FormController@index');
+Route::get('admin/{type}', 'FormController@admin');
+Route::get('admin/dashboard', 'FormController@admin')->name('admin');
 
-Route::get('form/{type}', 'FormController@form');
-Route::get('form/{type}/{identity}', 'FormController@form');
-Route::get('form/{type}/{identity}/{modifier}', 'FormController@formModified');
+Route::get('form/{table}', 'FormController@form');
+Route::get('form/{table}/{identity}', 'FormController@form');
+Route::get('form/{table}/{identity}/{modifier}', 'FormController@form');
 
 /*-------------------------------POST ROUTES-------------------------------*/
-
-Route::post('workout/report/store/{workout_type}', 'WorkoutController@store');
-Route::post('nutrition/store', 'NutritionController@store');
-Route::post('health/store', 'HealthController@store');
-Route::post('account/store', 'FormController@store');
 
 Route::post('store/{type}', 'FormController@store');
 Route::post('store/{type}/{identity}', 'FormController@store');

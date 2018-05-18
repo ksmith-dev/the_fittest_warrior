@@ -11,14 +11,12 @@
 @section('content')
     <div class="spacer-50"></div>
     <div id="form">
-        <h2>{{ ucwords($params['form_type']) }} Information</h2>
+        <h2>{{ ucwords($params['table']) }} Information</h2>
         <div class="spacer-20"></div>
-        <form method="POST" action="{{ url('store/' . $params['form_type'] . '/' . $params['form_id']) }}">
+        <form method="POST" action="{{ url('store/' . $params['table'] . '/' . $params['model_id']) }}">
             @csrf
             @if(!empty($inputs))
-                <input type="text" name="id" value="{{ $params['form_id'] }}" hidden>
-                <input type="text" name="data_type" value="{{ $params['form_type'] }}" hidden>
-                @foreach($inputs as $type => $element)
+                @foreach($inputs as $key => $element)
                     @if(!empty($element['select']))
                         <div class="form-group row">
                             <label class="{{ $element['label']->getClass() }}" for="{{ $element['label']->getFor() }}">{{ _(ucwords(str_replace('_', ' ', $element['label']->getValue()))) }}</label>
@@ -29,7 +27,7 @@
                                             class="{{ $element['select']->getClass() }}"
                                             name="{{ $element['select']->getName() }}">
                                         @if(!empty($model))
-                                            @if(!in_array($model->$type, $element['select']->getOptions()))
+                                            @if(!in_array($model->$key, $element['select']->getOptions()))
                                                 <option selected disabled>Choose...</option>
                                             @endif
                                         @else
@@ -37,7 +35,7 @@
                                         @endif
                                         @foreach($element['select']->getOptions() as $option_value => $option_label)
                                             @if(!empty($model))
-                                                @if($model->$type == $option_value)
+                                                @if($model->$key == $option_value)
                                                     <option value="{{ $option_value }}" selected>{{ $option_label }}</option>
                                                 @else
                                                     <option value="{{ $option_value }}">{{ $option_label }}</option>
@@ -61,20 +59,30 @@
                                    class="{{ $element['label']->getClass() }}">{{ __(ucwords(str_replace('_', ' ', $element['label']->getValue()))) }}</label>
 
                             <div class="col-md-6">
-                                @if(empty($model->$type))
-                                    <input id="{{ $element['input']->getName() }}"
-                                           type="{{ $element['input']->getType() }}"
-                                           class="{{ $element['input']->getClass() }}{{ $errors->has($element['input']->getName()) ? ' is-invalid' : '' }}"
-                                           name="{{ $element['input']->getName() }}"
-                                           value="{{ old($element['input']->getName()) }}"
-                                           placeholder="{{ $element['input']->getPlaceholder() }}"
-                                           {{ $element['input']->getInputAttribute() }}>
+                                @if(empty($model->$key))
+                                    @if(empty($element['input']->getDefaultInputValue()))
+                                        <input id="{{ $element['input']->getName() }}"
+                                               type="{{ $element['input']->getType() }}"
+                                               class="{{ $element['input']->getClass() }}{{ $errors->has($element['input']->getName()) ? ' is-invalid' : '' }}"
+                                               name="{{ $element['input']->getName() }}"
+                                               value="{{ old($element['input']->getName()) }}"
+                                               placeholder="{{ $element['input']->getPlaceholder() }}"
+                                                {{ $element['input']->getInputAttribute() }}>
+                                    @else
+                                        <input id="{{ $element['input']->getName() }}"
+                                               type="{{ $element['input']->getType() }}"
+                                               class="{{ $element['input']->getClass() }}{{ $errors->has($element['input']->getName()) ? ' is-invalid' : '' }}"
+                                               name="{{ $element['input']->getName() }}"
+                                               value="{{ $element['input']->getDefaultInputValue() }}"
+                                               placeholder="{{ $element['input']->getPlaceholder() }}"
+                                                {{ $element['input']->getInputAttribute() }}>
+                                    @endif
                                 @else
                                     <input id="{{ $element['input']->getName() }}"
                                            type="{{ $element['input']->getType() }}"
                                            class="{{ $element['input']->getClass() }}"
                                            name="{{ $element['input']->getName() }}"
-                                           value="{{ str_replace('_', ' ', $model->$type) }}"
+                                           value="{{ str_replace('_', ' ', $model->$key) }}"
                                             {{ $element['input']->getInputAttribute() }}>
                                 @endif
 
@@ -107,7 +115,7 @@
         <ol class="breadcrumb">
             @if(Auth::user()->role == 'admin')
                 <li class="breadcrumb-item"><a href="{{ url('account') }}">account</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $params['form_type'] }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $params['table'] }}</li>
             @else
             @endif
         </ol>
