@@ -168,13 +168,13 @@
             <div class="col p-3 bodyPanelStyle">
                     <div class="row">
                             <div class="col">
-                                <button type="button" class="btn iconBtn"><img src="images/icons/fitnessTrackerIcon.JPG"></button>
-                                <button type="button" class="btn iconBtn"><img src="images/icons/trainingProgramIcon.JPG"></button>
-                                <button type="button" class="btn iconBtn"><img src="images/icons/mmaBoxingIcon.JPG"></button>
-                                <button type="button" class="btn iconBtn"><img src="images/icons/mindsetIcon.JPG"></button>
-                                <button type="button" class="btn iconBtn"><img src="images/icons/nutritionTrackerIcon.JPG"></button>
-                                <button type="button" class="btn iconBtn"><img src="images/icons/gearIcon.JPG"></button>
-                                <button type="button" class="btn iconBtn"><img src="images/icons/aboutIcon.JPG"></button>
+                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/fitnessTrackerIcon.JPG"></a>
+                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/trainingProgramIcon.JPG"></a>
+                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mmaBoxingIcon.JPG"></a>
+                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mindsetIcon.JPG"></a>
+                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/nutritionTrackerIcon.JPG"></a>
+                                <a href="https://the-fittest-warrior.myshopify.com/" class="btn iconBtn" role="button"><img src="images/icons/gearIcon.JPG"></a>
+                                <a href="/about" class="btn iconBtn" role="button"><img src="images/icons/aboutIcon.JPG"></a>
                             </div>
                     </div>
             </div>
