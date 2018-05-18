@@ -57,6 +57,10 @@ body{
     color: #ffffff;
 }
 
+.iconBtn{
+    margin-right:40px;
+}
+
 .bodyPanelStyle{
     background-color: #f2f2f2;
     color: #343a40;
