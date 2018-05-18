@@ -13,19 +13,14 @@
     <div class="row">
         <div class="col">
             @if(empty($workouts))
-                <h1 style="width: 90%;">Sorry {{ $params['user']->first_name }}, we did not find any {{ str_replace('_', ' ', $params['workout_type']) }}'s  to display!</h1>
+                <h2 style="width: 90%;">Welcome to your workout tracker, there are no records to display.</h2>
                 <span class="spacer-50"></span>
-                <p style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some {{ str_replace('_', ' ', $params['workout_type']) }} records please start by clicking below.
+                <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some workout records please start by clicking below.
                     <br>
                     <br>
-                    <a href="{{ url('workout/form/' . $params['workout_type']) }}" class="btn btn-secondary" role="button">add {{ str_replace('_', ' ', $params['workout_type']) }}</a>
-                    <span style="display: inline-block; width: 20px;"></span>or<span style="display: inline-block; width: 20px;"></span>
-                    <button type="button" class="btn btn-secondary back">go back</button>
-                </p>
+                    <a href="{{ url('form/workout') }}" class="btn btn-secondary" role="button">add a workout record</a>
+                </h5>
                 <div class="spacer-50"></div>
-                <a title="By Matthew Inman [CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Tumbeasts_sign1.png">
-                    <img id="omg-404" width="256" alt="Tumbeasts sign1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Tumbeasts_sign1.png/256px-Tumbeasts_sign1.png">
-                </a>
             @else
                 <div class="table-responsive d-none d-sm-block">
                     <h4>Workouts</h4>

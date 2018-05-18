@@ -63,6 +63,9 @@
                                     <a class="nav-link" href="/gyms">Gyms</a>
                                 </li>
                             <li class="nav-item ml-1">
+                                <a class="nav-link" href="https://the-fittest-warrior.myshopify.com/">Shop</a>
+                            </li>
+                            <li class="nav-item ml-1">
                                 <a class="nav-link" href="/about">About</a>
                             </li>
                             <li class="nav-item ml-1">
@@ -73,7 +76,7 @@
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 60px;">
                             <!-- Authentication Links -->
                             @guest
-                                <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                                <li><a class="nav-link" name="logInWindowButton" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                                 <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                             @else
                                 <li class="nav-item dropdown">
