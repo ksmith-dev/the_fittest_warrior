@@ -154,7 +154,7 @@
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
                                     </div>
 
-                                    <button type="submit" class="btn logButton" id="submitButton">Create Account</button>
+                                    <button type="submit" class="btn logButton" name="submitButton">Create Account</button>
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else. </small>
                                 </form>
                             </div>
@@ -163,6 +163,21 @@
                 @endif
             </div>
         </div>
+    </div>
+    <div class="row px-3 mb-3">
+            <div class="col p-3 bodyPanelStyle">
+                    <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn iconBtn"><img src="images/icons/fitnessTrackerIcon.JPG"></button>
+                                <button type="button" class="btn iconBtn"><img src="images/icons/trainingProgramIcon.JPG"></button>
+                                <button type="button" class="btn iconBtn"><img src="images/icons/mmaBoxingIcon.JPG"></button>
+                                <button type="button" class="btn iconBtn"><img src="images/icons/mindsetIcon.JPG"></button>
+                                <button type="button" class="btn iconBtn"><img src="images/icons/nutritionTrackerIcon.JPG"></button>
+                                <button type="button" class="btn iconBtn"><img src="images/icons/gearIcon.JPG"></button>
+                                <button type="button" class="btn iconBtn"><img src="images/icons/aboutIcon.JPG"></button>
+                            </div>
+                    </div>
+            </div>
     </div>
     <div class="row px-3 mb-3">
         <div class="col-md-8 mb-3 mb-md-0 mr-md-3">
