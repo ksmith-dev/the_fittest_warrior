@@ -6,7 +6,7 @@
     @parent
 @endsection
 @section('content')
-    <div class="row px-3 mb-3">
+    <div class="row px-3 mb-3 stickyHeader">
         <div class="col">
             <div class="row">
                 <!--carousel-->
@@ -168,9 +168,9 @@
             <div class="col p-3 bodyPanelStyle">
                     <div class="row">
                             <div class="col">
-                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/fitnessTrackerIcon.JPG"></a>
+                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/fitnessTrackerResized.jpg"></a>
                                 <a href="#" class="btn iconBtn" role="button"><img src="images/icons/trainingProgramIcon.JPG"></a>
-                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mmaBoxingIcon.JPG"></a>
+                                <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mmaboxingicon_gtj_icon.ico"></a>
                                 <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mindsetIcon.JPG"></a>
                                 <a href="#" class="btn iconBtn" role="button"><img src="images/icons/nutritionTrackerIcon.JPG"></a>
                                 <a href="https://the-fittest-warrior.myshopify.com/" class="btn iconBtn" role="button"><img src="images/icons/gearIcon.JPG"></a>
