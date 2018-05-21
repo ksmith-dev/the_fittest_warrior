@@ -107,7 +107,7 @@ class ViewController extends Controller
             switch ($model_type)
             {
                 case 'workout' :
-                    empty($modifier) ? $param['model'] = Workout::find($model_id) : $param['models'] = Workout::where([['type', $modifier], ['status', 'active']])->get();
+                    empty($modifier) ? $param['model'] = Workout::find($model_id) : $param['models'] = Workout::where([['type', $modifier], ['status', 'active'], ['user_id', Auth::user()->getAuthIdentifier()]])->get();
                     empty($modifier) ? $param['workout_type'] = $param['model']->type : $param['workout_type'] = $modifier;
                     $param['page_type'] = 'workouts';
                     $param['model_type'] = 'workout';
@@ -122,7 +122,8 @@ class ViewController extends Controller
                                 empty($training) ? $model->training = 'unknown' : $model->training = $training->type;
                             }
                         }
-                    } else { return redirect('workout/detail/' . $model_id); }
+                    }
+
                     break;
             }
 

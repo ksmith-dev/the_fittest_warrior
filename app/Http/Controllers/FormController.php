@@ -108,6 +108,7 @@ class FormController extends Controller
                 $this->_user_input_data = new FormFactory('user');
                 $this->_user_input_data->setProtectedColumns($this->_global_protected_columns);
                 $this->_user_input_data->addProtectedColumn('role');
+                $this->_user_input_data->addProtectedColumn('status');
                 $this->_user_input_data->setOptions('sex', $this->_sex);
                 $this->_user_input_data->setOptions('state', $this->_states);
                 $this->_user_input_data->setOptions('status', $this->_status);
@@ -323,13 +324,13 @@ class FormController extends Controller
                 {
                     case 'user' :
                         $model = new User();
-                        empty($model_id) ? $model->user_id = Auth::user()->getAuthIdentifier()  : $model = User::find($model_id);
+                        empty($model_id) ? $model->id = Auth::user()->getAuthIdentifier()  : $model = User::find($model_id);
+                        empty($model_id) ? $url = 'view/user/' . $model->id : $url = 'view/user/' . $model_id;
                         $columns = Schema::getColumnListing('user');
                         // this method populates global $_table_input_data
                         $this->setFormFactoryStructure('user');
                         // general variable name assignment to be processed
                         $form_data = $this->_user_input_data;
-                        $url = 'account/user/';
                         break;
                     case 'member' :
                         $model = new Member();
@@ -339,7 +340,7 @@ class FormController extends Controller
                         $this->setFormFactoryStructure('member');
                         // general variable name assignment to be processed
                         $form_data = $this->_member_input_data;
-                        $url = 'account/member';
+                        $url = 'view/member';
                         break;
                     case 'advertisement' :
                         $model = new Advertisement();
@@ -349,7 +350,7 @@ class FormController extends Controller
                         $this->setFormFactoryStructure('advertisement');
                         // general variable name assignment to be processed
                         $form_data = $this->_advertisement_input_data;
-                        $url = 'account/advertisement';
+                        $url = 'view/advertisement';
                         break;
                 }
             }
@@ -364,7 +365,7 @@ class FormController extends Controller
                         $this->setFormFactoryStructure('user');
                         // general variable name assignment to be processed
                         $form_data = $this->_user_input_data;
-                        $url = 'account';
+                        $url = 'view/user/' . $model->id;
                         break;
                 }
             }
@@ -455,6 +456,10 @@ class FormController extends Controller
             DB::table($model_type)->where('id', $model_id)->update(['status' => $status]);
         }
 
-        return redirect('view/' . $model_type);
+        if ($model_type === 'workout') {
+            return redirect('view/' . $model_type . '/0/' . $result->type);
+        } else {
+            return redirect('view/' . $model_type . '/' . $model_id);
+        }
     }
 }

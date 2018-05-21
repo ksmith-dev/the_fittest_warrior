@@ -56,22 +56,23 @@
                             </div>
                         @endif
                     @endauth
-                    @if($param['models']->count() < 1)
-                    <div class="spacer-50"></div>
-                    <h2 style="width: 90%;">Welcome to your {{ $param['model_type'] }} tracker, there are no records to display.</h2>
-                    <span class="spacer-50"></span>
-                    <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some {{ $param['model_type'] }} records please start by clicking below.
-                        <br>
-                        <br>
-                        @if(empty($param['workout_type']))
-                            <a href="{{ url('form/' . $param['model_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
-                        @else
-                            <a href="{{ url('form/' . $param['model_type'] . '/0/' . $param['workout_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
+                    @if(!empty($param['models']))
+                        @if($param['models']->count() < 1)
+                            <div class="spacer-50"></div>
+                            <h2 style="width: 90%;">Welcome to your {{ $param['model_type'] }} tracker, there are no records to display.</h2>
+                            <span class="spacer-50"></span>
+                            <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some {{ $param['model_type'] }} records please start by clicking below.
+                                <br>
+                                <br>
+                                @if(empty($param['workout_type']))
+                                    <a href="{{ url('form/' . $param['model_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
+                                @else
+                                    <a href="{{ url('form/' . $param['model_type'] . '/0/' . $param['workout_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
+                                @endif
+                            </h5>
+                            <div class="spacer-20"></div>
                         @endif
-                    </h5>
-                    <div class="spacer-20"></div>
                     @endif
-
                     <h3>{{ ucwords($param['page_type']) }} Data</h3>
                     <div class="spacer-20"></div>
                     @if(empty($param['workout_type']))
@@ -101,26 +102,39 @@
                             @endif
                             <th scope="col">View</th>
                             <th scope="col">Edit</th>
-                            <th scope="col">Change Status</th>
+                            @if($param['model_type'] === 'workout')
+                                <th scope="col">Delete</th>
+                            @else
+                                <th scope="col">Change Status</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($param['models'] as $model)
-                            <tr class="text-center">
-                                @foreach($param['columns'] as $column)
-                                    @if(in_array($column, $param['display']))
-                                        @if($column === 'id')
-                                            <th scope="row">{{ $model->$column }}</th>
-                                        @else
-                                            <td>{{ $model->$column }}</td>
+                        @if(!empty($param['models']))
+                            @foreach($param['models'] as $model)
+                                <tr class="text-center">
+                                    @foreach($param['columns'] as $column)
+                                        @if(in_array($column, $param['display']))
+                                            @if($column === 'id')
+                                                <th scope="row">{{ $model->$column }}</th>
+                                            @else
+                                                <td>{{ $model->$column }}</td>
+                                            @endif
                                         @endif
+                                    @endforeach
+
+                                    @if($param['model_type'] === 'workout')
+                                        <td><a href="{{ url('workout/detail/' . $model->id) }}">View</a></td>
+                                        <td><a href="{{ url('form/' . $param['model_type'] . '/' . $model->id) }}">Edit</a></td>
+                                        <td><a href="{{ url('form/' . $param['model_type'] . '/' . $model->id . '/change_status')  }}">Delete</a></td>
+                                    @else
+                                        <td><a href="{{ url('view/' . $param['model_type'] . '/' . $model->id) }}">View</a></td>
+                                        <td><a href="{{ url('form/' . $param['model_type'] . '/' . $model->id) }}">Edit</a></td>
+                                        <td><a href="{{ url('form/' . $param['model_type'] . '/' . $model->id . '/change_status')  }}">Change Status</a></td>
                                     @endif
-                                @endforeach
-                                <td><a href="{{ url('view/' . $param['model_type'] . '/' . $model->id) }}">View</a></td>
-                                <td><a href="{{ url('form/' . $param['model_type'] . '/' . $model->id) }}">Edit</a></td>
-                                <td><a href="{{ url('form/' . $param['model_type'] . '/' . $model->id . '/change_status')  }}">Change Status</a></td>
-                            </tr>
-                        @endforeach
+                                </tr>
+                            @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
