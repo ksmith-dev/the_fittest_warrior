@@ -22,14 +22,13 @@
 }
 
 /*Nav bar sticky*/
-.sticky {
+#sticky {
     position: fixed;
-    top: 0;
-    width: 100%;
+    z-index: 10;
 }
 
-.sticky + .content {
-    padding-top: 60px;
+.stickyHeader{
+    margin-top: 106px;
 }
 
 .bg-darkGray{
@@ -55,6 +54,10 @@ body{
     background-color: #66717d;
     border: #ffffff .05em solid;
     color: #ffffff;
+}
+
+.iconBtn{
+    margin-right:45px;
 }
 
 .bodyPanelStyle{
@@ -325,16 +328,4 @@ a.feed-pagination {
     font-style: italic;
     text-decoration: none;
     color: #dae0e5;
-}
-
-.without_am_pm::-webkit-datetime-edit-ampm-field {
-    display: none;
-}
-input[type=time]::-webkit-clear-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    -ms-appearance:none;
-    appearance: none;
-    margin: -10px;
 }
