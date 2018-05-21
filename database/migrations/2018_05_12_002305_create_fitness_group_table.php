@@ -26,6 +26,7 @@ class CreateFitnessGroupTable extends Migration
             $table->timestamps();
         });
 
+        /*
         $groups = array(
             'cardio_self_defense' => array(
                 'type' => 'gym',
@@ -65,6 +66,7 @@ class CreateFitnessGroupTable extends Migration
                 'updated_at' => date("Y-m-d H:i:s")
             ]);
         }
+        */
     }
 
     /**

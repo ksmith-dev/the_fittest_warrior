@@ -39,38 +39,11 @@ class CreateUserTable extends Migration
         $users = array(
             [
                 'id' => '1',
-                'first_name' => 'Jack',
-                'last_name' => 'Black',
-                'email' => 'black@domain.com',
-                'password' => 'na'
-            ],
-            [
-                'id' => '2',
-                'first_name' => 'Jack',
-                'last_name' => 'Sparrow',
-                'email' => 'sparrow@domain.com',
-                'password' => 'na'
-            ],
-            [
-                'id' => '3',
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-                'email' => 'doe@domain.com',
-                'password' => 'na'
-            ],
-            [
-                'id' => '4',
-                'first_name' => 'Jane',
-                'last_name' => 'Doe',
-                'email' => 'jane@domain.com',
-                'password' => 'na'
-            ],
-            [
-                'id' => '5',
-                'first_name' => 'Petter',
-                'last_name' => 'Parker',
-                'email' => 'parker@domain.com',
-                'password' => 'na'
+                'first_name' => 'Web',
+                'last_name' => 'Master',
+                'email' => 'webmaster@thefittestwarrior.com',
+                'password' => '$2y$10$J41pZd4VKFhfqgaVbpOE4eCmlCcOJ6z5SVPdoXm5P1161pjhegUr6',
+                'role' => 'admin'
             ]
         );
 

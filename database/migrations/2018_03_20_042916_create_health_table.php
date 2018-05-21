@@ -23,6 +23,7 @@ class CreateHealthTable extends Migration
             $table->string('hdl_cholesterol')->nullable();
             $table->string('start_date_time')->nullable();
             $table->string('end_date_time')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

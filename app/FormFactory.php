@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class FormFactory extends Model
 {
-    private $_attribute = null;
     private $_table = null;
+    private $_class = array();
+    private $_attribute = null;
     private $_inputs = array();
-    private $_protected = array();
     private $_options = array();
+    private $_protected = array();
     private $_label_override = array();
     private $_input_override = array();
-    private $_class = array();
     private $_default_input_value = array();
 
     /**
@@ -59,7 +59,7 @@ class FormFactory extends Model
      */
     public function setInputAttribute(string $column, string $attribute): void
     {
-        $this->_attribute[$column] = $attribute;
+        empty($this->_attribute[$column]) ? $this->_attribute[$column] = $attribute : $this->_attribute[$column] = $this->_attribute[$column] . ' ' . $attribute;
     }
 
     /**
@@ -127,7 +127,7 @@ class FormFactory extends Model
                             //TODO - create this function
                             break;
                         case 'time' :
-                            //TODO - create this function
+                            $this->addTimeInput($column);
                             break;
                         case 'url' :
                             //TODO - create this function
@@ -242,28 +242,48 @@ class FormFactory extends Model
     }
 
     /**
-     * @param string $key
+     * @param string $input_type
      * @return string
      */
-    public function getClass(string $key) : string
+    public function getClass(string $input_type) : string
     {
-        return $this->_class[$key];
+        return $this->_class[$input_type];
     }
 
     /**
-     * @param string $key
+     * @param string $input_type
      * @param string $class
      */
-    public function setClass(string $key, string $class): void
+    public function setClass(string $input_type, string $class): void
     {
-        $this->_class[$key] = $class;
+        $this->_class[$input_type] = $class;
+    }
+
+    /**
+     * @param string $input_type
+     * @param string $column
+     * @return string | null
+     */
+    public function getClassOverride(string $input_type, string $column): string
+    {
+        if(empty($this->_class['override'][$column][$input_type])) { return null; } else { return $this->_class['override'][$column][$input_type]; }
+    }
+
+    /**
+     * @param string $column
+     * @param string $input_type
+     * @param string $class
+     */
+    public function setClassOverride(string $column, string $input_type, string $class): void
+    {
+        $this->_class['override'][$column][$input_type] = $class;
     }
 
     /*------------------------ ADD INPUT FUNCTIONS BELOW ------------------------*/
     private function addNumberInput(string $column)
     {
         $this->addLabel($column);
-        $this->addInput($column, 'number');
+        $this->addInput($column, 'number', $column);
     }
 
     private function addDateInput($column)
@@ -275,7 +295,16 @@ class FormFactory extends Model
     private function addTextInput(string $column)
     {
         $this->addLabel($column);
-        $this->addInput($column, 'text');
+        $this->addInput($column, 'text', $column);
+    }
+
+    /**
+     * @param string $column
+     */
+    private function addTimeInput(string $column)
+    {
+        $this->addLabel($column);
+        $this->addInput($column, 'time');
     }
 
     private function addSelectInput(string $column)
@@ -285,7 +314,7 @@ class FormFactory extends Model
         $select = new FormSelect();
         $select->setId($column);
         $select->setName($column);
-        empty($this->_class[$column]) ? $select->setClass($this->_class['select']) : $select->setClass($this->_class[$column]);
+        if (!empty($this->_class['select'])) { empty($this->_class['override'][$column]['select']) ? $select->setClass($this->_class['select']) : $select->setClass($this->_class['override'][$column]['select']); }
         $select->setOptions($this->_options[$column]);
 
         $this->_inputs[$column]['select'] = $select;
@@ -295,20 +324,20 @@ class FormFactory extends Model
     {
         $label = new FormLabel();
         $label->setFor($column);
-        empty($this->_class[$column]) ? $label->setClass($this->_class['label']) : $label->setClass($this->_class[$column]);
+        if (!empty($this->_class['label'])) { empty($this->_class['override'][$column]['label']) ? $label->setClass($this->_class['label']) : $label->setClass($this->_class['override'][$column]['label']); }
         empty($this->_label_override[$column]) ? $label->setValue($column) : $label->setValue($this->_label_override[$column]);
 
         $this->_inputs[$column]['label'] = $label;
     }
 
-    private function addInput(string $column, string $type)
+    private function addInput(string $column, string $type, string $placeholder = null)
     {
         $input = new FormInput();
         $input->setType($type);
         $input->setName($column);
         $input->setIdentity($column);
-        $input->setPlaceholder('Enter ' . ucwords(str_replace('_', ' ', $column)));
-        empty($this->_class[$column]) ? $input->setClass($this->_class['input']) :  $input->setClass($this->_class[$column]);
+        empty($placeholder) ? $input->setPlaceholder(null) : $input->setPlaceholder('Enter ' . ucwords(str_replace('_', ' ', $placeholder)));
+        if (!empty($this->_class['input'])) { empty($this->_class['override'][$column]['input']) ? $input->setClass($this->_class['input']) : $input->setClass($this->_class['override'][$column]['input']); }
         empty($this->_attribute[$column]) ? : $input->setInputAttribute($this->_attribute[$column]);
         empty($this->_default_input_value[$column]) ? : $input->setDefaultInputValue($this->_default_input_value[$column]);
 

@@ -12,13 +12,13 @@
     <div class="spacer-50"></div>
     <div class="row">
         <div class="col">
-            @if(empty($workouts))
+            @if(empty($param['models']))
                 <h2 style="width: 90%;">Welcome to your workout tracker, there are no records to display.</h2>
                 <span class="spacer-50"></span>
                 <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some workout records please start by clicking below.
                     <br>
                     <br>
-                    <a href="{{ url('form/workout') }}" class="btn btn-secondary" role="button">add a workout record</a>
+                    <a href="{{ url('workout') }}" class="btn btn-secondary" role="button">add a workout record</a>
                 </h5>
                 <div class="spacer-50"></div>
             @else
@@ -39,25 +39,25 @@
                         </tr>
                         <thead>
                         <tbody>
-                        @foreach($workouts as $workout)
-                            @if($workout->user_id == $params['user']->id)
+                        @foreach($param['models'] as $model)
+                            @if($model->user_id == Auth::user()->getAuthIdentifier())
                                 <tr>
-                                    <th scope="row" class="text-center">{{ str_replace('_', ' ', $workout->training) }}</th>
-                                    <th class="text-center">{{ str_replace('_', ' ', $workout->type) }}</th>
-                                    <td class="text-center">{{ date('d-m-Y', strtotime($workout->created_at)) }}</td>
-                                    <td class="text-center">{{ $workout->duration }}</td>
-                                    <td class="text-center">{{ $workout->weight }} {{ $workout->weight_unit }}</td>
-                                    <td class="text-center">{{ $workout->repetitions }}</td>
+                                    <th scope="row" class="text-center">{{ str_replace('_', ' ', $model->training) }}</th>
+                                    <th class="text-center">{{ str_replace('_', ' ', $model->type) }}</th>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($model->created_at)) }}</td>
+                                    <td class="text-center">{{ $model->duration }}</td>
+                                    <td class="text-center">{{ $model->weight }} {{ $model->weight_unit }}</td>
+                                    <td class="text-center">{{ $model->repetitions }}</td>
                                     <td class="text-center">
-                                        <a href="{{ url('workout/view') }}/{{ $workout->id }}">view</a>
+                                        <a href="{{ url('view/workout') }}/{{ $model->id }}">view</a>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ url('workout/form') }}/{{ $workout->type }}/{{ $workout->id }}">edit</a>
+                                        <a href="{{ url('form/workout') }}/{{ $model->id }}">edit</a>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ url('workout/delete') }}/{{ $workout->id }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
+                                        <a href="{{ url('form/workout') }}/{{ $model->id }}/change_status" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
 
-                                        <form id="delete-form" action="{{ url('workout/delete') }}/{{ $workout->type }}/{{ $workout->id }}" method="POST" style="display: none;">
+                                        <form id="delete-form" action="{{ url('workout/delete') }}/{{ $model->type }}/{{ $model->id }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
                                     </td>
@@ -78,10 +78,10 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('workout') }}">add workout</a></li>
-                @if(empty($workouts))
+                @if(empty($param['models']))
                     <li class="breadcrumb-item active" aria-current="page">edit</li>
                 @else
-                    <li class="breadcrumb-item active" aria-current="page">{{ str_replace('_', ' ', $workouts->first()->type) }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ str_replace('_', ' ', $param['models']->first()->type) }}</li>
                 @endif
             </ol>
         </nav>

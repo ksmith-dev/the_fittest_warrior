@@ -26,7 +26,7 @@ class CreateWorkoutTable extends Migration
             $table->double('calories_burned')->nullable();
             $table->string('duration')->nullable();
             $table->string('rest')->nullable();
-            $table->integer('active')->default(1);
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

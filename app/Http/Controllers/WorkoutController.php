@@ -26,7 +26,7 @@ class WorkoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showWorkoutTab() {
+    public function showFitnessTab() {
 
         $params['title'] = 'Workouts';
 
@@ -296,21 +296,6 @@ class WorkoutController extends Controller
         }
 
         return view('workout', ['params' => $params, 'workout' => $workout, 'leader_board' => $leader_board, 'muscle_groups' => $muscle_groups]);
-    }
-
-    /**
-     * deactivate record
-     *
-     * @param $workout_type
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function destroy($workout_type, $id) {
-
-        $workout = Workout::where('id', $id)->update(['active' => 0]);
-
-        return redirect('workout/edit/' . $workout_type);
     }
 
     /**

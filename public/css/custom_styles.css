@@ -326,3 +326,15 @@ a.feed-pagination {
     text-decoration: none;
     color: #dae0e5;
 }
+
+.without_am_pm::-webkit-datetime-edit-ampm-field {
+    display: none;
+}
+input[type=time]::-webkit-clear-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -ms-appearance:none;
+    appearance: none;
+    margin: -10px;
+}

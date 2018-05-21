@@ -70,7 +70,7 @@
                             </thead>
                             <tbody>
                             @foreach($best_weight as $workout)
-                                <tr class="clickable-row" data-href="/workout/view/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
+                                <tr class="clickable-row" data-href="/workout/detail/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
                                     <th class="text-center">{{ $workout['training'] }}</th>
                                     <th class="text-center">{{ str_replace('_', ' ', $workout['type']) }}</th>
                                     <td class="text-center">{{ date('d/m/Y', strtotime($workout['created_at'])) }}</td>
@@ -95,7 +95,7 @@
                             </thead>
                             <tbody>
                             @foreach($best_weight as $workout)
-                                <tr class="clickable-row" data-href="/workout/view/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
+                                <tr class="clickable-row" data-href="/workout/detail/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
                                     <th scope="row">{{ str_replace('_', ' ', $workout['type']) }}</th>
                                     <td class="text-center">{{ $workout['weight'] }} {{ $workout['weight_unit'] }}</td>
                                 </tr>
@@ -120,7 +120,7 @@
                             </thead>
                             <tbody>
                             @foreach($best_time as $workout)
-                                <tr class="clickable-row" data-href="/workout/view/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
+                                <tr class="clickable-row" data-href="/workout/detail/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
                                     <th scope="row" class="text-center">{{ $workout['training'] }}</th>
                                     <th class="text-center">{{ str_replace('_', ' ', $workout['type']) }}</th>
                                     <td class="text-center">{{ date('d/m/Y', strtotime($workout['created_at'])) }}</td>
@@ -145,7 +145,7 @@
                             </thead>
                             <tbody>
                             @foreach($best_time as $workout)
-                                <tr class="clickable-row" data-href="/workout/view/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
+                                <tr class="clickable-row" data-href="/workout/detail/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
                                     <th scope="row">{{ str_replace('_', ' ', $workout['type']) }}</th>
                                     <td class="text-center">{{ $workout['duration'] }}</td>
                                 </tr>
@@ -175,7 +175,7 @@
                             <tbody>
                             @foreach($workouts as $workout)
                                 @if($workout['user_id'] == $params['user']->id)
-                                    <tr class="clickable-row" data-href="/workout/view/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
+                                    <tr class="clickable-row" data-href="/workout/detail/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
                                         <th scope="row" class="text-center">{{ str_replace('_', ' ', $workout['training']) }}</th>
                                         <th class="text-center">{{ str_replace('_', ' ', $workout['type']) }}</th>
                                         <td class="text-center">{{ date('d/m/Y', strtotime($workout['created_at'])) }}</td>
@@ -203,7 +203,7 @@
                             <tbody>
                             @foreach($workouts as $workout)
                                 @if($workout['user_id'] == $params['user']->id)
-                                    <tr class="clickable-row" data-href="/workout/view/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
+                                    <tr class="clickable-row" data-href="/workout/detail/{{ $workout['id'] }}" data-toggle="tooltip" data-placement="top" title="click to view">
                                         <th scope="row">{{ str_replace('_', ' ', $workout['type']) }}</th>
                                         <td class="text-center">{{ $workout['weight'] }} {{ $workout['weight_unit'] }}</td>
                                         <td class="text-center">{{ $workout['repetitions'] }}</td>

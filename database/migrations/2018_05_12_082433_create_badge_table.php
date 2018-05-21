@@ -17,11 +17,11 @@ class CreateBadgeTable extends Migration
     {
         Schema::create('badge', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->integer('user_id');
-            $table->string('status');
-            $table->string('img_alt');
-            $table->string('img_src');
+            $table->string('img_alt')->nullable();
+            $table->string('img_src')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
         });
 

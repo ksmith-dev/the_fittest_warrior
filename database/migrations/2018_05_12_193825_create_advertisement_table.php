@@ -17,8 +17,8 @@ class CreateAdvertisementTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('company_name')->nullable();
-            $table->integer('subscription')->nullable();
-            $table->string('frequency')->nullable();
+            $table->string('subscription')->nullable();
+            $table->integer('frequency')->nullable();
             $table->double('pricing')->nullable();
             $table->string('banner_src')->nullable();
             $table->string('banner_alt')->nullable();

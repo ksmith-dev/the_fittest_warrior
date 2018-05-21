@@ -5,7 +5,7 @@
                 <a class="nav-link{{ strpos(url()->current(), 'dashboard') ? ' active' : '' }}" href="{{ url('dashboard') }}">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link{{ strpos(url()->current(), 'workout') ? ' active' : '' }}" href="{{ url('workout') }}">Fitness</a>
+                <a class="nav-link{{ strpos(url()->current(), 'fitness') ? ' active' : '' }}" href="{{ url('fitness') }}">Fitness</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link{{ strpos(url()->current(), 'nutrition') ? ' active' : '' }}" href="{{ url('nutrition') }}">Nutrition</a>

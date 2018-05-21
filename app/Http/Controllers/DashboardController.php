@@ -28,7 +28,7 @@ class DashboardController extends Controller
         $params['user'] = Auth::user();
         $params['title'] = 'Dashboard';
 
-        $workouts = Workout::where([['user_id', $params['user']->getAuthIdentifier()], ['active', 1]])->orderBy('created_at')->get();
+        $workouts = Workout::where([['user_id', $params['user']->getAuthIdentifier()], ['status', 'active']])->orderBy('created_at')->get();
 
         $best_time = null;
         $best_weight = null;
@@ -60,22 +60,11 @@ class DashboardController extends Controller
 
                     if ($workout['duration'] != null && $best_time[$workout['type']]['duration'] != null) {
 
-                        $current_duration = explode(':', $workout['duration']);
-                        $existing_duration = explode(':', $best_time[$workout['type']]['duration']);
+                        $current_duration = $workout['duration'];
+                        $existing_duration = null;
 
-                        $current_duration = array('min' => $current_duration[0], 'sec' => $current_duration[1], 'mil' => $current_duration[2]);
-                        $existing_duration = array('min' => $existing_duration[0], 'sec' => $existing_duration[1], 'mil' => $existing_duration[2]);
-
-                        if ($current_duration['min'] < $existing_duration['min']) {
+                        if ($current_duration < $existing_duration) {
                             $best_time[$workout['type']] = $workout;
-                        } elseif ($current_duration['min'] == $existing_duration['min']) {
-                            if ($current_duration['sec'] < $existing_duration['sec']) {
-                                $best_time[$workout['type']] = $workout;
-                            } elseif ($current_duration['sec'] == $existing_duration['sec']) {
-                                if ($current_duration['mil'] < $existing_duration['mil']) {
-                                    $best_time[$workout['type']] = $workout;
-                                }
-                            }
                         }
                     }
                 }

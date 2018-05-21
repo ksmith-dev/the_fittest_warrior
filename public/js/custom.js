@@ -102,6 +102,20 @@ $( document ).ready(function() {
         }
     });
 
+    $('#duration').ready(function () {
+       if (!$('#duration').val())
+       {
+           $('#duration').val("00:00:00");
+       }
+    });
+
+    $('#rest').ready(function () {
+        if (!$('#rest').val())
+        {
+            $('#rest').val("00:00:00");
+        }
+    });
+
     /********* health form input validation *********/
 
 });

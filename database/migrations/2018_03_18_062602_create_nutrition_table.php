@@ -28,6 +28,7 @@ class CreateNutritionTable extends Migration
             $table->string('calories')->nullable();
             $table->string('start_date_time');
             $table->string('end_date_time')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

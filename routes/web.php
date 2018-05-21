@@ -26,17 +26,18 @@ Auth::routes();
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::get('health', 'HealthController@showHealthTab');
-Route::get('workout', 'WorkoutController@showWorkoutTab');
 Route::get('nutrition', 'NutritionController@showNutritionTab');
-Route::get('workout/view/{workout_id}', 'WorkoutController@showWorkoutView');
-Route::get('workout/edit/{workout_type}', 'WorkoutController@showWorkoutEditView');
+
+Route::get('fitness', 'WorkoutController@showFitnessTab');
+Route::get('workout/detail/{workout_id}', 'WorkoutController@showWorkoutView');
 
 Route::get('gyms', 'MemberController@index');
 Route::get('fitness_group/{id}', 'MemberController@showFitnessGroup');
 
-Route::get('account', 'FormController@index');
-Route::get('admin/{type}', 'FormController@admin');
-Route::get('admin/dashboard', 'FormController@admin')->name('admin');
+Route::get('view', 'ViewController@index');
+Route::get('view/{type}', 'ViewController@index');
+Route::get('view/{type}/{identity}', 'ViewController@index');
+Route::get('view/{type}/{identity}/{modifier}', 'ViewController@index');
 
 Route::get('form/{table}', 'FormController@form');
 Route::get('form/{table}/{identity}', 'FormController@form');
