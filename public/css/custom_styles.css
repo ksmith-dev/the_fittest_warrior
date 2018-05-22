@@ -1,5 +1,9 @@
 /*Bootstrap Overrides*/
 
+.navbar {
+    margin-right: 35px;
+}
+
 .navbar-light .navbar-nav .nav-link {
     color: #343a40;
     font-weight: bolder;
