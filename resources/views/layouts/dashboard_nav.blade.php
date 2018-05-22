@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col stickyHeader">
     <div class="row">
         <ul class="nav nav-tabs">
             <li class="nav-item">
