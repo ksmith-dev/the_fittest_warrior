@@ -11,6 +11,7 @@
         <div class="row">
             @if(in_array($param['page_type'], array('user', 'member', 'advertisement')))
                 <div class="col-6">
+                    <div class="spacer-100"></div>
                     <a class="btn btn-dark" href="{{ url('form/user/' . $param['model']->id) }}" role="button">Edit Account Information</a>
                     <div class="spacer-20"></div>
                         <h1>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
