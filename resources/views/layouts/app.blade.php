@@ -39,7 +39,6 @@
 <![endif]-->
 <div class="container-fluid py-3">
     @section('navigation')
-        <div class="nav-spacer"></div>
         <div class="row px-3 mb-3">
             <div class="col-12 px-0"  id="sticky">
                 <nav class="navbar navbar-expand-md navbar-light bg-darkGray">
@@ -96,6 +95,7 @@
                     </div>
                 </nav>
             </div>
+            <div class="nav-spacer"></div>
         </div>
     @show
     @yield('content')

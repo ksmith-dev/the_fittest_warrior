@@ -340,12 +340,6 @@ a.feed-pagination {
     height: 80px;
 }
 
-#top-nav {
-    position: absolute;
-    top: -80px;
-    width: 100%;
-}
-
 input[type=time]::-webkit-clear-button {
     -webkit-appearance: none;
     -moz-appearance: none;
