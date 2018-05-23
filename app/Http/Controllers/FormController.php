@@ -299,7 +299,7 @@ class FormController extends Controller
                     // general variable name assignment to be processed
                     $inputs = $this->_nutrition_input_data;
                     break;
-                case 'group' :
+                case 'fitness_group' :
                     empty($model_id) ? $param['model'] = new Group() : $param['model'] = Group::find($model_id);
                     $this->setFormFactoryStructure('fitness_group');
                     // general variable name assignment to be processed
@@ -429,7 +429,7 @@ class FormController extends Controller
                     $form_data = $this->_nutrition_input_data;
                     $url = 'nutrition';
                     break;
-                case 'group' :
+                case 'fitness_group' :
                     $model = new Group();
                     empty($model_id) ? $model = new Group()  : $model = $model->id = Group::find($model_id);
                     $columns = Schema::getColumnListing('fitness_group');
@@ -494,8 +494,12 @@ class FormController extends Controller
 
         if ($model_type === 'workout') {
             return redirect('view/' . $model_type . '/0/' . $result->type);
+        } elseif ($model_type === 'some_other_condition') {
+            //not sure what this is here for yet
+            //TODO - figure this out
         } else {
-            return redirect('view/' . $model_type . '/' . $model_id);
+            return redirect('view/' . $model_type);
+
         }
     }
 }

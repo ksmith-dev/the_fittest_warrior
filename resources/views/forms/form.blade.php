@@ -11,7 +11,7 @@
 @section('content')
     <div class="spacer-50"></div>
     <div id="form">
-        <h2>{{ ucwords($param['table']) }} Information</h2>
+        <h2>{{ ucwords(str_replace('_', ' ', $param['table'])) }} Information</h2>
         <div class="spacer-20"></div>
         <form method="POST" action="{{ url('store/' . $param['table'] . '/' . $param['model_id']) }}" novalidate>
             @csrf

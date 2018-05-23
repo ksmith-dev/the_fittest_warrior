@@ -88,10 +88,10 @@ class ViewController extends Controller
                         $param['columns'] = Schema::getColumnListing('advertisement');
                         $view = 'account';
                         break;
-                    case 'group' :
+                    case 'fitness_group' :
                         empty($model_id) ? $param['models'] = Group::all() : $param['model'] = Group::find($model_id);
-                        empty($model_id) ? $param['page_type'] = 'groups' :  $param['page_type'] = 'group';
-                        $param['model_type'] = 'group';
+                        empty($model_id) ? $param['page_type'] = 'fitness_groups' :  $param['page_type'] = 'fitness_group';
+                        $param['model_type'] = 'fitness_group';
                         $param['display'] = array('name', 'type', 'description', 'status', 'visibility');
                         $param['columns'] = Schema::getColumnListing('fitness_group');
                         $view = 'account';

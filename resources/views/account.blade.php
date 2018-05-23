@@ -42,7 +42,7 @@
                 <div id="account-vertical_banner" class="col">
 
                 </div>
-            @elseif(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'groups')))
+            @elseif(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')))
                 <div class="col">
                     @auth
                         @if(Auth::user()->role == 'admin')
@@ -162,7 +162,7 @@
                 <div class="spacer-20"></div>
                 <a class="btn btn-dark" href="{{ url('view/member') }}" role="button" style="width: 100%">Manage Memberships</a>
                 <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/group') }}" role="button" style="width: 100%">Manage Groups</a>
+                <a class="btn btn-dark" href="{{ url('view/fitness_group') }}" role="button" style="width: 100%">Manage Groups</a>
                 <div class="spacer-20"></div>
                 <a class="btn btn-dark" href="{{ url('view/advertisement') }}" role="button" style="width: 100%">Manage Advertisements</a>
                 <div class="spacer-20"></div>
