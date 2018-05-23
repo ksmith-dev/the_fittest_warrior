@@ -338,7 +338,12 @@ a.feed-pagination {
 
 .nav-spacer {
     height: 80px;
-    bacground-color: #1d2124;
+}
+
+#top-nav {
+    position: absolute;
+    top: -80px;
+    width: 100%;
 }
 
 input[type=time]::-webkit-clear-button {
