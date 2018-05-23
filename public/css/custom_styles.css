@@ -27,8 +27,6 @@
 
 /*Nav bar sticky*/
 #sticky {
-    position: absolute;
-    top: 10px;
     position: fixed;
     z-index: 10;
 }
@@ -63,7 +61,8 @@ body{
 }
 
 .iconBtn{
-    margin-right:45px;
+    margin-right:30px;
+    margin-left: 20px;
 }
 
 .bodyPanelStyle{
@@ -365,4 +364,5 @@ input[type=time]::-webkit-clear-button {
     -ms-appearance:none;
     appearance: none;
     margin: -10px;
+
 }

@@ -12,7 +12,7 @@
             @if(in_array($param['page_type'], array('user', 'member', 'advertisement')))
                 <div class="col-6">
                     <div class="spacer-100"></div>
-                    <a class="btn btn-dark" href="{{ url('form/user/' . $param['model']->id) }}" role="button">Edit Account Information</a>
+                    <a class="btn btn-dark" href="{{ url('form/user/' . $param['model']->id) }}" role="button" name="editAccountInfoButton">Edit Account Information</a>
                     <div class="spacer-20"></div>
                         <h1>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
                         <h3><b>Site Role:</b>&nbsp;&nbsp;&nbsp;{{ ucwords( Auth::user()->role) }}</h3>
@@ -55,7 +55,6 @@
                                     <a class="btn btn-dark" href="{{ url('form/user/' . Auth::user()->getAuthIdentifier()) }}" role="button" style="width: 100%">Edit Personal Account</a>
                                 </div>
                             </div>
-                            <div class="spacer-20"></div>
                         @endif
                     @endauth
                     @if(!empty($param['models']))
@@ -66,11 +65,10 @@
                             <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some {{ $param['model_type'] }} records please start by clicking below.
                                 <br>
                                 <br>
-                                @if(empty($param['model_type']))
-                                @elseif ($param['model_type'] === 'workout' && !empty($param['modifier']))
-                                    <a href="{{ url('form/' . $param['model_type'] . '/0/' . $param['modifier']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
-                                @else
+                                @if(empty($param['workout_type']))
                                     <a href="{{ url('form/' . $param['model_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
+                                @else
+                                    <a href="{{ url('form/' . $param['model_type'] . '/0/' . $param['workout_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
                                 @endif
                             </h5>
                             <div class="spacer-20"></div>
@@ -78,11 +76,10 @@
                     @endif
                     <h3>{{ ucwords($param['page_type']) }} Data</h3>
                     <div class="spacer-20"></div>
-                    @if(empty($param['model_type']))
-                    @elseif (!empty($param['page_type']) && $param['page_type'] === 'workouts')
-                        <a class="btn btn-dark" href="{{ url('form/' . $param['model_type'] . '/0/' . $param['modifier']) }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
-                    @else
+                    @if(empty($param['workout_type']))
                         <a class="btn btn-dark" href="{{ url('form/' . $param['model_type']) }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
+                    @else
+                        <a class="btn btn-dark" href="{{ url('form/' . $param['model_type'] . '/0/' . $param['workout_type']) }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
                     @endif
                     <div class="spacer-20"></div>
                     <table class="table">
@@ -90,30 +87,17 @@
                         <tr class="text-center">
                             @if(!empty($param['columns']))
                                 @foreach($param['columns'] as $column)
-                                    @if(empty($param['display']))
-                                        @if(!in_array($column, $param['protected']))
-                                            @if(empty($param['column_overrides']))
-                                                <th scope="col">{{ ucwords(str_replace('_', ' ', $column)) }}</th>
+                                    @if(in_array($column, $param['display']))
+                                        @if(empty($param['column_overrides']))
+                                            <th scope="col">{{ ucwords(str_replace('_', ' ', $column)) }}</th>
+                                        @else
+                                            @if(array_key_exists($column, $param['column_overrides']))
+                                                <th scope="col">{{ ucwords(str_replace('_', ' ', $param['column_overrides'][$column])) }}</th>
                                             @else
-                                                @if(array_key_exists($column, $param['column_overrides']))
-                                                    <th scope="col">{{ ucwords(str_replace('_', ' ', $param['column_overrides'][$column])) }}</th>
-                                                @else
-                                                    <th scope="col">{{ ucwords(str_replace('_', ' ', $column)) }}</th>
-                                                @endif
+                                                <th scope="col">{{ ucwords(str_replace('_', ' ', $column)) }}</th>
                                             @endif
                                         @endif
-                                    @else
-                                        @if(in_array($column, $param['display']))
-                                            @if(empty($param['column_overrides']))
-                                                <th scope="col">{{ ucwords(str_replace('_', ' ', $column)) }}</th>
-                                            @else
-                                                @if(array_key_exists($column, $param['column_overrides']))
-                                                    <th scope="col">{{ ucwords(str_replace('_', ' ', $param['column_overrides'][$column])) }}</th>
-                                                @else
-                                                    <th scope="col">{{ ucwords(str_replace('_', ' ', $column)) }}</th>
-                                                @endif
-                                            @endif
-                                        @endif
+
                                     @endif
                                 @endforeach
                             @endif
@@ -197,19 +181,11 @@
                     <li class="breadcrumb-item"><a href="{{ url('view/member') }}">memberships</a></li>
                 @endif
             @else
-                @if($param['model_type'] === 'workout')
-                    @if(Request::url() == 'http://fittestwarrior.local/dashboard')
-                        <li class="breadcrumb-item active" aria-current="page">dashboard</li>
-                    @else
-                        <li class="breadcrumb-item"><a href="{{ url('view/dashboard/') }}">dashboard</a></li>
-                    @endif
-                    @if(Request::url() == 'http://fittestwarrior.local/view/workout/0/' . $param['modifier'])
-                        <li class="breadcrumb-item active" aria-current="page">workouts</li>
-                    @else
-                        <li class="breadcrumb-item"><a href="{{ url('view/workout/0/' . $param['modifier']) }}">workouts</a></li>
-                    @endif
+                @if(Request::url() == 'http://fittestwarrior.local/view/user')
+                    <li class="breadcrumb-item active" aria-current="page">users</li>
+                @else
+                    <li class="breadcrumb-item"><a href="{{ url('view/user') }}">users</a></li>
                 @endif
-
             @endif
         </ol>
     </nav>
