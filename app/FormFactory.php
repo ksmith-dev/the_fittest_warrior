@@ -315,7 +315,7 @@ class FormFactory extends Model
         $select->setId($column);
         $select->setName($column);
         if (!empty($this->_class['select'])) { empty($this->_class['override'][$column]['select']) ? $select->setClass($this->_class['select']) : $select->setClass($this->_class['override'][$column]['select']); }
-        $select->setOptions($this->_options[$column]);
+        empty($this->_options[$column]) ? $select->setOptions($this->_options[$column] = array('', '')) : $select->setOptions($this->_options[$column]);
 
         $this->_inputs[$column]['select'] = $select;
     }
