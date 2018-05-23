@@ -105,9 +105,11 @@ class FormController extends Controller
         {
             foreach ($groups as $group)
             {
+                $group_names = array();
                 $group_names[$group->id] = ucwords(str_replace('_', ' ', $group->name));
             }
         } else {
+            $group_names = array();
             $group_names = $group_names['1'] = 'no groups to pick from';
         }
 
@@ -133,10 +135,10 @@ class FormController extends Controller
                 $this->_member_input_data->setProtectedColumns($this->_global_protected_columns);
                 $this->_member_input_data->setOptions('status', $this->_status);
                 $this->_member_input_data->setOptions('group_role', $this->_group_roles);
-                $this->_member_input_data->addLabelOverride('user_id','user_name');
                 $this->_member_input_data->setOptions('user_id', $user_id_and_full_name);
-                $this->_member_input_data->addLabelOverride('group_id','group_name');
                 $this->_member_input_data->setOptions('group_id', $group_names);
+                $this->_member_input_data->addLabelOverride('user_id','user_name');
+                $this->_member_input_data->addLabelOverride('group_id','group_name');
                 $this->_member_input_data->setInputOverrides(array('group_role' => 'select', 'status' => 'select', 'user_id' => 'select', 'group_id' => 'select'));
                 $this->_member_input_data->setClass('label', 'col-md-4 col-form-label text-md-right');
                 $this->_member_input_data->setClass('input', 'form-control');
