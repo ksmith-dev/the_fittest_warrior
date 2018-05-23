@@ -23,6 +23,8 @@ class ViewController extends Controller
      */
     public function index(Request $request, string $model_type = null, string $model_id = null, string $modifier = null) {
 
+        $protected_columns = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
+
         $param = null;
 
         if (Auth::check()) {
@@ -39,6 +41,7 @@ class ViewController extends Controller
                         $param['protected'] = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
                         $param['model_type'] = 'user';
                         $param['columns'] = Schema::getColumnListing('user');
+                        $view = 'account';
                         break;
                     case 'member' :
                         empty($model_id) ? $param['models'] = Member::all() : $param['model'] = Member::find($model_id);
@@ -62,6 +65,7 @@ class ViewController extends Controller
                         $param['display'] = array('user_id', 'group_id', 'status');
                         $param['column_overrides'] = array('user_id' => 'user_name', 'group_id' => 'group_name');
                         $param['columns'] = Schema::getColumnListing('member');
+                        $view = 'account';
                         break;
                     case 'advertisement' :
                         empty($model_id) ? $param['models'] = Advertisement::all() : $param['model'] = Advertisement::find($model_id);
@@ -82,9 +86,19 @@ class ViewController extends Controller
                         $param['model_type'] = 'advertisement';
                         $param['column_overrides'] = array('user_id' => 'user_name');
                         $param['columns'] = Schema::getColumnListing('advertisement');
+                        $view = 'account';
+                        break;
+                    case 'group' :
+                        empty($model_id) ? $param['models'] = Group::all() : $param['model'] = Group::find($model_id);
+                        empty($model_id) ? $param['page_type'] = 'groups' :  $param['page_type'] = 'group';
+                        $param['model_type'] = 'group';
+                        $param['display'] = array('name', 'type', 'description', 'status', 'visibility');
+                        $param['columns'] = Schema::getColumnListing('fitness_group');
+                        $view = 'account';
                         break;
                     case 'dashboard' :
                         $param['page_type'] = 'dashboard';
+                        $view = 'account';
                         break;
                     case null :
                         $param['model'] = Auth::user();
@@ -96,20 +110,28 @@ class ViewController extends Controller
                         break;
                 }
             } elseif (Auth::user()->role != 'admin') {
-                $param['model'] = Auth::user();
-                $param['model_type'] = 'user';
-                $param['badges'] = DB::table('badge')->where('user_id', $model_id)->get();
-                $param['protected'] = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
-                $param['page_type'] = 'user';
-                $param['columns'] = Schema::getColumnListing('user');
+
+                switch ($model_type)
+                {
+                    case 'user' :
+                        $param['model'] = Auth::user();
+                        $param['model_type'] = 'user';
+                        $param['badges'] = DB::table('badge')->where('user_id', $model_id)->get();
+                        $param['protected'] = $protected_columns;
+                        $param['page_type'] = 'user';
+                        $param['columns'] = Schema::getColumnListing('user');
+                        $view = 'account';
+                        break;
+                }
             }
 
             switch ($model_type)
             {
                 case 'workout' :
                     empty($modifier) ? $param['model'] = Workout::find($model_id) : $param['models'] = Workout::where([['type', $modifier], ['status', 'active'], ['user_id', Auth::user()->getAuthIdentifier()]])->get();
-                    empty($modifier) ? $param['workout_type'] = $param['model']->type : $param['workout_type'] = $modifier;
-                    $param['page_type'] = 'workouts';
+                    empty($modifier) ? $param['model_type'] = $param['model']->type : $param['model_type'] = $modifier;
+                    empty($modifier) ? $param['modifier'] = null : $param['modifier'] = $modifier;
+                    empty($model_id) ? $param['page_type'] = 'workouts' : $param['page_type'] = 'workout';
                     $param['model_type'] = 'workout';
                     $param['columns'] = Schema::getColumnListing('workout');
                     $param['display'] = array('workout', 'created_at', 'duration', 'weight', 'repetitions', 'status');
@@ -123,15 +145,22 @@ class ViewController extends Controller
                             }
                         }
                     }
-
+                    $view = 'account';
                     break;
             }
 
-            return view( 'account', ['param' => $param]);
+            return view( $view, ['param' => $param]);
 
         } else {
             return redirect('/login');
         }
 
+    }
+
+    public function gyms()
+    {
+        $param['model'] = Group::all()->where('visibility', 'gym');
+
+        return view('gym', ['param' => $param]);
     }
 }

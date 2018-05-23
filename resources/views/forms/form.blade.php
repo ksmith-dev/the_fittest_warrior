@@ -11,12 +11,12 @@
 @section('content')
     <div class="spacer-50"></div>
     <div id="form">
-        <h2>{{ ucwords($params['table']) }} Information</h2>
+        <h2>{{ ucwords($param['table']) }} Information</h2>
         <div class="spacer-20"></div>
-        <form method="POST" action="{{ url('store/' . $params['table'] . '/' . $params['model_id']) }}" novalidate>
+        <form method="POST" action="{{ url('store/' . $param['table'] . '/' . $param['model_id']) }}" novalidate>
             @csrf
-                @if(!empty($inputs))
-                    @foreach($inputs as $key => $element)
+                @if(!empty($param['inputs']))
+                    @foreach($param['inputs'] as $key => $element)
                         @if(!empty($element['select']))
                             <div class="form-group row">
                                 <label class="{{ $element['label']->getClass() }}" for="{{ $element['label']->getFor() }}">{{ _(ucwords(str_replace('_', ' ', $element['label']->getValue()))) }}</label>
@@ -26,16 +26,16 @@
                                         <select id="{{ $element['select']->getName() }}"
                                                 class="{{ $element['select']->getClass() }}"
                                                 name="{{ $element['select']->getName() }}">
-                                            @if(!empty($model))
-                                                @if(!in_array($model->$key, $element['select']->getOptions()))
+                                            @if(!empty($param['model']))
+                                                @if(!in_array($param['model']->$key, $element['select']->getOptions()))
                                                     <option selected disabled>Choose...</option>
                                                 @endif
                                             @else
                                                 <option selected disabled>Choose...</option>
                                             @endif
                                             @foreach($element['select']->getOptions() as $option_value => $option_label)
-                                                @if(!empty($model))
-                                                    @if($model->$key == $option_value)
+                                                @if(!empty($param['model']))
+                                                    @if($param['model']->$key == $option_value)
                                                         <option value="{{ $option_value }}" selected>{{ $option_label }}</option>
                                                     @else
                                                         <option value="{{ $option_value }}">{{ $option_label }}</option>
@@ -59,7 +59,7 @@
                                        class="{{ $element['label']->getClass() }}">{{ __(ucwords(str_replace('_', ' ', $element['label']->getValue()))) }}</label>
 
                                 <div class="col-md-6">
-                                    @if(empty($model->$key))
+                                    @if(empty($param['model']->$key))
                                         @if(empty($element['input']->getDefaultInputValue()))
                                             @if(empty(old($element['input']->getName())))
                                                 <input id="{{ $element['input']->getName() }}"
@@ -91,7 +91,7 @@
                                                type="{{ $element['input']->getType() }}"
                                                class="{{ $element['input']->getClass() }}"
                                                name="{{ $element['input']->getName() }}"
-                                               value="{{ str_replace('_', ' ', $model->$key) }}"
+                                               value="{{ str_replace('_', ' ', $param['model']->$key) }}"
                                                 {{ $element['input']->getInputAttribute() }}>
                                     @endif
 
@@ -124,7 +124,7 @@
         <ol class="breadcrumb">
             @if(Auth::user()->role == 'admin')
                 <li class="breadcrumb-item"><a href="{{ url('account') }}">account</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $params['table'] }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $param['table'] }}</li>
             @else
             @endif
         </ol>

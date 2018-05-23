@@ -39,6 +39,7 @@
 <![endif]-->
 <div class="container-fluid py-3">
     @section('navigation')
+        <div class="nav-spacer"></div>
         <div class="row px-3 mb-3">
             <div class="col-12 px-0"  id="sticky">
                 <nav class="navbar navbar-expand-md navbar-light bg-darkGray">
@@ -60,7 +61,7 @@
                                 </li>
                             @endauth
                                 <li class="nav-item ml-1">
-                                    <a class="nav-link" href="/gyms">Gyms</a>
+                                    <a class="nav-link" href="/gym">Gyms</a>
                                 </li>
                             <li class="nav-item ml-1">
                                 <a class="nav-link" href="https://the-fittest-warrior.myshopify.com/" target="_blank">Shop</a>

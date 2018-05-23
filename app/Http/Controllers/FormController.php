@@ -82,24 +82,33 @@ class FormController extends Controller
     private $_member_input_data = null;
     private $_workout_input_data = null;
     private $_nutrition_input_data = null;
+    private $_fitness_group_input_data = null;
     private $_advertisement_input_data = null;
 
     private function setFormFactoryStructure(string $table)
     {
         $users = User::all();
-        $user_id_and_full_name = null;
 
-        foreach ($users as $user)
+        if ($users->count() > 0)
         {
-            $user_id_and_full_name[$user->id] = ucwords($user->first_name . ' ' . $user->last_name);
+            foreach ($users as $user)
+            {
+                $user_id_and_full_name[$user->id] = ucwords($user->first_name . ' ' . $user->last_name);
+            }
+        } else {
+            $user_id_and_full_name = array('no users to pick from');
         }
 
         $groups = Group::all();
-        $group_names = null;
 
-        foreach ($groups as $group)
+        if ($groups->count() > 0)
         {
-            $group_names[$group->id] = ucwords(str_replace('_', ' ', $group->name));
+            foreach ($groups as $group)
+            {
+                $group_names[$group->id] = ucwords(str_replace('_', ' ', $group->name));
+            }
+        } else {
+            $group_names = $group_names['1'] = 'no groups to pick from';
         }
 
         switch ($table)
@@ -147,6 +156,7 @@ class FormController extends Controller
             case 'workout' :
                 $this->_workout_input_data = new FormFactory('workout');
                 $this->_workout_input_data->setProtectedColumns($this->_global_protected_columns);
+                $this->_workout_input_data->addProtectedColumn('weight_unit');
                 $this->_workout_input_data->addProtectedColumn('status');
                 $this->_workout_input_data->addProtectedColumn('user_id');
                 $this->_workout_input_data->addProtectedColumn('activity');
@@ -182,6 +192,16 @@ class FormController extends Controller
                 $this->_nutrition_input_data->setClass('input', 'form-control');
                 $this->_nutrition_input_data->setClass('select', 'form-control');
                 break;
+            case 'fitness_group' :
+                $this->_fitness_group_input_data = new FormFactory('fitness_group');
+                $this->_fitness_group_input_data->setProtectedColumns($this->_global_protected_columns);
+                $this->_fitness_group_input_data->setOptions('status', $this->_status);
+                $this->_fitness_group_input_data->setOptions('user_id', $user_id_and_full_name);
+                $this->_fitness_group_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select'));
+                $this->_fitness_group_input_data->setClass('label', 'col-md-4 col-form-label text-md-right');
+                $this->_fitness_group_input_data->setClass('input', 'form-control');
+                $this->_fitness_group_input_data->setClass('select', 'form-control');
+                break;
         }
     }
 
@@ -193,6 +213,7 @@ class FormController extends Controller
      */
     public function form(string $model_type, string $model_id = null, string $model_modifier = null) {
 
+        $param = null;
         $model = null;
         $inputs = null;
         $pre_processing_data = null;
@@ -218,21 +239,21 @@ class FormController extends Controller
                 switch ($model_type)
                 {
                     case 'user' :
-                        empty($model_id) ? $model = Auth::user() : $model = User::find($model_id);
+                        empty($model_id) ? $param['model'] = Auth::user() : $param['model'] = User::find($model_id);
                         // this method populates global $_table_input_data
                         $this->setFormFactoryStructure('user');
                         // general variable name assignment to be processed
                         $inputs = $this->_user_input_data;
                         break;
                     case 'advertisement' :
-                        empty($model_id) ? $model = new Advertisement() : $model = Advertisement::find($model_id);
+                        empty($model_id) ? $param['model'] = new Advertisement() : $param['model'] = Advertisement::find($model_id);
                         // this method populates global $_table_input_data
                         $this->setFormFactoryStructure('advertisement');
                         // general variable name assignment to be processed
                         $inputs = $this->_advertisement_input_data;
                         break;
                     case 'member' :
-                        empty($model_id) ? $model = new Member() : $model = Member::find($model_id);
+                        empty($model_id) ? $param['model'] = new Member() : $param['model'] = Member::find($model_id);
                         // this method populates global $_table_input_data
                         $this->setFormFactoryStructure('member');
                         // general variable name assignment to be processed
@@ -245,7 +266,7 @@ class FormController extends Controller
                 switch ($model_type)
                 {
                     case 'user' :
-                        $model = Auth::user();
+                        $param['model'] = Auth::user();
                         // this method populates global $_table_input_data
                         $this->setFormFactoryStructure('user');
                         // this method populates global $_table_input_data
@@ -258,7 +279,7 @@ class FormController extends Controller
             switch ($model_type)
             {
                 case 'workout' :
-                    empty($model_id) ? $model = new Workout() : $model = Workout::find($model_id);
+                    empty($model_id) ? $param['model'] = new Workout() : $param['model'] = Workout::find($model_id);
                     // this method populates global $_table_input_data
                     $this->setFormFactoryStructure('workout');
                     if(empty($model_id)) { $this->_workout_input_data->setDefaultInputValue('type', $pre_processing_data['default_input_value']['workout_type']); }
@@ -266,30 +287,36 @@ class FormController extends Controller
                     $inputs = $this->_workout_input_data;
                     break;
                 case 'health' :
-                    empty($model_id) ? $model = new Health() : $model = Health::find($model_id);
+                    empty($model_id) ? $param['model'] = new Health() : $param['model'] = Health::find($model_id);
                     // this method populates global $_table_input_data
                     $this->setFormFactoryStructure('health');
                     // general variable name assignment to be processed
                     $inputs = $this->_health_input_data;
                     break;
                 case 'nutrition' :
-                    empty($model_id) ? $model = new Nutrition() : $model = Nutrition::find($model_id);
+                    empty($model_id) ? $param['model'] = new Nutrition() : $param['model'] = Nutrition::find($model_id);
                     // this method populates global $_table_input_data
                     $this->setFormFactoryStructure('nutrition');
                     // general variable name assignment to be processed
                     $inputs = $this->_nutrition_input_data;
                     break;
+                case 'group' :
+                    empty($model_id) ? $param['model'] = new Group() : $param['model'] = Group::find($model_id);
+                    $this->setFormFactoryStructure('fitness_group');
+                    // general variable name assignment to be processed
+                    $inputs = $this->_fitness_group_input_data;
+                    break;
             }
 
             $inputs->createFormInputs();
-            $inputs = $inputs->getInputs();
+            $param['inputs'] = $inputs->getInputs();
 
-            empty($params['form_type'] = $model_type) ? $params['table'] = null : $params['table'] = $model_type;
-            empty($params['form_id'] = $model_id) ? $params['model_id'] = null : $params['model_id'] = $model_id;
+            empty($params['form_type'] = $model_type) ? $param['table'] = null : $param['table'] = $model_type;
+            empty($params['form_id'] = $model_id) ? $param['model_id'] = null : $param['model_id'] = $model_id;
 
             if (empty($model->id)) { $model = null; }
 
-            return view('forms.form', ['params' => $params, 'model' => $model, 'inputs' => $inputs]);
+            return view('forms.form', ['param' => $param]);
         }
         else
         {
@@ -402,6 +429,16 @@ class FormController extends Controller
                     // general variable name assignment to be processed
                     $form_data = $this->_nutrition_input_data;
                     $url = 'nutrition';
+                    break;
+                case 'group' :
+                    $model = new Group();
+                    empty($model_id) ? $model = new Group()  : $model = $model->id = Group::find($model_id);
+                    $columns = Schema::getColumnListing('fitness_group');
+                    // this method populates global $_table_input_data
+                    $this->setFormFactoryStructure('fitness_group');
+                    // general variable name assignment to be processed
+                    $form_data = $this->_fitness_group_input_data;
+                    $url = 'gym';
                     break;
             }
             if (!empty($model) && !empty($columns))

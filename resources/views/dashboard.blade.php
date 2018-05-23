@@ -32,7 +32,7 @@
             <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some workout records please start by clicking below.
                 <br>
                 <br>
-                <a href="{{ url('workout') }}" class="btn btn-secondary" role="button">add a workout</a>
+                <a href="{{ url('fitness') }}" class="btn btn-secondary" role="button">add a workout</a>
             </h5>
             <div class="spacer-50"></div>
         @else
@@ -231,9 +231,9 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">dashboard</li>
-                <li class="breadcrumb-item"><a href="{{ url('workout') }}">workout</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('nutrition/form') }}">nutrition</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('health/form') }}">health</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('fitness') }}">workout</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('nutrition') }}">nutrition</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('health') }}">health</a></li>
             </ol>
         </nav>
         <script src="{{ asset('js/dashboard_charts.js') }}"></script>

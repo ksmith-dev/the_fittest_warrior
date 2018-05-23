@@ -38,18 +38,18 @@ class CreateUserTable extends Migration
 
         $users = array(
             [
-                'id' => '1',
                 'first_name' => 'Web',
                 'last_name' => 'Master',
                 'email' => 'webmaster@thefittestwarrior.com',
-                'password' => '$2y$10$J41pZd4VKFhfqgaVbpOE4eCmlCcOJ6z5SVPdoXm5P1161pjhegUr6',
-                'role' => 'admin'
+                'password' => '$2y$10$J41pZd4VKFhfqgaVbpOE4eCmlCcOJ6z5SVPdoXm5P1161pjhegUr6'
             ]
         );
 
         foreach ($users as $user) {
-            DB::table('user')->insert(['id' => $user['id'], 'first_name' => $user['first_name'], 'last_name' => $user['last_name'] , 'email' => $user['email'], 'password' => $user['password'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
+            DB::table('user')->insert(['first_name' => $user['first_name'], 'last_name' => $user['last_name'] , 'email' => $user['email'], 'password' => $user['password'], 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);
         }
+
+        DB::table('user')->where('email', 'webmaster@thefittestwarrior.com')->update(['role' => 'admin']);
     }
 
     /**
