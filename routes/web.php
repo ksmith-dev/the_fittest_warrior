@@ -48,4 +48,6 @@ Route::post('store/{type}/{identity}', 'FormController@store');
 
 Route::post('contact', 'ContactUsController@store');
 
+Route::post('/', 'StayInformedController@store');
+
 
