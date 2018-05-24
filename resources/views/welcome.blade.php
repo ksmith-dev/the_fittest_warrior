@@ -216,13 +216,29 @@
                     </div>
 
                     <div class="row ">
-                        <form class="form-inline" action="">
+                        <form class="form-inline" method="POST" action=" {{ url('/') }} ">
+                            @csrf
                             <div class="col col-12">
-                                <input class="form-control" type="text" placeholder="Email">
-                                <div class="spacer-20"></div>
-                                <button type="submit" class="btn logButton">Stay Informed</button>
-                            </div>
+                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <input class="form-control" type="email" placeholder="Email" name="email">
+                                    <div class="spacer-20"></div>
 
+                                    @if(\Illuminate\Support\Facades\Session::has('flash_message'))
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col align-self-center alert alert-success">{{ \Illuminate\Support\Facades\Session::get('flash_message') }}</div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                    <button type="submit" class="btn logButton">Stay Informed</button>
+                            </div>
                         </form>
                     </div>
                     <br>
