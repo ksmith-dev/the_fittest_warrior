@@ -13,15 +13,13 @@
 
 Route::get('/','WelcomeController@index');
 
-Route::get('contact', function () {
-    return view('forms.contact');
-});
-
 Route::get('about', function () {
     return view('about');
 });
 
 Auth::routes();
+
+Route::get('contact', 'ContactUsController@showContactUsView');
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -48,6 +46,6 @@ Route::get('form/{table}/{identity}/{modifier}', 'FormController@form');
 Route::post('store/{type}', 'FormController@store');
 Route::post('store/{type}/{identity}', 'FormController@store');
 
-
+Route::post('contact', 'ContactUsController@store');
 
 
