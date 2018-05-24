@@ -13,7 +13,16 @@
     <div id="form">
         <h2>Contact Us</h2>
         <div class="spacer-20"></div>
-        <form method="POST" action="{{ url('contact/submit') }}">
+
+        @if(\Illuminate\Support\Facades\Session::has('flash_message'))
+            <div class="container">
+                <div class="row">
+                    <div class="col align-self-center alert alert-success">{{ \Illuminate\Support\Facades\Session::get('flash_message') }}</div>
+                </div>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ url('contact') }}">
             @csrf
             <div class="form-group row">
                 <label for="ldl_cholesterol"
