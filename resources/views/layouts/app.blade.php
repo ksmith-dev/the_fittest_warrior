@@ -37,7 +37,7 @@
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-<div class="container-fluid py-3">
+<div class="container-fluid py-3 stickyNavHeightFix">
     @section('navigation')
         <div class="row px-3 mb-3">
             <div class="col-12 px-0"  id="sticky">
