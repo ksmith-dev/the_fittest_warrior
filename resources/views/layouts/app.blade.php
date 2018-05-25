@@ -56,7 +56,7 @@
                                     <a class="nav-link" href="{{ url('view/user') }}" name="accountTab">Account</a>
                                 </li>
                                 <li class="nav-item ml-1">
-                                    <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
+                                    <a class="nav-link" href="{{ url('dashboard') }}" name="dashboardTab">Dashboard</a>
                                 </li>
                             @endauth
                                 <li class="nav-item ml-1">
