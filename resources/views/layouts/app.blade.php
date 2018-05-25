@@ -60,16 +60,16 @@
                                 </li>
                             @endauth
                                 <li class="nav-item ml-1">
-                                    <a class="nav-link" href="/gym">Gyms</a>
+                                    <a class="nav-link" href="/gym" name="gymsTab">Gyms</a>
                                 </li>
                             <li class="nav-item ml-1">
-                                <a class="nav-link" href="https://the-fittest-warrior.myshopify.com/" target="_blank">Shop</a>
+                                <a class="nav-link" href="https://the-fittest-warrior.myshopify.com/" target="_blank" name="shopTab">Shop</a>
                             </li>
                             <li class="nav-item ml-1">
-                                <a class="nav-link" href="/about">About</a>
+                                <a class="nav-link" href="/about" name="aboutTab">About</a>
                             </li>
                             <li class="nav-item ml-1">
-                                <a class="nav-link" href="/contact">Contact</a>
+                                <a class="nav-link" href="/contact" name="contactTab">Contact</a>
                             </li>
                         </ul>
                         <!-- Right Side Of Navbar -->
