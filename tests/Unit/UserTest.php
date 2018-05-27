@@ -11,7 +11,7 @@ class UserTest extends TestCase
 {
     public function testUniqueEmail()  {
 
-        $user = DB::table('users')->where('email', 'email@domain.com')->first();
+        $user = DB::table('user')->where('email', 'email@domain.com')->first();
 
         if (empty($user)) {
             $test_user = new User;
