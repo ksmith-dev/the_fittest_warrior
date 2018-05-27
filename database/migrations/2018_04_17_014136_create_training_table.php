@@ -24,7 +24,7 @@ class CreateTrainingTable extends Migration
         $types = array(
             "aerobic" => array('burpees', 'stair_climb', 'tuck_jump', 'inch_worm', 'mountain_climber', 'run', 'sprint', 'mile_run'),
             "strength" => array('pull_up','neutral_grip_pull_up', 'towel_pull_up', 'cliff_hanger_pull_up', 'under_hand_pull_up',
-                                'around_the_worlds_pull_up', 'muscle_ups_rings', 'weighted_pull_up', 'single_arm_assist_pull_up',
+                                'around_the_world_pull_up', 'muscle_ups_rings', 'weighted_pull_up', 'single_arm_assist_pull_up',
                                 'seated_rows', 'bent_over_rows', 'upright_rows', 'barbell_curls', 'dumbbell_curls', 'hammer_curls',
                                 'reverse_curls', 'isolation_curls', 'push_up', 'bench_press', 'single_arm_push_up', 'flat_bench_press_barbell',
                                 'flat_bench_press_dumbbell', 'incline_bench_barbell', 'incline_bench_dumbbell', 'decline_bench_barbell',

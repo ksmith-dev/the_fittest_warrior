@@ -168,25 +168,25 @@
             <div class="col p-3 bodyPanelStyle">
                     <div class="row">
                             <div class="col">
-                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/fitnessTracker_icon.png" width="35px"></a>
+                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/fitnessTracker_icon.png" width="35px"><br>fitness tracker</a>
                         </div>
                         <div class="col">
-                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/training_icon.png" width="35px"></a>
+                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/training_icon.png" width="35px"><br>training</a>
                         </div>
                         <div class="col">
-                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mmaBoxing_tracker.png" width="35px"></a>
+                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mmaBoxing_tracker.png" width="35px"><br>mma boxing</a>
                         </div>
                         <div class="col">
-                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mindset_icon.png" width="35px"></a>
+                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/mindset_icon.png" width="35px"><br>mind set</a>
                         </div>
                         <div class="col">
-                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/nutrition_icon.png" width="35px"></a>
+                            <a href="#" class="btn iconBtn" role="button"><img src="images/icons/nutrition_icon.png" width="35px"><br>nutrition</a>
                         </div>
                         <div class="col">
-                            <a href="https://the-fittest-warrior.myshopify.com/" class="btn iconBtn" role="button"><img src="images/icons/gear_icon.png" width="35px"></a>
+                            <a href="https://the-fittest-warrior.myshopify.com/" class="btn iconBtn" role="button"><img src="images/icons/gear_icon.png" width="35px"><br>shop</a>
                         </div>
                         <div class="col">
-                            <a href="/about" class="btn iconBtn" role="button"><img src="images/icons/about_icon.png" width="35px"></a>
+                            <a href="/about" class="btn iconBtn" role="button"><img src="images/icons/about_icon.png" width="35px"><br>about</a>
                         </div>
                     </div>
             </div>

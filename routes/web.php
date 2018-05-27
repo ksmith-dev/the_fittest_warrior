@@ -29,8 +29,8 @@ Route::get('nutrition', 'NutritionController@showNutritionTab');
 Route::get('fitness', 'WorkoutController@showFitnessTab');
 Route::get('workout/detail/{workout_id}', 'WorkoutController@showWorkoutView');
 
-Route::get('gym', 'MemberController@index');
-Route::get('fitness_group/{id}', 'MemberController@showFitnessGroup');
+Route::get('fitness_group/gym', 'GroupController@gym');
+Route::get('fitness_group/{identity}', 'GroupController@index');
 
 Route::get('view', 'ViewController@index');
 Route::get('view/{type}', 'ViewController@index');

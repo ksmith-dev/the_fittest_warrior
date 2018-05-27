@@ -65,21 +65,28 @@
                             <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some {{ $param['model_type'] }} records please start by clicking below.
                                 <br>
                                 <br>
-                                @if(empty($param['workout_type']))
-                                    <a href="{{ url('form/' . $param['model_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
-                                @else
-                                    <a href="{{ url('form/' . $param['model_type'] . '/0/' . $param['workout_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
+                                @if(!empty($param['model_type']))
+                                    @if($param['model_type'] === 'workout')
+                                        <a href="{{ url('form/' . $param['model_type'] . '/0/' . $param['modifier']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
+                                    @else
+                                        <a href="{{ url('form/' . $param['model_type']) }}" class="btn btn-secondary" role="button">add a {{ $param['model_type'] }} record</a>
+                                    @endif
                                 @endif
                             </h5>
                             <div class="spacer-20"></div>
                         @endif
                     @endif
+                    <div class="spacer-20"></div>
                     <h3>{{ ucwords($param['page_type']) }} Data</h3>
                     <div class="spacer-20"></div>
-                    @if(empty($param['workout_type']))
-                        <a class="btn btn-dark" href="{{ url('form/' . $param['model_type']) }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
-                    @else
-                        <a class="btn btn-dark" href="{{ url('form/' . $param['model_type'] . '/0/' . $param['workout_type']) }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
+                    @if(!empty($param['model_type']))
+                        @if($param['model_type'] === 'workout')
+                            <h5>Type: {{ ucwords(str_replace('_', ' ',  $param['modifier'])) }}</h5>
+                            <div class="spacer-20"></div>
+                            <a class="btn btn-dark" href="{{ url('fitness') }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
+                        @else
+                            <a class="btn btn-dark" href="{{ url('form/' . $param['model_type']) }}" role="button">Add {{ ucwords(str_replace('_', ' ', $param['model_type'])) }}</a>
+                        @endif
                     @endif
                     <div class="spacer-20"></div>
                     <table class="table">
@@ -181,10 +188,18 @@
                     <li class="breadcrumb-item"><a href="{{ url('view/member') }}">memberships</a></li>
                 @endif
             @else
-                @if(Request::url() == 'http://fittestwarrior.local/view/user')
-                    <li class="breadcrumb-item active" aria-current="page">users</li>
+                @if($param['model_type'] === 'workout')
+                    @if(Request::url() == 'http://fittestwarrior.local/view/' . $param['model_type'] . '/0/' . $param['modifier'])
+                        <li class="breadcrumb-item active" aria-current="page">{{ $param['model_type'] }}</li>
+                    @else
+                        <li class="breadcrumb-item"><a href="{{ url('view/' . $param['model_type'] . '/0/' . $param['modifier']) }}">{{ $param['model_type'] }}</a></li>
+                    @endif
                 @else
-                    <li class="breadcrumb-item"><a href="{{ url('view/user') }}">users</a></li>
+                    @if(Request::url() == 'http://fittestwarrior.local/view/' . $param['model_type'])
+                        <li class="breadcrumb-item active" aria-current="page">{{ $param['model_type'] }}</li>
+                    @else
+                        <li class="breadcrumb-item"><a href="{{ url('view/' . $param['model_type']) }}">{{ $param['model_type'] }}</a></li>
+                    @endif
                 @endif
             @endif
         </ol>

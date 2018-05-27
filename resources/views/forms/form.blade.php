@@ -27,7 +27,9 @@
                                                 class="{{ $element['select']->getClass() }}"
                                                 name="{{ $element['select']->getName() }}">
                                             @if(!empty($param['model']))
-                                                @if(!in_array($param['model']->$key, $element['select']->getOptions()))
+                                                @if(in_array($param['model']->$key, $element['select']->getOptions()))
+                                                    <option selected disabled>{{ $key }}</option>
+                                                @else
                                                     <option selected disabled>Choose...</option>
                                                 @endif
                                             @else
@@ -35,7 +37,7 @@
                                             @endif
                                             @foreach($element['select']->getOptions() as $option_value => $option_label)
                                                 @if(!empty($param['model']))
-                                                    @if($param['model']->$key == $option_value)
+                                                    @if($param['model']->$key === $option_value)
                                                         <option value="{{ $option_value }}" selected>{{ $option_label }}</option>
                                                     @else
                                                         <option value="{{ $option_value }}">{{ $option_label }}</option>
@@ -82,7 +84,7 @@
                                                    type="{{ $element['input']->getType() }}"
                                                    class="{{ $element['input']->getClass() }}{{ $errors->has($element['input']->getName()) ? ' is-invalid' : '' }}"
                                                    name="{{ $element['input']->getName() }}"
-                                                   value="{{ $element['input']->getDefaultInputValue() }}"
+                                                   value="{{ ucwords(str_replace('_', ' ', $element['input']->getDefaultInputValue())) }}"
                                                    placeholder="{{ $element['input']->getPlaceholder() }}"
                                                     {{ $element['input']->getInputAttribute() }}>
                                         @endif

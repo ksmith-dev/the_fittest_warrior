@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Training;
 use App\Activity;
-use App\User;
 use App\Workout;
 use App\WorkoutReport;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Validation\Validator;
 
 class WorkoutController extends Controller
 {

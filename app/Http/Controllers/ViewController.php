@@ -26,6 +26,7 @@ class ViewController extends Controller
         $protected_columns = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
 
         $param = null;
+        $view = null;
 
         if (Auth::check()) {
 
@@ -129,7 +130,6 @@ class ViewController extends Controller
             {
                 case 'workout' :
                     empty($modifier) ? $param['model'] = Workout::find($model_id) : $param['models'] = Workout::where([['type', $modifier], ['status', 'active'], ['user_id', Auth::user()->getAuthIdentifier()]])->get();
-                    empty($modifier) ? $param['model_type'] = $param['model']->type : $param['model_type'] = $modifier;
                     empty($modifier) ? $param['modifier'] = null : $param['modifier'] = $modifier;
                     empty($model_id) ? $param['page_type'] = 'workouts' : $param['page_type'] = 'workout';
                     $param['model_type'] = 'workout';

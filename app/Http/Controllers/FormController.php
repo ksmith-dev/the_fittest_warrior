@@ -96,7 +96,7 @@ class FormController extends Controller
                 $user_id_and_full_name[$user->id] = ucwords($user->first_name . ' ' . $user->last_name);
             }
         } else {
-            $user_id_and_full_name = array('no users to pick from');
+            $user_id_and_full_name = null;
         }
 
         $groups = Group::all();
@@ -105,9 +105,10 @@ class FormController extends Controller
         {
             foreach ($groups as $group)
             {
-                $group_names = array();
                 $group_names[$group->id] = ucwords(str_replace('_', ' ', $group->name));
             }
+        } else {
+            $group_names = null;
         }
 
         switch ($table)
@@ -340,7 +341,7 @@ class FormController extends Controller
 
         validator($post_data);
 
-        empty($post_data['type']) ? $post_data['type'] = null : $post_data['type'] = str_replace(' ', '_', $post_data['type']);
+        empty($post_data['type']) ? $post_data['type'] = null : $post_data['type'] = strtolower(str_replace(' ', '_', $post_data['type']));
 
         if (Auth::check())
         {
@@ -446,7 +447,7 @@ class FormController extends Controller
                 {
                     if (!$form_data->isProtected($column))
                     {
-                        empty($post_data[$column]) ? $model->$column = null : $model->$column = $post_data[$column];
+                        empty($post_data[$column]) ? $model->$column = null : strtolower(str_replace(' ', '_ ', $model->$column = $post_data[$column]));
                     }
                 }
                 $model->save();
