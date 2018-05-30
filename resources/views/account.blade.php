@@ -149,13 +149,13 @@
             @elseif ($param['page_type'] === 'dashboard')
                 <h1>Admin Tasks</h1>
                 <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/user') }}" role="button" style="width: 100%">Manage Users</a>
+                <a class="btn btn-dark" href="{{ url('view/user') }}" name="manageUsersButton" role="button" style="width: 100%">Manage Users</a>
                 <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/member') }}" role="button" style="width: 100%">Manage Memberships</a>
+                <a class="btn btn-dark" href="{{ url('view/member') }}" name="manageMembershipsButton" role="button" style="width: 100%">Manage Memberships</a>
                 <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/fitness_group') }}" role="button" style="width: 100%">Manage Groups</a>
+                <a class="btn btn-dark" href="{{ url('view/fitness_group') }}" name="manageGroupsButton" role="button" style="width: 100%">Manage Groups</a>
                 <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/advertisement') }}" role="button" style="width: 100%">Manage Advertisements</a>
+                <a class="btn btn-dark" href="{{ url('view/advertisement') }}" name="manageAdvertisementsButton" role="button" style="width: 100%">Manage Advertisements</a>
                 <div class="spacer-20"></div>
             @endif
         </div>
