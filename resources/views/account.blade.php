@@ -48,7 +48,7 @@
                         @if(Auth::user()->role == 'admin')
                             <div class="row">
                                 <div class="col">
-                                    <a class="btn btn-dark" href="{{ url('view/dashboard') }}" role="button" style="width: 100%">Admin Dashboard</a>
+                                    <a class="btn btn-dark" href="{{ url('view/dashboard') }}" name="adminDashboardButton" role="button" style="width: 100%">Admin Dashboard</a>
                                     <div class="spacer-20"></div>
                                     <a class="btn btn-dark" href="{{ url('view/user/' . Auth::user()->getAuthIdentifier()) }}" role="button" style="width: 100%">View Personal Account</a>
                                     <div class="spacer-20"></div>
