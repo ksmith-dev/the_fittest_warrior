@@ -24,6 +24,7 @@ class CreateAdvertisementTable extends Migration
             $table->string('banner_alt')->nullable();
             $table->string('message')->nullable();
             $table->string('link')->nullable();
+            $table->string('type');
             $table->string('status')->nullable();
             $table->timestamps();
         });

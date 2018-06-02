@@ -21,6 +21,7 @@ class Advertisement extends Model
         'banner_alt',
         'message',
         'link',
+        'type',
         'status'
     ];
 }

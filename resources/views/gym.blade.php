@@ -14,7 +14,7 @@
                     <div class="gym-group" href="{{ $gym->link }}">
                         <h3 class="group-name">{{ ucwords(str_replace('_', ' ', $gym->name)) }}</h3>
                         @if(!empty($gym->img_src))
-                            <img src="{{ asset($gym->img_src) }}" alt="{{ $gym->img_alt }}">
+                            <img src="{{ url($gym->img_src) }}" alt="{{ $gym->img_alt }}" style="max-width: 300px;">
                         @endif
                         <hr>
                         <p>{{ $gym->description }}</p>

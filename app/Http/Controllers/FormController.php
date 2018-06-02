@@ -72,7 +72,7 @@ class FormController extends Controller
         'WY' => 'Wyoming',
     );
     private $_sex = array('male' => 'male', 'female' => 'female');
-    private $_status = array('active' => 'active', 'deactivated' => 'deactivated');
+    private $_status = array('active' => 'active', 'inactive' => 'inactive');
     private $_site_roles = array('admin' => 'admin', 'member' => 'member', 'guest' => 'guest');
     private $_group_roles = array('admin' => 'admin', 'member' => 'member', 'guest' => 'guest', 'coach' => 'coach');
     private $_global_protected_columns = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
@@ -149,7 +149,8 @@ class FormController extends Controller
                 $this->_advertisement_input_data->setOptions('user_id', $user_id_and_full_name);
                 $this->_advertisement_input_data->addLabelOverride('user_id','user_name');
                 $this->_advertisement_input_data->setOptions('status', $this->_status);
-                $this->_advertisement_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select'));
+                $this->_advertisement_input_data->setOptions('type', array('vertical', 'horizontal'));
+                $this->_advertisement_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select', 'type' => 'select'));
                 $this->_advertisement_input_data->setClass('label', 'col-md-4 col-form-label text-md-right');
                 $this->_advertisement_input_data->setClass('input', 'form-control');
                 $this->_advertisement_input_data->setClass('select', 'form-control');
@@ -198,7 +199,8 @@ class FormController extends Controller
                 $this->_fitness_group_input_data->setProtectedColumns($this->_global_protected_columns);
                 $this->_fitness_group_input_data->setOptions('status', $this->_status);
                 $this->_fitness_group_input_data->setOptions('user_id', $user_id_and_full_name);
-                $this->_fitness_group_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select'));
+                $this->_fitness_group_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select', 'description' => 'textarea'));
+                $this->_fitness_group_input_data->setInputAttribute('description', 'rows=15');
                 $this->_fitness_group_input_data->setClass('label', 'col-md-4 col-form-label text-md-right');
                 $this->_fitness_group_input_data->setClass('input', 'form-control');
                 $this->_fitness_group_input_data->setClass('select', 'form-control');
@@ -312,6 +314,10 @@ class FormController extends Controller
             $inputs->createFormInputs();
             $param['inputs'] = $inputs->getInputs();
 
+            $advertisement_count = Advertisement::all()->where('type', 'vertical')->count();
+
+            $param['advertisement'] = Advertisement::find(rand(1, $advertisement_count));
+
             empty($params['form_type'] = $model_type) ? $param['table'] = null : $param['table'] = $model_type;
             empty($params['form_id'] = $model_id) ? $param['model_id'] = null : $param['model_id'] = $model_id;
 
@@ -409,7 +415,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('workout');
                     // general variable name assignment to be processed
                     $form_data = $this->_workout_input_data;
-                    $url = 'view/workout/0/' . $post_data['type'];
+                    $url = 'fitness';
                     break;
                 case 'health' :
                     $model = new Health();
@@ -439,7 +445,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('fitness_group');
                     // general variable name assignment to be processed
                     $form_data = $this->_fitness_group_input_data;
-                    $url = 'gym';
+                    $url = 'fitness_group/gym';
                     break;
             }
             if (!empty($model) && !empty($columns))
@@ -448,7 +454,7 @@ class FormController extends Controller
                 {
                     if (!$form_data->isProtected($column))
                     {
-                        empty($post_data[$column]) ? $model->$column = null : strtolower(str_replace(' ', '_ ', $model->$column = $post_data[$column]));
+                        empty($post_data[$column]) ? $model->$column = null : strtolower($model->$column = $post_data[$column]);
                     }
                 }
                 $model->save();
@@ -485,7 +491,7 @@ class FormController extends Controller
             {
                 if ($result->status === 'active')
                 {
-                    DB::table($model_type)->where('id', $model_id)->update(['status' => 'deactivated']);
+                    DB::table($model_type)->where('id', $model_id)->update(['status' => 'inactive']);
                 } else {
                     DB::table($model_type)->where('id', $model_id)->update(['status' => 'active']);
                 }

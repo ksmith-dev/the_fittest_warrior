@@ -31,6 +31,8 @@ Route::get('workout/detail/{workout_id}', 'WorkoutController@showWorkoutView');
 
 Route::get('fitness_group/gym', 'GroupController@gym');
 Route::get('fitness_group/{identity}', 'GroupController@index');
+Route::get('fitness_group/sign-up/{identity}', 'GroupController@sign_up');
+Route::get('fitness_group/public/{status}/{identity}', 'GroupController@public_sign_up');
 
 Route::get('view', 'ViewController@index');
 Route::get('view/{type}', 'ViewController@index');

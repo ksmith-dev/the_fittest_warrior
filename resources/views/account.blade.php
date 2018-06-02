@@ -14,6 +14,20 @@
             </div>
         </div>
         <div class="row">
+            @auth
+                @if(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')))
+                    <h1>Admin Tasks</h1>
+                    <div class="spacer-20"></div>
+                    <a class="btn btn-warning" href="{{ url('view/user') }}" name="manageUsersButton" role="button" style="width: 100%">MANAGE USERS</a>
+                    <div class="spacer-20"></div>
+                    <a class="btn btn-warning" href="{{ url('view/member') }}" name="manageMembershipsButton" role="button" style="width: 100%">MANAGE MEMBERSHIPS</a>
+                    <div class="spacer-20"></div>
+                    <a class="btn btn-warning" href="{{ url('view/fitness_group') }}" name="manageGroupsButton" role="button" style="width: 100%">MANAGE GROUPS</a>
+                    <div class="spacer-20"></div>
+                    <a class="btn btn-warning" href="{{ url('view/advertisement') }}" name="manageAdvertisementsButton" role="button" style="width: 100%">MANAGE ADVERTISEMENTS</a>
+                    <div class="spacer-20"></div>
+                @endif
+            @endauth
             @if(in_array($param['page_type'], array('user', 'member', 'advertisement')))
                 <div class="col-8">
                     @if(Auth::user()->role === 'admin')
@@ -65,21 +79,8 @@
                         @endif
                     @endif
                 </div>
-            @elseif(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')))
+            @elseif(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')) && Auth::user()->role === 'admin')
                 <div class="col">
-                    @auth
-                        @if(Auth::user()->role == 'admin')
-                            <div class="row">
-                                <div class="col">
-                                    <a class="btn btn-dark" href="{{ url('view/dashboard') }}" name="adminDashboardButton" role="button" style="width: 100%">Admin Dashboard</a>
-                                    <div class="spacer-20"></div>
-                                    <a class="btn btn-dark" href="{{ url('view/user/' . Auth::user()->getAuthIdentifier()) }}" role="button" style="width: 100%">View Personal Account</a>
-                                    <div class="spacer-20"></div>
-                                    <a class="btn btn-dark" href="{{ url('form/user/' . Auth::user()->getAuthIdentifier()) }}" role="button" style="width: 100%">Edit Personal Account</a>
-                                </div>
-                            </div>
-                        @endif
-                    @endauth
                     @if(!empty($param['models']))
                         @if($param['models']->count() < 1)
                             <div class="spacer-50"></div>
@@ -108,7 +109,9 @@
                             <div class="spacer-20"></div>
                             <a class="btn btn-dark" href="{{ url('fitness') }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
                         @else
-                            <a class="btn btn-dark" href="{{ url('form/' . $param['model_type']) }}" role="button">Add {{ ucwords(str_replace('_', ' ', $param['model_type'])) }}</a>
+                            @if($param['page_type'] !== 'users')
+                                    <a class="btn btn-dark" href="{{ url('form/' . $param['model_type']) }}" role="button">Add {{ ucwords(str_replace('_', ' ', $param['model_type'])) }}</a>
+                            @endif
                         @endif
                     @endif
                     <div class="spacer-20"></div>
@@ -149,7 +152,7 @@
                                             @if($column === 'id')
                                                 <th scope="row">{{ $model->$column }}</th>
                                             @else
-                                                <td>{{ $model->$column }}</td>
+                                                <td>{{ str_limit($model->$column, 45) }}</td>
                                             @endif
                                         @endif
                                     @endforeach
@@ -169,17 +172,6 @@
                         </tbody>
                     </table>
                 </div>
-            @elseif ($param['page_type'] === 'dashboard')
-                <h1>Admin Tasks</h1>
-                <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/user') }}" name="manageUsersButton" role="button" style="width: 100%">Manage Users</a>
-                <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/member') }}" name="manageMembershipsButton" role="button" style="width: 100%">Manage Memberships</a>
-                <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/fitness_group') }}" name="manageGroupsButton" role="button" style="width: 100%">Manage Groups</a>
-                <div class="spacer-20"></div>
-                <a class="btn btn-dark" href="{{ url('view/advertisement') }}" name="manageAdvertisementsButton" role="button" style="width: 100%">Manage Advertisements</a>
-                <div class="spacer-20"></div>
             @endif
         </div>
         <div class="spacer-50"></div>
@@ -190,16 +182,6 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             @if(Auth::user()->role === 'admin')
-                @if(Request::url() == 'http://fittestwarrior.local/view/dashboard')
-                    <li class="breadcrumb-item active" aria-current="page">account</li>
-                @else
-                    <li class="breadcrumb-item"><a href="{{ url('view/dashboard') }}">admin</a></li>
-                @endif
-                @if(Request::url() == 'http://fittestwarrior.local/view/advertisement')
-                    <li class="breadcrumb-item active" aria-current="page">advertisements</li>
-                @else
-                    <li class="breadcrumb-item"><a href="{{ url('view/advertisement') }}">advertisements</a></li>
-                @endif
                 @if(Request::url() == 'http://fittestwarrior.local/view/user')
                     <li class="breadcrumb-item active" aria-current="page">users</li>
                 @else
@@ -209,6 +191,16 @@
                     <li class="breadcrumb-item active" aria-current="page">memberships</li>
                 @else
                     <li class="breadcrumb-item"><a href="{{ url('view/member') }}">memberships</a></li>
+                @endif
+                    @if(Request::url() == 'http://fittestwarrior.local/view/fitness_group')
+                        <li class="breadcrumb-item active" aria-current="page">fitness groups</li>
+                    @else
+                        <li class="breadcrumb-item"><a href="{{ url('view/fitness_group') }}">fitness groups</a></li>
+                    @endif
+                @if(Request::url() == 'http://fittestwarrior.local/view/advertisement')
+                    <li class="breadcrumb-item active" aria-current="page">advertisements</li>
+                @else
+                    <li class="breadcrumb-item"><a href="{{ url('view/advertisement') }}">advertisements</a></li>
                 @endif
             @else
                 @if($param['model_type'] === 'workout')

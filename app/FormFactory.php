@@ -123,6 +123,9 @@ class FormFactory extends Model
                         case 'select' :
                             $this->addSelectInput($column);
                             break;
+                        case 'textarea' :
+                            $this->addTextAreaInput($column);
+                            break;
                         case 'tel' :
                             //TODO - create this function
                             break;
@@ -296,6 +299,12 @@ class FormFactory extends Model
     {
         $this->addLabel($column);
         $this->addInput($column, 'text', $column);
+    }
+
+    private function addTextAreaInput(string $column)
+    {
+        $this->addLabel($column);
+        $this->addInput($column, 'textarea', $column);
     }
 
     /**

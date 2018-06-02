@@ -23,7 +23,9 @@
         <div class="row">
             <div class="col text-center">
                 <div class="spacer-50"></div>
-                <h3>LATEST DEVICE READING - {{ date('m/d/Y | H:i:s') }}</h3>
+                @if(!empty($best_weight) && !empty($best_time) && !empty($workouts))
+                    <h3>LATEST DEVICE READING - {{ date('m/d/Y | H:i:s') }}</h3>
+                @endif
             </div>
         </div>
         @if(empty($best_weight) && empty($best_time) && empty($workouts))
