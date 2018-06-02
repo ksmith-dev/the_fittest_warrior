@@ -118,6 +118,7 @@ class FormController extends Controller
                 $this->_user_input_data->setProtectedColumns($this->_global_protected_columns);
                 $this->_user_input_data->addProtectedColumn('role');
                 $this->_user_input_data->addProtectedColumn('status');
+                $this->_user_input_data->addProtectedColumn('avatar_path');
                 $this->_user_input_data->setOptions('sex', $this->_sex);
                 $this->_user_input_data->setOptions('state', $this->_states);
                 $this->_user_input_data->setOptions('status', $this->_status);

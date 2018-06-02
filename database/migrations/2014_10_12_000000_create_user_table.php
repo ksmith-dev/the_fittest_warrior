@@ -30,6 +30,7 @@ class CreateUserTable extends Migration
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
             $table->string('b_m_i')->nullable();
+            $table->string('avatar_path')->default('images/avatars/blank_avatar.png');
             $table->string('role')->default('member');
             $table->string('status')->default('active');
             $table->rememberToken();

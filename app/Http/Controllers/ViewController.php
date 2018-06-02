@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Badge;
 use App\User;
 use App\Group;
 use App\Member;
@@ -23,7 +24,7 @@ class ViewController extends Controller
      */
     public function index(Request $request, string $model_type = null, string $model_id = null, string $modifier = null) {
 
-        $protected_columns = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
+        $protected_columns = array('id', 'password', 'remember_token', 'created_at', 'updated_at', 'avatar_path');
 
         $param = null;
         $view = null;
@@ -37,9 +38,9 @@ class ViewController extends Controller
                     case 'user' :
                         empty($model_id) ? $param['models'] = User::all() : $param['model'] = User::find($model_id);
                         empty($model_id) ? $param['page_type'] = 'users' : $param['page_type'] = 'user';
-                        $param['badges'] = DB::table('badge')->where('user_id', $model_id)->first();
+                        $param['badges'] = Badge::where('user_id', $model_id)->get();
                         $param['display'] = array('first_name', 'last_name', 'email', 'status');
-                        $param['protected'] = array('id', 'password', 'remember_token', 'created_at', 'updated_at');
+                        $param['protected'] = $protected_columns;
                         $param['model_type'] = 'user';
                         $param['columns'] = Schema::getColumnListing('user');
                         $view = 'account';
@@ -117,7 +118,8 @@ class ViewController extends Controller
                     case 'user' :
                         $param['model'] = Auth::user();
                         $param['model_type'] = 'user';
-                        $param['badges'] = DB::table('badge')->where('user_id', $model_id)->get();
+                        $param['badges'] = Badge::where('user_id', Auth::user()->getAuthIdentifier())->get();
+                        //dd($param['badges']);
                         $param['protected'] = $protected_columns;
                         $param['page_type'] = 'user';
                         $param['columns'] = Schema::getColumnListing('user');
@@ -149,7 +151,7 @@ class ViewController extends Controller
                     break;
             }
 
-            return view( $view, ['param' => $param]);
+            return view($view, ['param' => $param]);
 
         } else {
             return redirect('/login');

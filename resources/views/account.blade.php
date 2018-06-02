@@ -9,9 +9,18 @@
 @section('content')
     <div id="admin">
         <div class="row">
+            <div id="account-vertical_banner" class="col">
+
+            </div>
+        </div>
+        <div class="row">
             @if(in_array($param['page_type'], array('user', 'member', 'advertisement')))
-                <div class="col-6">
-                    <div class="spacer-100"></div>
+                <div class="col-8">
+                    @if(Auth::user()->role === 'admin')
+                        <div class="spacer-100"></div>
+                    @else
+                        <div class="spacer-20"></div>
+                    @endif
                     <a class="btn btn-dark" href="{{ url('form/user/' . $param['model']->id) }}" role="button" name="editAccountInfoButton">Edit Account Information</a>
                     <div class="spacer-20"></div>
                         <h1>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
@@ -39,8 +48,22 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="account-vertical_banner" class="col">
-
+                <div class="col">
+                    @if($param['page_type'] === 'user')
+                        <img id="user-avatar" src="{{ url(Auth::user()->avatar_path) }}" style="width: 200px; display: block; margin: auto; margin-top: 40px;">
+                        <div class="spacer-50"></div>
+                        @if(!empty($param['badges']))
+                            @foreach($param['badges'] as $badge)
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="img-centered-text" style="color: white;"><b>{{ $badge['name'] }}</b></span>
+                                        <img src="{{ url($badge['img_src']) }}" style="border-radius: 50px; display: block; width: 150px; margin: 20px auto auto;">
+                                        <h3 class="text-center">{{ $badge['img_alt'] }}</h3>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    @endif
                 </div>
             @elseif(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')))
                 <div class="col">

@@ -24,41 +24,6 @@ class CreateBadgeTable extends Migration
             $table->string('status')->default('active');
             $table->timestamps();
         });
-
-        $names = array(
-            'gold',
-            'silver',
-            'bronze'
-        );
-
-        $statuses = array(
-            'active',
-            'disabled',
-            'expired'
-        );
-
-        $attributes = array(
-            'orange' => array(
-                'src' => 'images/icons/orange_badge.png',
-                'alt' => 'orange badge image'
-            ),
-            'green' => array(
-                'src' => 'images/icons/green_badge.png',
-                'alt' => 'purple badge image'
-            ),
-            'blue' => array(
-                'src' => 'images/icons/blue_badge.png',
-                'alt' => 'blue badge image'
-            ),
-            'purple' => array(
-                'src' => 'images/icons/purple_badge.png',
-                'alt' => 'purple badge image'
-            )
-        );
-
-        foreach ($attributes as $key => $value) {
-            DB::table('badge')->insert(['name' => $names[rand(0,2)], 'user_id' => rand(1, 10), 'status' => $statuses[rand(0,2)], 'img_src' => $value['src'], 'img_alt' => $value['alt']]);
-        }
     }
 
     /**

@@ -20,9 +20,10 @@
                 <h1>{{ strtoupper($params['user']->first_name) }} {{ strtoupper($params['user']->last_name) }}</h1>
             </div>
         </div>
-        <div class="col">
-            <div class="row">
+        <div class="row">
+            <div class="col text-center">
                 <div class="spacer-50"></div>
+                <h3>LATEST DEVICE READING - {{ date('m/d/Y | H:i:s') }}</h3>
             </div>
         </div>
         @if(empty($best_weight) && empty($best_time) && empty($workouts))
@@ -213,13 +214,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <div class="col d-none d-md-block">
-                <div class="row">
-                    <div class="spacer-100"></div>
-                    <h3 class="text-center">PROGRESS</h3>
-                    <canvas id="progress"></canvas>
                 </div>
             </div>
         @endif
