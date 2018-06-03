@@ -321,7 +321,14 @@ class FormController extends Controller
             {
                 array_push($ids, $advertisement->id);
             }
-            $param['advertisement'] = Advertisement::where([['ad_type', '=', 'horizontal'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids) -1)])]])->first();
+
+            if (sizeof($ids) > 0)
+            {
+                $param['advertisement'] = Advertisement::where([['ad_type', '=', 'horizontal'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids))])]])->first();
+            } else {
+                $param['advertisement'] = null;
+            }
+
 
             empty($param['table'] = $model_type) ? $param['table'] = null : $param['table'] = $model_type;
             empty($param['model_id'] = $model_id) ? $param['model_id'] = null : $param['model_id'] = $model_id;
