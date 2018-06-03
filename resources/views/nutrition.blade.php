@@ -11,7 +11,7 @@
 @section('content')
     @include('layouts.dashboard_nav')
     <div id="nutrition">
-        <a href="{{ url('form/nutrition') }}" class="btn btn-secondary" role="button">add nutrition record</a>
+        <a href="{{ url('form/nutrition') }}" class="btn btn-warning" role="button" style="float: right;">add nutrition record</a>
         <div class="spacer-50" style="border-bottom: 1px solid black"></div>
         <div class="spacer-20"></div>
         @if(empty($nutrition_collection))
@@ -20,7 +20,7 @@
             <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some nutrition records please start by clicking below.
                 <br>
                 <br>
-                <a href="{{ url('form/nutrition') }}" class="btn btn-secondary" role="button">add a nutrition record</a>
+                <a href="{{ url('form/nutrition') }}" class="btn btn-warning" role="button" style="float: right;">add a nutrition record</a>
             </h5>
             <div class="spacer-50"></div>
         @else
@@ -30,8 +30,8 @@
                         <div class="table-responsive d-block">
                             <h4>Nutrition Record</h4>
                             <hr>
-                            <a href="{{ url('nutrition/form') }}/{{ $nutrition->id }}" class="btn btn-secondary" role="button">edit</a>
-                            <a href="{{ url('nutrition/delete') }}/{{ $nutrition->id }}" class="btn btn-secondary" role="button" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
+                            <a href="{{ url('nutrition/form') }}/{{ $nutrition->id }}" class="btn btn-warning" role="button" style="float: right; margin: 0 10px 15px;">edit</a>
+                            <a href="{{ url('nutrition/delete') }}/{{ $nutrition->id }}" class="btn btn-warning" role="button" style="float: right; margin: 0 10px 15px;" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
 
                             <form id="delete-form" action="{{ url('nutrition/delete') }}/{{ $nutrition->id }}" method="POST" style="display: none;">
                                 @csrf

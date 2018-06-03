@@ -149,8 +149,8 @@ class FormController extends Controller
                 $this->_advertisement_input_data->setOptions('user_id', $user_id_and_full_name);
                 $this->_advertisement_input_data->addLabelOverride('user_id','user_name');
                 $this->_advertisement_input_data->setOptions('status', $this->_status);
-                $this->_advertisement_input_data->setOptions('type', array('vertical', 'horizontal'));
-                $this->_advertisement_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select', 'type' => 'select'));
+                $this->_advertisement_input_data->setOptions('ad_type', array('vertical' => 'vertical', 'horizontal' => 'horizontal'));
+                $this->_advertisement_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select', 'ad_type' => 'select'));
                 $this->_advertisement_input_data->setClass('label', 'col-md-4 col-form-label text-md-right');
                 $this->_advertisement_input_data->setClass('input', 'form-control');
                 $this->_advertisement_input_data->setClass('select', 'form-control');
@@ -198,8 +198,9 @@ class FormController extends Controller
                 $this->_fitness_group_input_data = new FormFactory('fitness_group');
                 $this->_fitness_group_input_data->setProtectedColumns($this->_global_protected_columns);
                 $this->_fitness_group_input_data->setOptions('status', $this->_status);
+                $this->_fitness_group_input_data->setOptions('visibility', array('public' => 'public', 'private' => 'private'));
                 $this->_fitness_group_input_data->setOptions('user_id', $user_id_and_full_name);
-                $this->_fitness_group_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select', 'description' => 'textarea'));
+                $this->_fitness_group_input_data->setInputOverrides(array('status' => 'select', 'user_id' => 'select', 'visibility' => 'select', 'description' => 'textarea'));
                 $this->_fitness_group_input_data->setInputAttribute('description', 'rows=15');
                 $this->_fitness_group_input_data->setClass('label', 'col-md-4 col-form-label text-md-right');
                 $this->_fitness_group_input_data->setClass('input', 'form-control');
@@ -314,12 +315,16 @@ class FormController extends Controller
             $inputs->createFormInputs();
             $param['inputs'] = $inputs->getInputs();
 
-            $advertisement_count = Advertisement::all()->where('type', 'vertical')->count();
+            $advertisements = Advertisement::where('ad_type', 'horizontal')->get();
+            $ids = array();
+            foreach ($advertisements as $advertisement)
+            {
+                array_push($ids, $advertisement->id);
+            }
+            $param['advertisement'] = Advertisement::where([['ad_type', '=', 'horizontal'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids) -1)])]])->first();
 
-            $param['advertisement'] = Advertisement::find(rand(1, $advertisement_count));
-
-            empty($params['form_type'] = $model_type) ? $param['table'] = null : $param['table'] = $model_type;
-            empty($params['form_id'] = $model_id) ? $param['model_id'] = null : $param['model_id'] = $model_id;
+            empty($param['table'] = $model_type) ? $param['table'] = null : $param['table'] = $model_type;
+            empty($param['model_id'] = $model_id) ? $param['model_id'] = null : $param['model_id'] = $model_id;
 
             if (empty($model->id)) { $model = null; }
 

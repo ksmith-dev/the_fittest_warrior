@@ -200,6 +200,7 @@ h4
     margin: auto auto;
     height: 950px;
     width: 250px;
+    background-position: center;
     background-size: cover;
 }
 

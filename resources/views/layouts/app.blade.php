@@ -58,10 +58,10 @@
                                 <li class="nav-item ml-1">
                                     <a class="nav-link" href="{{ url('dashboard') }}" name="dashboardTab">Dashboard</a>
                                 </li>
-                            @endauth
                                 <li class="nav-item ml-1">
                                     <a class="nav-link" href="{{ url('fitness_group/gym') }}" name="gymsTab">Gyms</a>
                                 </li>
+                            @endauth
                             <li class="nav-item ml-1">
                                 <a class="nav-link" href="https://the-fittest-warrior.myshopify.com/" target="_blank" name="shopTab">Shop</a>
                             </li>

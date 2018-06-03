@@ -135,13 +135,13 @@
             </div>
             <div class="col text-center">
                 <h3>Advertisement</h3>
-                @if(empty($param['advertisement']))
+                @if(empty($params['advertisement']))
                     <a id="banner-advertisement-vertical" style="background-image: url('http://via.placeholder.com/250x950');"></a>
                 @else
-                    @if(empty($param['advertisement']->message))
-                        <a id="banner-advertisement-vertical" style="background-image: url({{ url($param['advertisement']->banner_src) }});"></a>
+                    @if(empty($params['advertisement']->message))
+                        <a id="banner-advertisement-vertical" style="background-image: url({{ url($params['advertisement']->banner_src) }});"></a>
                     @else
-                        <a id="banner-advertisement-vertical" style="background-image: url({{ url($param['advertisement']->banner_src) }});"><span class="ad-message">{{ $param['advertisement']->message }}</span></a>
+                        <a id="banner-advertisement-vertical" style="background-image: url({{ url($params['advertisement']->banner_src) }});"><span class="ad-message">{{ $param['advertisement']->message }}</span></a>
                     @endif
                 @endif
             </div>

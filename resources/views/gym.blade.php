@@ -14,11 +14,11 @@
                     <div class="gym-group" href="{{ $gym->link }}">
                         <h3 class="group-name">{{ ucwords(str_replace('_', ' ', $gym->name)) }}</h3>
                         @if(!empty($gym->img_src))
-                            <img src="{{ url($gym->img_src) }}" alt="{{ $gym->img_alt }}" style="max-width: 300px;">
+                            <img src="{{ url($gym->img_src) }}" alt="{{ $gym->img_alt }}" style="max-width: 400px;">
                         @endif
                         <hr>
                         <p>{{ $gym->description }}</p>
-                        <a class="btn btn-dark" href="{{ url('fitness_group') }}/{{ $gym->id }}" role="button" name="visitGymButton">Visit Gym Board</a>
+                        <a class="btn btn-warning" href="{{ url('fitness_group') }}/{{ $gym->id }}" role="button" name="visitGymButton">Visit Gym Board</a>
                     </div>
                 </div>
             @endforeach

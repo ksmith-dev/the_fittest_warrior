@@ -27,9 +27,7 @@
                                             class="{{ $element['select']->getClass() }}"
                                             name="{{ $element['select']->getName() }}">
                                         @if(!empty($param['model']))
-                                            @if(in_array($param['model']->$key, $element['select']->getOptions()))
-                                                <option selected disabled>{{ $key }}</option>
-                                            @else
+                                            @if(!in_array($param['model']->$key, $element['select']->getOptions()))
                                                 <option selected disabled>Choose...</option>
                                             @endif
                                         @else
@@ -37,7 +35,7 @@
                                         @endif
                                         @foreach($element['select']->getOptions() as $option_value => $option_label)
                                             @if(!empty($param['model']))
-                                                @if($param['model']->$key === $option_value)
+                                                @if($param['model']->$key == $option_value)
                                                     <option value="{{ $option_value }}" selected>{{ $option_label }}</option>
                                                 @else
                                                     <option value="{{ $option_value }}">{{ $option_label }}</option>
@@ -172,10 +170,11 @@
     @parent
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            @if(Auth::user()->role == 'admin')
-                <li class="breadcrumb-item"><a href="{{ url('account') }}">account</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $param['table'] }}</li>
+            @if($param['table'] === 'workout')
+                <li class="breadcrumb-item"><a href="{{ url('fitness') }}">add {{ $param['table'] }}</a></li>
             @else
+                <li class="breadcrumb-item"><a href="{{ url($param['table']) }}">{{ $param['table'] }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">add {{ $param['table'] }}</li>
             @endif
         </ol>
     </nav>

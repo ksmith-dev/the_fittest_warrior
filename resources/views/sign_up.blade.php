@@ -12,7 +12,7 @@
     <div id="sign-up">
         <div class="row">
             <div class="col">
-                <img src="{{ url($param['group']->img_src) }}" style="max-width: 200px; display: block; margin: auto;">
+                <img src="{{ url($param['group']->img_src) }}" style="max-width: 600px; display: block; margin: auto;">
                 <h1>{{ $param['group']->name }}</h1>
                 <hr>
                 <h3>REQUEST TO JOIN - FORM</h3>

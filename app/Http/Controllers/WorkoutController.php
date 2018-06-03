@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Advertisement;
 use App\User;
 use App\Training;
 use App\Activity;
@@ -294,6 +295,14 @@ class WorkoutController extends Controller
                 }
             }
         }
+        $advertisements = Advertisement::where('ad_type', 'vertical')->get();
+        $ids = array();
+        foreach ($advertisements as $advertisement)
+        {
+            array_push($ids, $advertisement->id);
+        }
+        $params['advertisement'] = Advertisement::where([['ad_type', '=', 'vertical'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids) -1)])]])->first();
+
 
         return view('workout', ['params' => $params, 'workout' => $workout, 'leader_board' => $leader_board, 'muscle_groups' => $muscle_groups]);
     }

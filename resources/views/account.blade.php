@@ -14,34 +14,34 @@
             </div>
         </div>
         <div class="row">
-            @auth
-                @if(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')))
-                    <h1>Admin Tasks</h1>
-                    <div class="spacer-20"></div>
-                    <a class="btn btn-warning" href="{{ url('view/user') }}" name="manageUsersButton" role="button" style="width: 100%">MANAGE USERS</a>
-                    <div class="spacer-20"></div>
-                    <a class="btn btn-warning" href="{{ url('view/member') }}" name="manageMembershipsButton" role="button" style="width: 100%">MANAGE MEMBERSHIPS</a>
-                    <div class="spacer-20"></div>
-                    <a class="btn btn-warning" href="{{ url('view/fitness_group') }}" name="manageGroupsButton" role="button" style="width: 100%">MANAGE GROUPS</a>
-                    <div class="spacer-20"></div>
-                    <a class="btn btn-warning" href="{{ url('view/advertisement') }}" name="manageAdvertisementsButton" role="button" style="width: 100%">MANAGE ADVERTISEMENTS</a>
-                    <div class="spacer-20"></div>
-                @endif
-            @endauth
+            @if(Auth::user()->role === 'admin')
+                <h1>Admin Tasks</h1>
+                <div class="spacer-20"></div>
+                <a class="btn btn-warning" href="{{ url('view/user') }}" name="manageUsersButton" role="button" style="width: 100%">MANAGE USERS</a>
+                <div class="spacer-20"></div>
+                <a class="btn btn-warning" href="{{ url('view/member') }}" name="manageMembershipsButton" role="button" style="width: 100%">MANAGE MEMBERSHIPS</a>
+                <div class="spacer-20"></div>
+                <a class="btn btn-warning" href="{{ url('view/fitness_group') }}" name="manageGroupsButton" role="button" style="width: 100%">MANAGE GROUPS</a>
+                <div class="spacer-20"></div>
+                <a class="btn btn-warning" href="{{ url('view/advertisement') }}" name="manageAdvertisementsButton" role="button" style="width: 100%">MANAGE ADVERTISEMENTS</a>
+                <div class="spacer-20"></div>
+            @endif
             @if(in_array($param['page_type'], array('user', 'member', 'advertisement')))
                 <div class="col-8">
+                    @if(!empty($param['model']))
+                        <a class="btn btn-warning" href="{{ url('form/user/' . $param['model']->id) }}" role="button" name="editAccountInfoButton" style="float: right;">Edit Account Information</a>
+                    @endif
                     @if(Auth::user()->role === 'admin')
                         <div class="spacer-100"></div>
                     @else
                         <div class="spacer-20"></div>
                     @endif
-                    <a class="btn btn-dark" href="{{ url('form/user/' . $param['model']->id) }}" role="button" name="editAccountInfoButton">Edit Account Information</a>
                     <div class="spacer-20"></div>
                         <h1>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
-                        <h3><b>Site Role:</b>&nbsp;&nbsp;&nbsp;{{ ucwords( Auth::user()->role) }}</h3>
-                    @if(!empty($param['model_type']))
-                        <h3><b>Data Type:</b>&nbsp;&nbsp;&nbsp;{{ ucwords($param['model_type']) }}</h3>
-                    @endif
+                        <h3><b>{{ ucwords($param['model_type']) }} Role:</b>&nbsp;&nbsp;&nbsp;{{ ucwords( Auth::user()->role) }}</h3>
+                        @if(!empty($param['model_type']))
+                            <h2></h2>
+                        @endif
                     <table class="table">
                         <tbody>
                             @foreach($param['columns'] as $column)
@@ -79,7 +79,7 @@
                         @endif
                     @endif
                 </div>
-            @elseif(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')) && Auth::user()->role === 'admin')
+            @elseif(in_array($param['page_type'], array('users', 'members', 'advertisements', 'workouts', 'fitness_groups')))
                 <div class="col">
                     @if(!empty($param['models']))
                         @if($param['models']->count() < 1)
@@ -101,17 +101,20 @@
                         @endif
                     @endif
                     <div class="spacer-20"></div>
-                    <h3>{{ ucwords($param['page_type']) }} Data</h3>
+                    @if(!empty($param['page_type']))
+                        @if(!$param['page_type'] === 'user')
+                                <a class="btn btn-warning" href="{{ url('fitness') }}" role="button" style="float: right;">Add {{ ucwords($param['model_type']) }}</a>
+                        @endif
+                    @endif
+                        @if($param['page_type'] !== 'users')
+                            <a class="btn btn-warning" href="{{ url('form/' . $param['model_type']) }}" role="button" style="float: right;">Add {{ ucwords(str_replace('_', ' ', $param['model_type'])) }}</a>
+                        @endif
+                    <h3>{{ ucwords(str_replace('_', ' ', $param['page_type'])) }} Data</h3>
                     <div class="spacer-20"></div>
                     @if(!empty($param['model_type']))
                         @if($param['model_type'] === 'workout')
                             <h5>Type: {{ ucwords(str_replace('_', ' ',  $param['modifier'])) }}</h5>
                             <div class="spacer-20"></div>
-                            <a class="btn btn-dark" href="{{ url('fitness') }}" role="button">Add {{ ucwords($param['model_type']) }}</a>
-                        @else
-                            @if($param['page_type'] !== 'users')
-                                    <a class="btn btn-dark" href="{{ url('form/' . $param['model_type']) }}" role="button">Add {{ ucwords(str_replace('_', ' ', $param['model_type'])) }}</a>
-                            @endif
                         @endif
                     @endif
                     <div class="spacer-20"></div>
