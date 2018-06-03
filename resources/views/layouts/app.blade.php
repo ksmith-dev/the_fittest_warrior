@@ -63,7 +63,7 @@
                                 </li>
                             @endauth
                             <li class="nav-item ml-1">
-                                <a class="nav-link" href="https://the-fittest-warrior.myshopify.com/" target="_blank" name="shopTab">Shop</a>
+                                <a class="nav-link" href="https://fittest-warrior.myshopify.com/" target="_blank" name="shopTab">Shop</a>
                             </li>
                             <li class="nav-item ml-1">
                                 <a class="nav-link" href="/about" name="aboutTab">About</a>
