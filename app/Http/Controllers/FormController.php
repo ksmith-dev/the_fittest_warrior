@@ -324,7 +324,7 @@ class FormController extends Controller
 
             if (sizeof($ids) > 0)
             {
-                $param['advertisement'] = Advertisement::where([['ad_type', '=', 'horizontal'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids))])]])->first();
+                $param['advertisement'] = Advertisement::where([['ad_type', '=', 'horizontal'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids) - 1)])]])->first();
             } else {
                 $param['advertisement'] = null;
             }
