@@ -267,3 +267,5 @@
  @endsection
 @section('footer')
     @parent
+@endsection
+

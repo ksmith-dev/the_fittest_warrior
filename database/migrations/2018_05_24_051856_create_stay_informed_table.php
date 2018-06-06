@@ -16,6 +16,7 @@ class CreateStayInformedTable extends Migration
         Schema::create('stay_informed', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->unique();
+            $table->string('status');
             $table->timestamps();
         });
     }

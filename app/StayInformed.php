@@ -10,5 +10,5 @@ class StayInformed extends Model
     const UPDATED_AT = 'updated_at';
 
     protected $table = 'stay_informed';
-    protected $fillable = ['email'];
+    protected $fillable = ['email','status'];
 }
