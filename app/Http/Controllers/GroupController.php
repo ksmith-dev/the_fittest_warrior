@@ -120,4 +120,22 @@ class GroupController extends Controller
 
         return redirect('fitness_group/' . $group_id);
     }
+
+    public function sendEmail(Request $request)
+    {
+        $this->validate($request,
+            [
+                'comment' => 'required',
+            ]);
+
+        $name = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        $to = "notifications@thefittestwarrior.greenriverdev.com";
+        $from = Auth::user()->email;
+        $message = "Name: " . $name . "\nRequest: " . $request->comment;
+        $header = "From: $from";
+        $subject = "Request to join the " . $request->group_name;
+        Mail($to,$subject,$message,$header);
+
+        return redirect()->back()->with('flash_message', 'Thank you for your submission');
+    }
 }

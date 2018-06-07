@@ -55,4 +55,6 @@ Route::post('contact', 'ContactUsController@store');
 
 Route::post('/', 'StayInformedController@store');
 
+Route::post('fitness_group/sign-up/{identity}', 'GroupController@sendEmail');
+
 

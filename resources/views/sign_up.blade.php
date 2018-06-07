@@ -18,58 +18,13 @@
                 <h3>REQUEST TO JOIN - FORM</h3>
                 <p style="max-width: 650px"><b>note: submissions will be approved by group administrators, administrators may need to contact you for additional information using the email provided.</b></p>
                 <div class="spacer-50"></div>
-                <form method="POST" action="{{ url( 'fitness_group/sign_up/' . $param['group']->id ) }}" novalidate>
+                <form method="POST" action="{{ url( 'fitness_group/sign-up/' . $param['group']->id ) }}" novalidate>
                     @csrf
-                    <div class="form-group row">
-                        <label for="first_name"
-                               class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="first_name" type="text"
-                                   class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}"
-                                   name="first_name" value="{{ old('first_name') }}" placeholder="Enter First Name"
-                                   required autofocus>
-
-                            @if ($errors->has('first_name'))
-                                <span class="invalid-feedback">
-                            <strong>{{ $errors->first('first_name') }}</strong>
-                        </span>
-                            @endif
+                    @if(\Illuminate\Support\Facades\Session::has('flash_message'))
+                        <div class="col-md-6 offset-md-4">
+                            <div class="alert alert-success">{{ \Illuminate\Support\Facades\Session::get('flash_message') }}</div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="last_name"
-                               class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="last_name" type="text"
-                                   class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}"
-                                   name="last_name" value="{{ old('last_name') }}" placeholder="Enter Last Name"
-                                   required autofocus>
-
-                            @if ($errors->has('last_name'))
-                                <span class="invalid-feedback">
-                            <strong>{{ $errors->first('last_name') }}</strong>
-                        </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="systolic_blood_pressure" type="email"
-                                   class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                                   value="{{ old('email') }}" placeholder="Enter Email" required>
-
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                            @endif
-                        </div>
-                    </div>
+                    @endif
 
                     <div class="form-group row">
                         <label for="comment"
@@ -87,6 +42,8 @@
                             @endif
                         </div>
                     </div>
+
+                    <input type="hidden" name="group_name" value="{{ $param['group']->name }}">
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
