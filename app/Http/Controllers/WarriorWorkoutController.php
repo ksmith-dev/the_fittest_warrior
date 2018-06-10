@@ -22,6 +22,7 @@ class WarriorWorkoutController extends Controller
         $workout->power_average = $request->avgPowerPerHit;
         $workout->workout_duration = $request->time;
         $workout->hit_speed = $request->hitSpeed;
+        $workout->workout_name= $request->workout_name;
 
         $workout->save();
 
@@ -34,6 +35,7 @@ class WarriorWorkoutController extends Controller
         $workouts = WarriorWorkout::all();
         return view('warrior', ['workouts' => $workouts]);
     }
+
 
     public function test(){
 
