@@ -98,7 +98,7 @@
                 <a class="btn btn-warning" href="{{ url('view/advertisement') }}" name="manageAdvertisementsButton" role="button" style="width: 100%">MANAGE ADVERTISEMENTS</a>
                 <div class="spacer-20"></div>
                 <a class="btn btn-warning" href="{{ url('email_list') }}" role="button" style="width: 100%">MANAGE STAY INFORMED LIST</a>
-                <div class="spacer-20"></div>
+                <div class="spacer-50"></div>
             @endif
             @if(in_array($param['page_type'], array('user', 'member', 'advertisement')))
                 <div class="col-8">
