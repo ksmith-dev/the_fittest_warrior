@@ -392,3 +392,15 @@ input[type=time]::-webkit-clear-button {
     appearance: none;
     margin: -10px;
 }
+
+.muscle-overlay-background
+{
+    position: relative;
+}
+
+.muscle-overlay
+{
+    position: absolute;
+    top: 11px;
+    left: 12px;
+}

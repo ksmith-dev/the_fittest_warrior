@@ -15,6 +15,8 @@
                         <a class="btn btn-warning" href="{{ url('fitness_group/public/sign_up/' . $param['group']->id) }}" style="float: right;">Join Group</a>
                     @elseif ($param['group']->visibility === 'public' && $param['user_is_member'])
                         <a class="btn btn-warning" href="{{ url('fitness_group/public/leave_group/' . $param['group']->id) }}" style="float: right;">Leave Group</a>
+                    @elseif ($param['group']->visibility === 'private' && $param['user_is_member'])
+                        <a class="btn btn-warning" href="{{ url('fitness_group/public/leave_group/' . $param['group']->id) }}" style="float: right;">Leave Group</a>
                     @endif
                     <h1>{{ $param['group']->name }}</h1>
                     <hr>

@@ -19,17 +19,14 @@ Route::get('about', function () {
 
 Auth::routes();
 
-Route::get('email_list', 'StayInformedController@showEmailListView');
-Route::get('email_list/{id}/inactive', 'StayInformedController@changeStatus');
-
 Route::get('contact', 'ContactUsController@showContactUsView');
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::get('health', 'HealthController@showHealthTab');
-Route::get('nutrition', 'NutritionController@showNutritionTab');
+Route::get('view/health', 'HealthController@showHealthTab');
+Route::get('view/nutrition', 'NutritionController@showNutritionTab');
 
-Route::get('fitness', 'WorkoutController@showFitnessTab');
+Route::get('view/fitness', 'WorkoutController@showFitnessTab');
 Route::get('workout/detail/{workout_id}', 'WorkoutController@showWorkoutView');
 
 Route::get('fitness_group/gym', 'GroupController@gym');

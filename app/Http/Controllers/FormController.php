@@ -10,9 +10,10 @@ use App\Workout;
 use App\Nutrition;
 use App\FormFactory;
 use App\Advertisement;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
@@ -329,7 +330,6 @@ class FormController extends Controller
                 $param['advertisement'] = null;
             }
 
-
             empty($param['table'] = $model_type) ? $param['table'] = null : $param['table'] = $model_type;
             empty($param['model_id'] = $model_id) ? $param['model_id'] = null : $param['model_id'] = $model_id;
 
@@ -427,7 +427,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('workout');
                     // general variable name assignment to be processed
                     $form_data = $this->_workout_input_data;
-                    $url = 'fitness';
+                    $url = 'view/fitness';
                     break;
                 case 'health' :
                     $model = new Health();
@@ -437,7 +437,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('health');
                     // general variable name assignment to be processed
                     $form_data = $this->_health_input_data;
-                    $url = 'health';
+                    $url = 'view/health';
                     break;
                 case 'nutrition' :
                     $model = new Nutrition();
@@ -447,7 +447,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('nutrition');
                     // general variable name assignment to be processed
                     $form_data = $this->_nutrition_input_data;
-                    $url = 'nutrition';
+                    $url = 'view/nutrition';
                     break;
                 case 'fitness_group' :
                     $model = new Group();
@@ -457,7 +457,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('fitness_group');
                     // general variable name assignment to be processed
                     $form_data = $this->_fitness_group_input_data;
-                    $url = 'fitness_group/gym';
+                    $url = 'view/fitness_group/gym';
                     break;
             }
             if (!empty($model) && !empty($columns))
@@ -497,29 +497,44 @@ class FormController extends Controller
     {
         $result = DB::table($model_type)->where('id', $model_id)->first();
 
+        $number_of_updated_rows = 0;
+
         if (empty($status))
         {
             if (!empty($result))
             {
                 if ($result->status === 'active')
                 {
-                    DB::table($model_type)->where('id', $model_id)->update(['status' => 'inactive']);
+                    $number_of_updated_rows = DB::table($model_type)->where('id', $model_id)->update(['status' => 'inactive']);
                 } else {
-                    DB::table($model_type)->where('id', $model_id)->update(['status' => 'active']);
+                    $number_of_updated_rows = DB::table($model_type)->where('id', $model_id)->update(['status' => 'active']);
                 }
             }
         } else {
-            DB::table($model_type)->where('id', $model_id)->update(['status' => $status]);
+            $number_of_updated_rows = DB::table($model_type)->where('id', $model_id)->update(['status' => $status]);
         }
 
-        if ($model_type === 'workout') {
-            return redirect('view/' . $model_type . '/0/' . $result->type);
-        } elseif ($model_type === 'some_other_condition') {
-            //not sure what this is here for yet
-            //TODO - figure this out
+        if ($number_of_updated_rows > 0)
+        {
+            if ($model_type === 'workout') {
+                Session::flash('alert', 'success');
+                Session::flash('message', 'success - your ' . $model_type . ' was deleted.');
+                return redirect('view/' . $model_type . '/0/' . $result->type);
+            } elseif ($model_type === 'some_other_condition') {
+                //not sure what this is here for yet
+                //TODO - figure this out
+            } else {
+                Session::flash('alert', 'success');
+                Session::flash('message', 'record was changed or deleted!');
+                return redirect('view/' . $model_type);
+
+            }
         } else {
-            return redirect('view/' . $model_type);
-
+            Session::flash('alert', 'warning');
+            Session::flash('message', 'no records were deleted or changed!');
+            return redirect(URL::previous());
         }
+
+
     }
 }

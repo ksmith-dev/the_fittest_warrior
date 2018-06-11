@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Advertisement;
 use App\Mail\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -11,7 +12,21 @@ class ContactUsController extends Controller
 
     public function showContactUsView()
     {
-        return view('forms.contact');
+        $advertisements = Advertisement::where('ad_type', 'horizontal')->get();
+        $ids = array();
+        foreach ($advertisements as $advertisement)
+        {
+            array_push($ids, $advertisement->id);
+        }
+
+        if (sizeof($ids) > 0)
+        {
+            $param['advertisement'] = Advertisement::where([['ad_type', '=', 'horizontal'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids) - 1)])]])->first();
+        } else {
+            $param['advertisement'] = null;
+        }
+
+        return view('forms.contact', ['param' => $param]);
     }
 
     public function store(Request $request)

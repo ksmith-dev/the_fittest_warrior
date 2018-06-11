@@ -150,7 +150,19 @@ class WorkoutController extends Controller
 
         $training = DB::table('training')->where('workout_type', $workout->type)->first();
         $muscle_groups = DB::table('muscle_group')->where('workout_type', $workout->type)->get();
-        if ($muscle_groups->count() < 1) { $muscle_groups = null; }
+        if ($muscle_groups->count() < 1)
+        {
+            $muscle_groups = null;
+        } else {
+
+            foreach ($muscle_groups as $key => $muscle_group)
+            {
+                if (!file_exists( 'images/fitness_groups/muscle_images/'  . $muscle_group->muscle_group . '.png'))
+                {
+                    $muscle_groups->forget($key);
+                }
+            }
+        }
 
         /** leader board code */
         $leader_board = null;
@@ -301,8 +313,11 @@ class WorkoutController extends Controller
         {
             array_push($ids, $advertisement->id);
         }
-        $params['advertisement'] = Advertisement::where([['ad_type', '=', 'vertical'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids) -1)])]])->first();
 
+        if (!empty($params['advertisement']) && $params['advertisement']->count() > 0)
+        {
+            $params['advertisement'] = Advertisement::where([['ad_type', '=', 'vertical'],[ 'id', '=', mt_rand(1, $ids[mt_rand(0, sizeof($ids) -1)])]])->first();
+        }
 
         return view('workout', ['params' => $params, 'workout' => $workout, 'leader_board' => $leader_board, 'muscle_groups' => $muscle_groups]);
     }

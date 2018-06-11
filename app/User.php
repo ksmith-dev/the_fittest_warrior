@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -35,6 +37,7 @@ class User extends Authenticatable
         'height',
         'b_m_i',
         'avatar_path',
+        'warrior_id',
         'role',
         'status'
     ];
@@ -47,4 +50,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function warriorWorkouts(){
+        return $this->hasMany('App\WarriorWorkout');
+    }
+
 }
