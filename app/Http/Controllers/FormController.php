@@ -427,7 +427,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('workout');
                     // general variable name assignment to be processed
                     $form_data = $this->_workout_input_data;
-                    $url = 'fitness';
+                    $url = 'view/fitness';
                     break;
                 case 'health' :
                     $model = new Health();
@@ -437,7 +437,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('health');
                     // general variable name assignment to be processed
                     $form_data = $this->_health_input_data;
-                    $url = 'health';
+                    $url = 'view/health';
                     break;
                 case 'nutrition' :
                     $model = new Nutrition();
@@ -447,7 +447,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('nutrition');
                     // general variable name assignment to be processed
                     $form_data = $this->_nutrition_input_data;
-                    $url = 'nutrition';
+                    $url = 'view/nutrition';
                     break;
                 case 'fitness_group' :
                     $model = new Group();
@@ -457,7 +457,7 @@ class FormController extends Controller
                     $this->setFormFactoryStructure('fitness_group');
                     // general variable name assignment to be processed
                     $form_data = $this->_fitness_group_input_data;
-                    $url = 'fitness_group/gym';
+                    $url = 'view/fitness_group/gym';
                     break;
             }
             if (!empty($model) && !empty($columns))
