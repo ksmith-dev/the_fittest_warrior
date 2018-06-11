@@ -56,9 +56,23 @@ class NutritionController extends Controller
         $params['title'] = 'Nutrition';
         $params['user'] = Auth::user();
 
+        $active_count = 0;
+
         $nutrition_collection = Nutrition::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('created_at', 'desc')->limit(15)->get();
 
-        if ($nutrition_collection->count() < 1) { $nutrition_collection = null; }
+        if ($nutrition_collection->count() < 1)
+        {
+            $nutrition_collection = null;
+        } else {
+            foreach ($nutrition_collection as $nutrition)
+            {
+                if ($nutrition->status === 'active')
+                {
+                    $active_count++;
+                }
+            }
+        }
+        if ($active_count < 1) { $nutrition_collection = null; }
 
         return view('nutrition', ['params' => $params, 'nutrition_collection' => $nutrition_collection]);
     }

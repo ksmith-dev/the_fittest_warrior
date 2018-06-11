@@ -29,79 +29,81 @@
             <div class="spacer-50"></div>
         @else
             @foreach($health_collection as $health)
-                <div class="col">
-                    <div class="row">
-                        <div class="table-responsive d-block">
-                            <h4>Health Record</h4>
-                            <hr>
-                            <a href="{{ url('health/form') }}/{{ $health->id }}" class="btn btn-warning" role="button" style="float: right; margin: 0 10px 15px;">edit</a>
-                            <a href="{{ url('health/delete') }}/{{ $health->id }}" class="btn btn-warning" role="button" style="float: right; margin: 0 10px 15px;" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">{{ __('delete') }}</a>
+                @if($health->status === 'active')
+                    <div class="col">
+                        <div class="row">
+                            <div class="table-responsive d-block">
+                                <h4>Health Record</h4>
+                                <hr>
+                                <a href="{{ url('form/health') }}/{{ $health->id }}" class="btn btn-warning" role="button" style="float: right; margin: 0 10px 15px;">edit</a>
+                                <a href="{{ url('form/health') }}/{{ $health->id }}/change_status" class="btn btn-warning" role="button" style="float: right; margin: 0 10px 15px;" >delete</a>
 
-                            <form id="delete-form" action="{{ url('health/delete') }}/{{ $health->id }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                            <div class="spacer-20"></div>
-                            <table class="table table-sm">
-                                <thead>
-                                <th class="text-center">Start Date Time</th>
-                                <th class="text-center">End Date Time</th>
-                                <th class="text-center">Status</th>
-                                </thead>
-                                <tbody>
-                                <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->start_date_time)) }}</th>
-                                <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->end_date_time)) }}</th>
-                                <th scope="row" class="text-center">average/age - calculated</th>
-                                <tr>
-                                    <td class="text-center">LDL Cholesterol</td>
-                                    <td class="text-center">{{ $health->ldl_cholesterol }}</td>
-                                    <td class="text-center">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Fat Percentage</td>
-                                    <td class="text-center">{{ $health->fat_percentage }}</td>
-                                    <td class="text-center">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Systolic Blood Pressure</td>
-                                    <td class="text-center">{{ $health->systolic_blood_pressure }}</td>
-                                    <td class="text-center">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Systolic Blood Pressure</td>
-                                    <td class="text-center">{{ $health->diastolic_blood_pressure }}</td>
-                                    <td class="text-center">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80% high</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">HDL Cholesterol</td>
-                                    <td class="text-center">{{ $health->hdl_cholesterol }}</td>
-                                    <td class="text-center">
-                                        <div class="progress">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90% very high</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                <form id="delete-form" action="{{ url('health/delete') }}/{{ $health->id }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                <div class="spacer-20"></div>
+                                <table class="table table-sm">
+                                    <thead>
+                                    <th class="text-center">Start Date Time</th>
+                                    <th class="text-center">End Date Time</th>
+                                    <th class="text-center">Status</th>
+                                    </thead>
+                                    <tbody>
+                                    <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->start_date_time)) }}</th>
+                                    <th scope="row" class="text-center">{{ date('m/d/Y H:i:s', strtotime($health->end_date_time)) }}</th>
+                                    <th scope="row" class="text-center">average/age - calculated</th>
+                                    <tr>
+                                        <td class="text-center">LDL Cholesterol</td>
+                                        <td class="text-center">{{ $health->ldl_cholesterol }}</td>
+                                        <td class="text-center">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Fat Percentage</td>
+                                        <td class="text-center">{{ $health->fat_percentage }}</td>
+                                        <td class="text-center">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% low</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Systolic Blood Pressure</td>
+                                        <td class="text-center">{{ $health->systolic_blood_pressure }}</td>
+                                        <td class="text-center">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60% mid</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">Systolic Blood Pressure</td>
+                                        <td class="text-center">{{ $health->diastolic_blood_pressure }}</td>
+                                        <td class="text-center">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80% high</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">HDL Cholesterol</td>
+                                        <td class="text-center">{{ $health->hdl_cholesterol }}</td>
+                                        <td class="text-center">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90% very high</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="spacer-50"></div>
+                    <div class="spacer-50"></div>
+                @endif
             @endforeach
         @endif
     </div>
