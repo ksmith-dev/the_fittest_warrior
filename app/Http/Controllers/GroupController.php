@@ -98,27 +98,33 @@ class GroupController extends Controller
         switch ($status)
         {
             case 'sign_up' :
-                $member = new Member();
-                $member->user_id = Auth::user()->getAuthIdentifier();
-                $member->group_id = $group_id;
-                $member->group_role = 'member';
-                $member->status = 'active';
-
-                $member->save();
+                $member = Member::where([['user_id', Auth::user()->getAuthIdentifier()], ['group_id', '=', $group_id]])->first();
+                if ($member->count() > 0)
+                {
+                    $member->status = 'active';
+                    $member->save();
+                } else {
+                    $member = new Member();
+                    $member->user_id = Auth::user()->getAuthIdentifier();
+                    $member->group_id = $group_id;
+                    $member->group_role = 'member';
+                    $member->status = 'active';
+                    $member->save();
+                }
+                return redirect('fitness_group/' . $group_id);
                 break;
             case 'leave_group' :
-                $member = Member::where('user_id', Auth::user()->getAuthIdentifier())->first();
+                $member = Member::where([['user_id', Auth::user()->getAuthIdentifier()], ['group_id', '=', $group_id]])->first();
                 if ($member->count() > 0)
                 {
                     $member->status = 'inactive';
                     $member->save();
+                    return redirect('fitness_group/gym');
                 } else {
                     return redirect('fitness_group/' . $group_id);
                 }
                 break;
         }
-
-        return redirect('fitness_group/' . $group_id);
     }
 
     public function sendEmail(Request $request)
