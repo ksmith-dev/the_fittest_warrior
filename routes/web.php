@@ -19,9 +19,6 @@ Route::get('about', function () {
 
 Auth::routes();
 
-Route::get('email_list', 'StayInformedController@showEmailListView');
-Route::get('email_list/{id}/inactive', 'StayInformedController@changeStatus');
-
 Route::get('contact', 'ContactUsController@showContactUsView');
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');

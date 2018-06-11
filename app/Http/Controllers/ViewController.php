@@ -102,6 +102,14 @@ class ViewController extends Controller
                         $param['page_type'] = 'dashboard';
                         $view = 'account';
                         break;
+                    case 'stay_informed' :
+                        $param['models'] = DB::table('stay_informed')->get();
+                        $param['model_type'] = 'stay_informed';
+                        $param['page_type'] = 'stay_informed';
+                        $param['display'] = array('email', 'status');
+                        $param['columns'] = Schema::getColumnListing('stay_informed');
+                        $view = 'account';
+                        break;
                     case null :
                         $param['model'] = Auth::user();
                         $param['page_type'] = 'user';

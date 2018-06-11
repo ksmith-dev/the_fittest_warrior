@@ -56,7 +56,7 @@
         @if(empty($nutrition_collection))
             <h2 style="width: 90%;">Welcome to your nutrition tracker, there are no records to display.</h2>
             <span class="spacer-50"></span>
-            <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some nutrition records please start by clicking below.
+            <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some nutrition records please start by clicking the add nutrition record button.
             </h5>
             <div class="spacer-50"></div>
         @else
