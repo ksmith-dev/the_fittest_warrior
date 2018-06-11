@@ -11,6 +11,13 @@
 @section('content')
     @include('layouts.dashboard_nav')
     <div id="nutrition">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">nutrition</li>
+                <li class="breadcrumb-item"><a href="{{ url('form/nutrition') }}">add</a></li>
+            </ol>
+        </nav>
         <a href="{{ url('form/nutrition') }}" class="btn btn-warning" role="button" style="float: right;">add nutrition record</a>
         <div class="spacer-50" style="border-bottom: 1px solid black"></div>
         <div class="spacer-20"></div>
@@ -146,11 +153,5 @@
 @endsection
 @section('footer')
     @parent
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">nutrition</li>
-                <li class="breadcrumb-item"><a href="{{ url('form/nutrition') }}">add</a></li>
-            </ol>
-        </nav>
+
 @endsection

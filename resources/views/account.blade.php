@@ -11,7 +11,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 @if(Auth::user()->role === 'admin')
-                    @if(Request::url() == 'http://fittestwarrior.local/view/user')
+                    @if(Request::url() == url('/view/user'))
                         <li class="breadcrumb-item active" aria-current="page">users</li>
                     @else
                         <li class="breadcrumb-item"><a href="{{ url('view/user') }}">users</a></li>
@@ -21,25 +21,25 @@
                     @else
                         <li class="breadcrumb-item"><a href="{{ url('view/member') }}">memberships</a></li>
                     @endif
-                    @if(Request::url() == 'http://fittestwarrior.local/view/fitness_group')
+                    @if(Request::url() == url('view/fitness_group'))
                         <li class="breadcrumb-item active" aria-current="page">fitness groups</li>
                     @else
                         <li class="breadcrumb-item"><a href="{{ url('view/fitness_group') }}">fitness groups</a></li>
                     @endif
-                    @if(Request::url() == 'http://fittestwarrior.local/view/advertisement')
+                    @if(Request::url() == url('view/advertisement'))
                         <li class="breadcrumb-item active" aria-current="page">advertisements</li>
                     @else
                         <li class="breadcrumb-item"><a href="{{ url('view/advertisement') }}">advertisements</a></li>
                     @endif
                 @else
                     @if($param['model_type'] === 'workout')
-                        @if(Request::url() == 'http://fittestwarrior.local/view/' . $param['model_type'] . '/0/' . $param['modifier'])
+                        @if(Request::url() == url('view/' . $param['model_type'] . '/0/' . $param['modifier']))
                             <li class="breadcrumb-item active" aria-current="page">{{ $param['model_type'] }}</li>
                         @else
                             <li class="breadcrumb-item"><a href="{{ url('view/' . $param['model_type'] . '/0/' . $param['modifier']) }}">{{ $param['model_type'] }}</a></li>
                         @endif
                     @else
-                        @if(Request::url() == 'http://fittestwarrior.local/view/' . $param['model_type'])
+                        @if(Request::url() == url('view/' . $param['model_type']))
                             <li class="breadcrumb-item active" aria-current="page">{{ $param['model_type'] }}</li>
                         @else
                             <li class="breadcrumb-item"><a href="{{ url('view/' . $param['model_type']) }}">{{ $param['model_type'] }}</a></li>

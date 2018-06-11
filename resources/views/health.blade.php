@@ -11,6 +11,13 @@
 @section('content')
     @include('layouts.dashboard_nav')
     <div id="health">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">health</li>
+                <li class="breadcrumb-item"><a href="{{ url('form/health') }}">add</a></li>
+            </ol>
+        </nav>
         <a href="{{ url('form/health') }}" class="btn btn-warning" role="button" style="float: right;">add health record</a>
         <div class="spacer-50" style="border-bottom: 1px solid black"></div>
         <div class="spacer-20"></div>
@@ -101,11 +108,4 @@
 @endsection
 @section('footer')
     @parent
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">health</li>
-                <li class="breadcrumb-item"><a href="{{ url('form/health') }}">add</a></li>
-            </ol>
-        </nav>
 @endsection
