@@ -224,13 +224,5 @@
 @endsection
 @section('footer')
     @parent
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">dashboard</li>
-                <li class="breadcrumb-item"><a href="{{ url('fitness') }}">workout</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('nutrition') }}">nutrition</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('health') }}">health</a></li>
-            </ol>
-        </nav>
         <script src="{{ asset('js/dashboard_charts.js') }}"></script>
 @endsection

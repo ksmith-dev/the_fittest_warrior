@@ -100,7 +100,16 @@
         </form>
         <div class="spacer-50"></div>
         <h2>Checkout one of our partners...</h2>
-        <div id="banner-advertisement"></div>
+
+        @if(empty($param['advertisement']))
+            <a id="banner-advertisement" style="background-image: url('http://via.placeholder.com/950x200');"></a>
+        @else
+            @if(empty($param['advertisement']->message))
+                <a id="banner-advertisement" style="background-image: url({{ url($param['advertisement']->banner_src) }});"></a>
+            @else
+                <a id="banner-advertisement" style="background-image: url({{ url($param['advertisement']->banner_src) }});"><span class="ad-message">{{ $param['advertisement']->message }}</span></a>
+            @endif
+        @endif
     </div>
     <div class="spacer-50"></div>
 @endsection

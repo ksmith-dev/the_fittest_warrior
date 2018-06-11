@@ -134,9 +134,10 @@ class ViewController extends Controller
                     empty($modifier) ? $param['model'] = Workout::find($model_id) : $param['models'] = Workout::where([['type', $modifier], ['status', 'active'], ['user_id', Auth::user()->getAuthIdentifier()]])->get();
                     empty($modifier) ? $param['modifier'] = null : $param['modifier'] = $modifier;
                     empty($model_id) ? $param['page_type'] = 'workouts' : $param['page_type'] = 'workout';
+                    empty($model_id) ? $param['model_id'] = null : $param['model_id'] = $model_id;
                     $param['model_type'] = 'workout';
                     $param['columns'] = Schema::getColumnListing('workout');
-                    $param['display'] = array('workout', 'created_at', 'duration', 'weight', 'repetitions', 'status');
+                    $param['display'] = array('workout_type', 'created_at', 'duration', 'weight', 'repetitions', 'status');
                     if (!empty($param['models']))
                     {
                         if ($param['models']->count() > 0)

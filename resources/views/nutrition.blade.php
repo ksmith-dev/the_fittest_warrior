@@ -18,9 +18,6 @@
             <h2 style="width: 90%;">Welcome to your nutrition tracker, there are no records to display.</h2>
             <span class="spacer-50"></span>
             <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some nutrition records please start by clicking below.
-                <br>
-                <br>
-                <a href="{{ url('form/nutrition') }}" class="btn btn-warning" role="button" style="float: right;">add a nutrition record</a>
             </h5>
             <div class="spacer-50"></div>
         @else

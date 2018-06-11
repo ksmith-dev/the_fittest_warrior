@@ -47,7 +47,9 @@
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary" name="submitButton">{{ __('Submit') }}</button>
+                            <button type="submit" class="btn btn-warning" name="submitButton">{{ __('Submit') }}</button>
+                            &nbsp;
+                            <a class="btn btn-warning" href="{{ URL::previous() }}" role="button">Cancel</a>
                         </div>
                     </div>
                 </form>

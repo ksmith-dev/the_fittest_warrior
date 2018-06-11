@@ -93,14 +93,13 @@
                             @endif
                         </tr>
                         <tr>
-                            <th scope="row">Muscle Groups:</th>
+                            <th scope="row">MUSCLE GROUPS:</th>
                             @if(!empty($muscle_groups))
-                                <td class="workout-list-item">
-                                    <ul>
-                                        @foreach($muscle_groups as $muscle_group)
-                                            <li>{{ $muscle_group->muscle_group }}</li>
-                                        @endforeach
-                                    </ul>
+                                <td class="workout-list-item" style="position: relative;">
+                                    <img src="{{ asset('images/fitness_groups/muscle_images/400x200_transparent_body_cutout.png') }}">
+                                    @foreach($muscle_groups as $muscle_group)
+                                        <img class="muscle-overlay" src="{{ asset('images/fitness_groups/muscle_images/' . $muscle_group->muscle_group . '.png') }}">
+                                    @endforeach
                                 </td>
                             @else
                                 <td class="workout-list-item"></td>

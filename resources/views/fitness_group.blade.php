@@ -16,7 +16,7 @@
                             <h2>{{ $user->first_name }} {{ $user->last_name }} - {{ ucwords($auth->group_role) }}</h2>
                             <hr>
                             <h3>{{ ucwords(str_replace('_', ' ', $group->name)) }}</h3>
-                            <p>You have are a member of this group and have permission to view this groups information. Your role still needs implementation.</p>
+                            <p>You are a member of this group and have permission to view this groups information. Your role still needs implementation.</p>
                         </div>
                     @else
                         <div class="col">
