@@ -49,7 +49,7 @@ class GroupController extends Controller
                         ->join('member', 'workout.user_id', '=', 'member.user_id')
                         ->join('fitness_group', 'fitness_group.id', '=', 'member.group_id')
                         ->select('workout.*', 'member.group_id')
-                        ->where('member.status', '=', 'active')
+                        ->where([['member.status', '=', 'active'],['member.group_id', '=', $group_id]])
                         ->orderByDesc('updated_at')
                         ->orderByDesc('weight')
                         ->limit(100)
