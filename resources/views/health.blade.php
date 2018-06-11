@@ -11,6 +11,38 @@
 @section('content')
     @include('layouts.dashboard_nav')
     <div id="health">
+        @if(!empty(Session::has('alert')))
+            @switch(Session::get('alert'))
+                @case('success')
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-success" role="alert">
+                            {{ Session::get('message') }}
+                        </div>
+                    </div>
+                </div>
+                @break
+
+                @case('warning')
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-warning" role="alert">
+                            {{ Session::get('message') }}
+                        </div>
+                    </div>
+                </div>
+                @break
+
+                @default
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-secondary" role="alert">
+                            {{ Session::get('message') }}
+                        </div>
+                    </div>
+                </div>
+            @endswitch
+        @endif
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
