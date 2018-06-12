@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\WarriorWorkout;
 use App\Workout;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +82,11 @@ class DashboardController extends Controller
             }
         }
 
-        return view('dashboard', [ 'params' => $params, 'best_weight' => $best_weight, 'best_time' => $best_time, 'workouts' => $workouts]);
+        $user = Auth::user();
+
+        $warriorWorkouts = Auth::user()->warriorWorkouts;
+
+        return view('dashboard', [ 'params' => $params, 'best_weight' => $best_weight, 'best_time' => $best_time,
+            'workouts' => $workouts, 'user' => $user, 'warriorWorkouts' => $warriorWorkouts]);
     }
 }

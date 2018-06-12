@@ -39,11 +39,6 @@ class WarriorWorkoutController extends Controller
 
     public function test(){
 
-        $user = User::find(1);
-
-        $wo = DB::table('warrior_workouts')->where('user_id', $user->warrior_id)->first();
-
-        return view('warrior', ['user' => $user, 'workouts' => $wo]);
     }
 
 }
