@@ -22,8 +22,6 @@
                     <h2>Our Mission</h2>
                     <hr style="border: 2px solid #000000;">
                     <p>We are a competition and information site for athletes, fighters, martial artists, military, police and everyday men and women who seek to be the best in what they do and like to share their passion with others.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet eros sit amet nulla euismod tempor. Quisque sodales risus id vehicula vestibulum. Quisque dignissim rhoncus purus ut maximus. Quisque enim urna, ultrices et maximus ac, lacinia id sem. Vestibulum euismod nisl sit amet elit hendrerit consectetur. Vivamus convallis turpis at volutpat scelerisque. Mauris accumsan augue lectus, eget tincidunt mauris tristique at. Duis venenatis id arcu at blandit. Donec ac mi vitae dui sollicitudin tristique. Cras aliquet fringilla ligula id aliquet. Aliquam euismod ullamcorper porttitor. In sit amet nulla eros.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet eros sit amet nulla euismod tempor. Quisque sodales risus id vehicula vestibulum. Quisque dignissim rhoncus purus ut maximus. Quisque enim urna, ultrices et maximus ac, lacinia id sem. Vestibulum euismod nisl sit amet elit hendrerit consectetur. Vivamus convallis turpis at volutpat scelerisque. Mauris accumsan augue lectus, eget tincidunt mauris tristique at. Duis venenatis id arcu at blandit. Donec ac mi vitae dui sollicitudin tristique. Cras aliquet fringilla ligula id aliquet. Aliquam euismod ullamcorper porttitor. In sit amet nulla eros.</p>
                 </div>
             </div>
         </div>

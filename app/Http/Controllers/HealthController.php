@@ -22,7 +22,21 @@ class HealthController extends Controller
 
         $health_collection = Health::where('user_id', Auth::user()->getAuthIdentifier())->orderBy('start_date_time', 'desc')->limit(15)->get();
 
-        if ($health_collection->count() < 1) { $health_collection = null; }
+        $active_count = 0;
+
+        if ($health_collection->count() < 1)
+        {
+            $health_collection = null;
+        } else {
+            foreach ($health_collection as $health)
+            {
+                if ($health->status === 'active')
+                {
+                    $active_count++;
+                }
+            }
+        }
+        if ($active_count < 1) { $health_collection = null; }
 
         return view('health', ['params' => $params, 'health_collection' => $health_collection]);
     }

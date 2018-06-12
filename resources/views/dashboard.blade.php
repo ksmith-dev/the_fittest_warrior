@@ -32,7 +32,7 @@
             <hr>
             <h2 style="width: 90%;">Welcome to your dashboard, there are no records to display.</h2>
             <span class="spacer-50"></span>
-            <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some workout records please start by clicking below.
+            <h5 style="width: 80%">This is not a reflection on you, this just means that we do not have any stored records. If you want to store some workout records please start by clicking the add workout button.
                 <br>
                 <br>
                 <a href="{{ url('fitness') }}" class="btn btn-secondary" role="button">add a workout</a>
@@ -272,13 +272,5 @@
 @endsection
 @section('footer')
     @parent
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">dashboard</li>
-                <li class="breadcrumb-item"><a href="{{ url('fitness') }}">workout</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('nutrition') }}">nutrition</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('health') }}">health</a></li>
-            </ol>
-        </nav>
         <script src="{{ asset('js/dashboard_charts.js') }}"></script>
 @endsection

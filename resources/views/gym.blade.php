@@ -11,6 +11,7 @@
         <div class="row">
             @foreach($gyms as $gym)
                 <div class="col">
+                    <div class="spacer-50"></div>
                     <div class="gym-group" href="{{ $gym->link }}">
                         <h3 class="group-name">{{ ucwords(str_replace('_', ' ', $gym->name)) }}</h3>
                         @if(!empty($gym->img_src))

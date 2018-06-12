@@ -12,6 +12,20 @@
     <div class="spacer-50" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"></div>
     <div id="form">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @if($param['table'] === 'workout')
+                    <li class="breadcrumb-item"><a href="{{ url('fitness') }}">switch {{ str_replace('_', ' ', $param['table']) }}s</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">edit workout</li>
+                @elseif ($param['table'] === 'member')
+                    <li class="breadcrumb-item"><a href="{{ url('view/members') }}">switch {{ str_replace('_', ' ', $param['table']) }}s</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">edit {{ str_replace('_', ' ', $param['table']) }}</li>
+                @else
+                    <li class="breadcrumb-item"><a href="{{ url('view/' . $param['table']) }}">{{ str_replace('_', ' ', $param['table']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">edit {{ str_replace('_', ' ', $param['table']) }}</li>
+                @endif
+            </ol>
+        </nav>
         <h2>{{ ucwords(str_replace('_', ' ', $param['table'])) }} Information</h2>
         <div class="spacer-20"></div>
         <form method="POST" action="{{ url('store/' . $param['table'] . '/' . $param['model_id']) }}" novalidate>
@@ -119,7 +133,7 @@
                                                    type="{{ $element['input']->getType() }}"
                                                    class="{{ $element['input']->getClass() }}{{ $errors->has($element['input']->getName()) ? ' is-invalid' : '' }}"
                                                    name="{{ $element['input']->getName() }}"
-                                                   value="{{ ucwords(str_replace('_', ' ', $element['input']->getDefaultInputValue())) }}"
+                                                   value="{{ ucwords($element['input']->getDefaultInputValue()) }}"
                                                    placeholder="{{ $element['input']->getPlaceholder() }}"
                                                     {{ $element['input']->getInputAttribute() }}>
                                         @endif
@@ -128,7 +142,7 @@
                                                type="{{ $element['input']->getType() }}"
                                                class="{{ $element['input']->getClass() }}"
                                                name="{{ $element['input']->getName() }}"
-                                               value="{{ str_replace('_', ' ', $param['model']->$key) }}"
+                                               value="{{ $param['model']->$key }}"
                                                 {{ $element['input']->getInputAttribute() }}>
                                     @endif
 
@@ -145,7 +159,9 @@
                 @endif
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary" name="submitButton">{{ __('Submit') }}</button>
+                        <button type="submit" class="btn btn-warning" name="submitButton">{{ __('Submit') }}</button>
+                        &nbsp;&nbsp;
+                        <a class="btn btn-warning" href="{{ URL::previous() }}" role="button">Cancel</a>
                     </div>
                 </div>
         </form>
@@ -163,19 +179,8 @@
         @endif
 
     </div>
-    <div class="spacer-50"></div>
 @endsection
 
 @section('footer')
     @parent
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            @if($param['table'] === 'workout')
-                <li class="breadcrumb-item"><a href="{{ url('fitness') }}">add {{ $param['table'] }}</a></li>
-            @else
-                <li class="breadcrumb-item"><a href="{{ url($param['table']) }}">{{ $param['table'] }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">add {{ $param['table'] }}</li>
-            @endif
-        </ol>
-    </nav>
 @endsection

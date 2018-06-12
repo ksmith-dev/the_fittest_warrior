@@ -10,6 +10,16 @@
 
 @section('content')
     <div id="gym">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @auth
+                    <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
+                @endauth
+                <li class="breadcrumb-item active" aria-current="page">gyms</li>
+                <li class="breadcrumb-item"><a href="{{ url('about') }}">about</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('contact') }}">contact</a></li>
+            </ol>
+        </nav>
         <div class="row">
             <div class="fitness-group">
                 <table class="table table-hover">
@@ -42,14 +52,4 @@
 
 @section('footer')
     @parent
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            @auth
-                <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">dashboard</a></li>
-            @endauth
-            <li class="breadcrumb-item active" aria-current="page">gyms</li>
-            <li class="breadcrumb-item"><a href="{{ url('about') }}">about</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('contact') }}">contact</a></li>
-        </ol>
-    </nav>
 @endsection

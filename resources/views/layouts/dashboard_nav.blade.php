@@ -5,13 +5,13 @@
                 <a class="nav-link{{ strpos(url()->current(), 'dashboard') ? ' active' : '' }}" href="{{ url('dashboard') }}">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link{{ strpos(url()->current(), 'fitness') ? ' active' : '' }}" href="{{ url('fitness') }}">Fitness</a>
+                <a class="nav-link{{ strpos(url()->current(), 'view/fitness') ? ' active' : '' }}" href="{{ url('view/fitness') }}">Fitness</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link{{ strpos(url()->current(), 'nutrition') ? ' active' : '' }}" href="{{ url('nutrition') }}">Nutrition</a>
+                <a class="nav-link{{ strpos(url()->current(), 'view/nutrition') ? ' active' : '' }}" href="{{ url('view/nutrition') }}">Nutrition</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link{{ strpos(url()->current(), '/health') ? ' active' : '' }}" href="{{ url('health') }}">Health</a>
+                <a class="nav-link{{ strpos(url()->current(), 'view/health') ? ' active' : '' }}" href="{{ url('view/health') }}">Health</a>
             </li>
         </ul>
     </div>
