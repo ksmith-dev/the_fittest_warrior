@@ -84,7 +84,7 @@ class DashboardController extends Controller
 
         $user = Auth::user();
 
-        $warriorWorkouts = Auth::user()->warriorWorkouts;
+        $warriorWorkouts = Auth::user()->warriorWorkouts->sortByDesc('updated_at')->take(2);
 
         return view('dashboard', [ 'params' => $params, 'best_weight' => $best_weight, 'best_time' => $best_time,
             'workouts' => $workouts, 'user' => $user, 'warriorWorkouts' => $warriorWorkouts]);
